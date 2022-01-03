@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { useRouter } from "next/router";
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
@@ -9,10 +10,17 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Grid, Button } from "@mui/material";
 import classes from "./SignUp.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { loginAction } from "../store/auth-slice";
 const LoginForm = () => {
+  const dispatch = useDispatch();
+  const isAuth = useSelector((state) => state.auth.isAuth);
+  const token = useSelector((state) => state.auth.token);
+
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const emailRef = useRef();
+  const router = useRouter();
   const handleChange = (e) => {
     setPassword(e.target.value);
   };
@@ -23,22 +31,22 @@ const LoginForm = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     const email = emailRef.current.value;
+    dispatch(loginAction(email, password));
 
-    const res = await fetch("/users/login", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    console.log(res);
-    // if(res.ok){
-    //   useRouter.push("/")
-    // }else{
-
+    // const res = await fetch("/users/login", {
+    //   method: "POST",
+    //   body: JSON.stringify({ email, password }),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // });
+    // console.log(res);
+    // if (res.ok) {
+    //   router.push("/");
+    // } else {
     // }
-    const data = await res.json();
-    console.log(data);
+    // const data = await res.json();
+    // console.log(data);
   };
 
   return (
@@ -63,8 +71,8 @@ const LoginForm = () => {
             inputRef={emailRef}
           />
           <br /> <br />
-          <FormControl sx={{ m: 1, width: "30ch" }} variant="outlined">
-            <InputLabel required htmlFor="outlined-adornment-password">
+          <FormControl required sx={{ m: 1, width: "30ch" }} variant="outlined">
+            <InputLabel htmlFor="outlined-adornment-password">
               Password
             </InputLabel>
             <OutlinedInput

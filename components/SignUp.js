@@ -9,7 +9,13 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Grid, Button } from "@mui/material";
 import classes from "./SignUp.module.css";
+import Cookies from "js-cookie";
+import { useSelector, useDispatch } from "react-redux";
+import { registerAction } from "../store/auth-slice";
 const SignUp = () => {
+  const dispatch = useDispatch();
+  const isAuth = useSelector((state) => state.auth.isAuth);
+
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const emailRef = useRef();
@@ -25,21 +31,22 @@ const SignUp = () => {
     e.preventDefault();
     const email = emailRef.current.value;
     const name = nameRef.current.value;
+    dispatch(registerAction(name, email, password));
+    //   const res = await fetch("/users/signup", {
+    //     method: "POST",
+    //     body: JSON.stringify({ email, name, password }),
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   });
+    //   // if(res.ok){
+    //   //   useRouter.push("/")
+    //   // }else{
 
-    const res = await fetch("/users/signup", {
-      method: "POST",
-      body: JSON.stringify({ email, name, password }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    // if(res.ok){
-    //   useRouter.push("/")
-    // }else{
-
-    // }
-    const data = await res.json();
-    console.log(data);
+    //   // }
+    //   const data = await res.json();
+    //   console.log(data);
+    // };
   };
 
   return (
@@ -51,7 +58,7 @@ const SignUp = () => {
       spacing={2}
     >
       <Grid item xs={7}>
-        <p>Welcome</p>
+        <p style={{ backgroundColor: "yellow", width: "100%" }}>Welcome</p>
       </Grid>
       <Grid item xs={4}>
         <form onSubmit={submitHandler}>
@@ -72,8 +79,8 @@ const SignUp = () => {
             inputRef={emailRef}
           />
           <br /> <br />
-          <FormControl sx={{ m: 1, width: "30ch" }} variant="outlined">
-            <InputLabel required htmlFor="outlined-adornment-password">
+          <FormControl required sx={{ m: 1, width: "30ch" }} variant="outlined">
+            <InputLabel htmlFor="outlined-adornment-password">
               Password
             </InputLabel>
             <OutlinedInput
@@ -111,5 +118,4 @@ const SignUp = () => {
     </Grid>
   );
 };
-
 export default SignUp;
