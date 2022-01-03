@@ -1,0 +1,85 @@
+const mongoose = require("mongoose");
+const validator = require("validator");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+
+mongoose.connect(
+  "mongodb+srv://tk:Aloufipro1@cluster0.aoxpu.mongodb.net/signed?retryWrites=true&w=majority"
+);
+
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    email: {
+      type: String,
+      unique: true,
+      required: true,
+      trim: true,
+      lowercase: true,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error("Email is invalid");
+        }
+      },
+    },
+    password: {
+      type: String,
+      required: true,
+      trim: true,
+      minLength: 7,
+      validate(value) {
+        if (value.toLowerCase().includes("password")) {
+          throw new Error("Password cannot contain 'password'");
+        }
+      },
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+userSchema.statics.Login = async (email, password) => {
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    throw new Error("Unable to login");
+  }
+  const passMatch = await bcrypt.compare(password, user.password);
+  if (!passMatch) {
+    throw new Error("Unable to login");
+  }
+  return user;
+};
+
+userSchema.methods.generateAuthToken = function () {
+  const user = this;
+  const token = jwt.sign(
+    { _id: user._id.toString() },
+    "testing123123_fzxasszxc"
+  );
+  return token;
+};
+userSchema.methods.toJSON = function () {
+  const user = this;
+  const userObject = user.toObject();
+
+  delete userObject.password;
+
+  return userObject;
+};
+
+userSchema.pre("save", async function (next) {
+  const user = this;
+  if (user.isModified("password")) {
+    user.password = await bcrypt.hash(user.password, 8);
+  }
+  next();
+});
+const User = mongoose.model("User", userSchema);
+
+module.exports = User;
