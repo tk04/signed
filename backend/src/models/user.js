@@ -14,6 +14,15 @@ const userSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    username: {
+      type: String,
+      required: true,
+      trim: true,
+      unique: true,
+    },
+    bio: {
+      type: String,
+    },
     email: {
       type: String,
       unique: true,
@@ -36,6 +45,30 @@ const userSchema = new mongoose.Schema(
           throw new Error("Password cannot contain 'password'");
         }
       },
+    },
+    followers: [
+      {
+        follower: {
+          type: String,
+        },
+      },
+    ],
+    following: [
+      {
+        follow: {
+          type: String,
+        },
+      },
+    ],
+    accomplishments: {
+      type: [String],
+    },
+    keywords: {
+      type: [String],
+      maxlength: 3,
+    },
+    avatar: {
+      type: Buffer,
     },
   },
   {
@@ -69,6 +102,8 @@ userSchema.methods.toJSON = function () {
   const userObject = user.toObject();
 
   delete userObject.password;
+  delete userObject.createdAt;
+  delete userObject.updatedAt;
 
   return userObject;
 };

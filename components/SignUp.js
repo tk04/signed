@@ -20,6 +20,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const emailRef = useRef();
   const nameRef = useRef();
+  const usernameRef = useRef();
   const handleChange = (e) => {
     setPassword(e.target.value);
   };
@@ -31,7 +32,8 @@ const SignUp = () => {
     e.preventDefault();
     const email = emailRef.current.value;
     const name = nameRef.current.value;
-    dispatch(registerAction(name, email, password));
+    const username = usernameRef.current.value;
+    dispatch(registerAction(name, email, username, password));
     //   const res = await fetch("/users/signup", {
     //     method: "POST",
     //     body: JSON.stringify({ email, name, password }),
@@ -77,6 +79,15 @@ const SignUp = () => {
             label="Email"
             type="email"
             inputRef={emailRef}
+          />
+          <br /> <br />
+          <TextField
+            sx={{ m: 1, width: "30ch" }}
+            required
+            id="outlined-required"
+            label="Username"
+            type="text"
+            inputRef={usernameRef}
           />
           <br /> <br />
           <FormControl required sx={{ m: 1, width: "30ch" }} variant="outlined">
