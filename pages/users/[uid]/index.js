@@ -1,12 +1,18 @@
 import React from "react";
 import UserProfile from "../../../components/UserProfile1";
-import EditProfile from "../../../components/EditProfile";
+import { useRouter } from "next/router";
+import ProfileSettings from "../../../components/ProfileSettings";
+const Users = (props) => {
+  const router = useRouter();
+  const { edit } = router.query;
 
-const Profile = (props) => {
   return (
     <>
       {props.data ? (
-        <UserProfile userData={props.data.user} />
+        <>
+          {edit === "true" && <ProfileSettings />}
+          <UserProfile userData={props.data.user} />
+        </>
       ) : (
         <p>User not found</p>
       )}
@@ -33,4 +39,4 @@ export const getServerSideProps = async (context) => {
   //   };
   // }
 };
-export default Profile;
+export default Users;

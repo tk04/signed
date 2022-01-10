@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import UserProfile from "../../components/UserProfile1";
+import UserProfile from "./UserProfile1";
 import Cookies from "js-cookie";
-import EditProfile from "../../components/EditProfile";
+import EditProfile from "./EditProfile";
 import { useRouter } from "next/router";
-const profile = () => {
+const ProfileSettings = () => {
   const token = useSelector((state) => state.auth.token);
   const router = useRouter();
   const [userData, setUserData] = useState(null);
@@ -26,7 +26,6 @@ const profile = () => {
       {userData && (
         <>
           <EditProfile userData={userData} />
-          <UserProfile userData={userData} />{" "}
         </>
       )}
     </>
@@ -55,4 +54,4 @@ const profile = () => {
 //   //   };
 //   // }
 // };
-export default profile;
+export default ProfileSettings;

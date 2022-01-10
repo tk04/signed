@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import headshot from "../pictures/headshot.JPG";
+import Link from "next/link";
 const UserProfile1 = ({ userData }) => {
   const router = useRouter();
   const [isUser, setIsUser] = useState(null);
@@ -91,14 +92,12 @@ const UserProfile1 = ({ userData }) => {
                   </button>
                 </>
               ) : (
-                <button
-                  onClick={() => {
-                    router.push("/settings/profile");
-                  }}
+                <Link
+                  href={`/users/${userData.username}?edit=true`}
                   className="bg-slate-100 text-black font-bold text-sm h-fit whitespace-nowrap p-3 rounded-md"
                 >
                   Edit profile
-                </button>
+                </Link>
               )}
             </div>
           </div>
