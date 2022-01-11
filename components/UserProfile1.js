@@ -21,22 +21,50 @@ const UserProfile1 = ({ userData }) => {
   const changeContentHandler = (type) => {
     if (type === "skills") {
       const content = (
-        <ul className="list-none text-center bg-gray-50 mt-10 p-10">
-          {userData.user.accomplishments.map((acc, idx) => (
-            <li
-              key={idx}
-              className=" hover:border-2 hover:border-slate-300 hover:cursor-pointer p-7 text-lg"
-            >
-              {acc}
-            </li>
-          ))}
-        </ul>
+        <>
+          {userData.user.accomplishments.length > 0 ? (
+            <ul className="list-none text-center bg-gray-50 mt-10 p-10">
+              {userData.user.accomplishments.map((acc, idx) => (
+                <li
+                  key={idx}
+                  className=" hover:border-2 hover:border-slate-300 hover:cursor-pointer p-7 text-lg"
+                >
+                  {acc}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div className="mt-8 w-full text-center ">
+              No accomplishments listed
+            </div>
+          )}
+        </>
       );
       setUserContent({ content, type: "skills" });
     } else if (type === "posts") {
       setUserContent({ content: postContent, type: "posts" });
     } else if (type === "experience") {
-      setUserContent({ content: <p>No experience</p>, type: "experience" });
+      const content = (
+        <>
+          {userData.user.experiences.length > 0 ? (
+            <ul className="mt-8 space-y-4 bg-gray-50 w-full">
+              {userData.user.experiences.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="cursor-pointer hover:border-2 hover:border-slate-300 hover:cursor-pointer p-7 text-lg "
+                >
+                  <h2 className=" font-bold">{item.org_name}</h2>
+                  <p className=" text-gray-500">{item.position}</p>
+                  <p className="mt-3 text-sm">{item.description}</p>
+                </div>
+              ))}
+            </ul>
+          ) : (
+            <div className="mt-8 w-full text-center ">No experience listed</div>
+          )}
+        </>
+      );
+      setUserContent({ content, type: "experience" });
     }
   };
   return (

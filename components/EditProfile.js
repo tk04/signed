@@ -201,7 +201,7 @@ const EditProfile = (props) => {
             ref={positionRef}
           />
           <textarea placeholder="description" className="h-16" ref={descRef} />
-          <button className="bg-white ">Add Experience</button>
+          <button className="bg-white p-2 ">Add Experience</button>
         </div>
       );
       setExperienceForm({ content });
@@ -239,8 +239,7 @@ const EditProfile = (props) => {
         >
           <IoCloseSharp size={35} />
         </button>
-        <h1 className="text-2xl font-thin mt-7 text-center">Edit profile</h1>
-        <div className="flex justify-center mt-10">
+        <div className="flex justify-center mt-2  ">
           <div className="relative w-40 h-40 z-0 ">
             <Image src={avatar} className="rounded-full" layout="fill" />
           </div>
@@ -392,12 +391,14 @@ const EditProfile = (props) => {
         </div>
         <div className="mt-10">
           <h1 className="text-2xl font-thin text-center">Experience</h1>
-          <button
-            className="ml-20 mt-8 bg-gray-400 text-white border-2  p-1 "
-            onClick={showFormHandler}
-          >
-            Add experience
-          </button>
+          <div className="flex justify-center">
+            <button
+              className="mt-8 bg-gray-400 text-white border-2  p-1 "
+              onClick={showFormHandler}
+            >
+              Add experience
+            </button>
+          </div>
           <form
             className="ml-20 flex flex-col w-full"
             onSubmit={experienceSubmitHandler}
