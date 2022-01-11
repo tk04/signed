@@ -86,6 +86,7 @@ router.patch("/api1/users/me", auth, async (req, res) => {
     "accomplishments",
     "keywords",
     "socials",
+    "experiences",
   ];
   const isValidOperation = updates.every((update) =>
     allowedUpdates.includes(update)

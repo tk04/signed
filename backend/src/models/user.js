@@ -80,6 +80,19 @@ const userSchema = new mongoose.Schema(
         },
       },
     ],
+    experiences: [
+      {
+        org_name: {
+          type: String,
+        },
+        position: {
+          type: String,
+        },
+        description: {
+          type: String,
+        },
+      },
+    ],
     avatar: {
       type: Buffer,
     },

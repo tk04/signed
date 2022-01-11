@@ -10,7 +10,7 @@ import {
 } from "react-icons/ai";
 import Link from "next/link";
 const UserProfile1 = ({ userData }) => {
-  console.log(Object.keys(userData.user.socials[0])[0]);
+  console.log(userData.user.experiences);
   const router = useRouter();
   const postContent = <p>No posts</p>;
   const [userContent, setUserContent] = useState({
@@ -25,7 +25,7 @@ const UserProfile1 = ({ userData }) => {
           {userData.user.accomplishments.map((acc, idx) => (
             <li
               key={idx}
-              className=" hover:border-2 hover:border-slate-300 hover:cursor-pointer p-7"
+              className=" hover:border-2 hover:border-slate-300 hover:cursor-pointer p-7 text-lg"
             >
               {acc}
             </li>
@@ -150,11 +150,11 @@ const UserProfile1 = ({ userData }) => {
                 </>
               )}
               {userData.isUser === true && (
-                <div className="bg-slate-100 text-black font-bold text-sm h-fit whitespace-nowrap p-3 rounded-md">
-                  <Link href={`/users/${userData.user.username}?edit=true`}>
+                <Link href={`/users/${userData.user.username}?edit=true`}>
+                  <div className="bg-slate-100 text-black font-bold text-sm h-fit whitespace-nowrap p-3 rounded-md cursor-pointer">
                     Edit profile
-                  </Link>
-                </div>
+                  </div>
+                </Link>
               )}
             </div>
           </div>

@@ -15,6 +15,9 @@ const EditProfile = (props) => {
   const dispatch = useDispatch();
   const ACRef = useRef();
   const keywordRef = useRef();
+  const orgRef = useRef();
+  const positionRef = useRef();
+  const descRef = useRef();
   const socialRef = useRef();
   const [keywordErr, setKeywordErr] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -25,6 +28,8 @@ const EditProfile = (props) => {
   const [AcList, setACList] = useState(props.userData.accomplishments);
   const [socials, setSocials] = useState(props.userData.socials);
   const [socialForm, setSocialForm] = useState({});
+  const [experience, setExperience] = useState(props.userData.experiences);
+  const [experienceForm, setExperienceForm] = useState({});
   const [avatar, setAvatar] = useState(
     `data:image/png;base64,${props.userData.avatar}`
   );
@@ -46,6 +51,13 @@ const EditProfile = (props) => {
       });
     } else if (id === 3) {
       setSocials((prevList) => {
+        const l1 = prevList.slice(0, idx);
+        const l2 = prevList.slice(idx + 1, prevList.length + 1);
+        const newList = [...l1, ...l2];
+        return newList;
+      });
+    } else if (id === 4) {
+      setExperience((prevList) => {
         const l1 = prevList.slice(0, idx);
         const l2 = prevList.slice(idx + 1, prevList.length + 1);
         const newList = [...l1, ...l2];
@@ -96,6 +108,7 @@ const EditProfile = (props) => {
         keywords,
         accomplishments: AcList,
         socials,
+        experiences: experience,
       })
     );
     if (selectedFile) {
@@ -169,6 +182,51 @@ const EditProfile = (props) => {
       socialRef.current.value = "";
     }
     setSocialForm({ type: "one" });
+  };
+
+  const showFormHandler = () => {
+    if (!experienceForm.content) {
+      const content = (
+        <div className="flex flex-col w-2/3 mt-5 space-y-2">
+          <input
+            type="text"
+            placeholder="Organization name"
+            className="h-8"
+            ref={orgRef}
+          />
+          <input
+            type="text"
+            placeholder="Position"
+            className="h-8"
+            ref={positionRef}
+          />
+          <textarea placeholder="description" className="h-16" ref={descRef} />
+          <button className="bg-white ">Add Experience</button>
+        </div>
+      );
+      setExperienceForm({ content });
+    } else {
+      setExperienceForm({});
+    }
+  };
+  const experienceSubmitHandler = (e) => {
+    e.preventDefault();
+    const org_name = orgRef.current.value;
+    const position = positionRef.current.value;
+    const description = descRef.current.value;
+    if (org_name.trim() && position.trim()) {
+      setExperience((prev) => [...prev, { org_name, position, description }]);
+      setExperienceForm({});
+    } else {
+      const error = (
+        <p className="text-red-500">
+          Must enter Organization name and Position
+        </p>
+      );
+      setExperienceForm((prev) => {
+        return { ...prev, error };
+      });
+    }
   };
   return (
     <div className="fixed flex flex-col z-10 justify-center items-center w-screen h-screen bg-slate-600/80 ">
@@ -330,6 +388,35 @@ const EditProfile = (props) => {
             {socialForm.error && (
               <p className=" text-red-500 mt-3">{socialForm.error}</p>
             )}
+          </form>
+        </div>
+        <div className="mt-10">
+          <h1 className="text-2xl font-thin text-center">Experience</h1>
+          <button
+            className="ml-20 mt-8 bg-gray-400 text-white border-2  p-1 "
+            onClick={showFormHandler}
+          >
+            Add experience
+          </button>
+          <form
+            className="ml-20 flex flex-col w-full"
+            onSubmit={experienceSubmitHandler}
+          >
+            {experienceForm.content}
+            {experienceForm.error}
+            <ul className="mt-8 space-y-4 w-2/3">
+              {experience.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="cursor-pointer"
+                  onClick={removeHandler.bind(null, idx, 4)}
+                >
+                  <h2 className=" font-bold">{item.org_name}</h2>
+                  <p className=" text-gray-500">{item.position}</p>
+                  <p className="mt-3 text-sm">{item.description}</p>
+                </div>
+              ))}
+            </ul>
           </form>
         </div>
         <button
