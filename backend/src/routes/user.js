@@ -54,13 +54,25 @@ router.get("/api1/users/me", cors(), async (req, res) => {
   }
 });
 
-router.get("/api1/users/:username", cors(), async (req, res) => {
-  const uid = req.params.username;
-  const user = await User.findOne({ username: uid });
-  if (!user) {
-    return res.status(404).send({ error: "User not found" });
+router.get("/api1/users/:username", async (req, res) => {
+  try {
+    const token = req.headers.authorization
+      ? req.headers.authorization.replace("Bearer ", "")
+      : null;
+
+    const uid = req.params.username;
+    const user = await User.findOne({ username: uid });
+    if (!user) {
+      return res.status(404).send({ error: "User not found" });
+    }
+    const decoded = jwt.verify(token, "testing123123_fzxasszxc");
+    if (decoded._id === user._id.toString()) {
+      return res.send({ isUser: true, user });
+    }
+    res.send({ user });
+  } catch (e) {
+    res.send({ error: "An error occurred, try again later" });
   }
-  res.send({ user });
 });
 
 router.patch("/api1/users/me", auth, async (req, res) => {
@@ -73,6 +85,7 @@ router.patch("/api1/users/me", auth, async (req, res) => {
     "bio",
     "accomplishments",
     "keywords",
+    "socials",
   ];
   const isValidOperation = updates.every((update) =>
     allowedUpdates.includes(update)

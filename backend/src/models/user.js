@@ -67,6 +67,19 @@ const userSchema = new mongoose.Schema(
       type: [String],
       maxlength: 3,
     },
+    socials: [
+      {
+        twitter: {
+          type: String,
+        },
+        instagram: {
+          type: String,
+        },
+        youtube: {
+          type: String,
+        },
+      },
+    ],
     avatar: {
       type: Buffer,
     },

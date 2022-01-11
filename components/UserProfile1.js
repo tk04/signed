@@ -3,23 +3,42 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import headshot from "../pictures/headshot.JPG";
+import {
+  AiOutlineTwitter,
+  AiFillInstagram,
+  AiFillYoutube,
+} from "react-icons/ai";
 import Link from "next/link";
 const UserProfile1 = ({ userData }) => {
+  console.log(Object.keys(userData.user.socials[0])[0]);
   const router = useRouter();
-  const [isUser, setIsUser] = useState(null);
-  const token = useSelector((state) => state.auth.token);
-  useEffect(async () => {
-    const res = await fetch("/api1/users/me/username");
-    if (res.ok) {
-      const data = await res.json();
-      if (data.username === userData.username) {
-        setIsUser(true);
-      } else {
-        setIsUser(false);
-      }
+  const postContent = <p>No posts</p>;
+  const [userContent, setUserContent] = useState({
+    type: "posts",
+    content: postContent,
+  });
+  // const userContent = <p>WOW</p>;
+  const changeContentHandler = (type) => {
+    if (type === "skills") {
+      const content = (
+        <ul className="list-none text-center bg-gray-50 mt-10 p-10">
+          {userData.user.accomplishments.map((acc, idx) => (
+            <li
+              key={idx}
+              className=" hover:border-2 hover:border-slate-300 hover:cursor-pointer p-7"
+            >
+              {acc}
+            </li>
+          ))}
+        </ul>
+      );
+      setUserContent({ content, type: "skills" });
+    } else if (type === "posts") {
+      setUserContent({ content: postContent, type: "posts" });
+    } else if (type === "experience") {
+      setUserContent({ content: <p>No experience</p>, type: "experience" });
     }
-  }, [token]);
-  // console.log(userData.avatar);
+  };
   return (
     <div className=" grid grid-cols-[100%] m-0 p-0 lg:grid-cols-[25%_75%] box-border">
       <div className="hidden lg:block">
@@ -32,21 +51,19 @@ const UserProfile1 = ({ userData }) => {
               <div className="flex flex-col items-center justify-center ">
                 <div className="relative w-40 h-40 z-0">
                   <Image
-                    src={`data:image/png;base64,${userData.avatar}`}
-                    width={150}
-                    height={150}
+                    src={`data:image/png;base64,${userData.user.avatar}`}
                     className="rounded-full "
                     layout="fill"
                   />
                 </div>
                 <h1 className=" mt-5 font-bold text-2xl h-fit">
-                  {userData.name}
+                  {userData.user.name}
                 </h1>
-                <p className="text-gray-400 h-fit">@{userData.username}</p>
+                <p className="text-gray-400 h-fit">@{userData.user.username}</p>
               </div>
               <div className="md:flex flex-col ">
                 <div className="md:flex text-center mt-3 md:ml-20 md:space-x-7">
-                  {userData.keywords.map((keyword, idx) => (
+                  {userData.user.keywords.map((keyword, idx) => (
                     <p className="bg-slate-100 h-fit p-3 font-bold" key={idx}>
                       {keyword}
                     </p>
@@ -79,10 +96,50 @@ const UserProfile1 = ({ userData }) => {
                   passages, and more recently with desktop publishing software
                   like Aldus PageMaker including versions of Lorem Ipsum.
                 </p>
+                {userData.user.socials && (
+                  <div className="flex md:ml-20 space-x-5 justify-center md:justify-start ">
+                    {userData.user.socials.map((item, idx) => (
+                      <section key={item._id}>
+                        {Object.keys(item)[0] === "twitter" && (
+                          <a
+                            target="_blank"
+                            href={`https://twitter.com/${item.twitter}`}
+                          >
+                            <AiOutlineTwitter
+                              className=" mt-5 cursor-pointer"
+                              size={25}
+                            />
+                          </a>
+                        )}
+                        {Object.keys(item)[0] === "instagram" && (
+                          <a
+                            target="_blank"
+                            href={`https://instagram.com/${item.instagram}`}
+                          >
+                            <AiFillInstagram
+                              className="mt-5 cursor-pointer"
+                              onClick={() => {}}
+                              size={25}
+                            />
+                          </a>
+                        )}
+                        {Object.keys(item)[0] === "youtube" && (
+                          <a target="_blank" href={item.youtube}>
+                            <AiFillYoutube
+                              className="mt-5 cursor-pointer"
+                              onClick={() => {}}
+                              size={25}
+                            />
+                          </a>
+                        )}
+                      </section>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
             <div className="flex space-x-5 mt-2 sm:mr-5 content-center justify-center">
-              {isUser === false ? (
+              {!userData.isUser && (
                 <>
                   <button className="bg-slate-100 text-black font-bold h-fit  p-3 rounded-full">
                     DM
@@ -91,44 +148,53 @@ const UserProfile1 = ({ userData }) => {
                     IR
                   </button>
                 </>
-              ) : (
-                <Link
-                  href={`/users/${userData.username}?edit=true`}
-                  className="bg-slate-100 text-black font-bold text-sm h-fit whitespace-nowrap p-3 rounded-md"
-                >
-                  Edit profile
-                </Link>
+              )}
+              {userData.isUser === true && (
+                <div className="bg-slate-100 text-black font-bold text-sm h-fit whitespace-nowrap p-3 rounded-md">
+                  <Link href={`/users/${userData.user.username}?edit=true`}>
+                    Edit profile
+                  </Link>
+                </div>
               )}
             </div>
           </div>
         </div>
         <div>
-          <div className="pt-10 mt-10 grid grid-cols-3 bg-slate-50 ">
-            <div className="ml-10 ">
-              <p className="text-center">Skills / Accomplishments</p>
-              <br />
-              <ul className="list-disc">
-                {userData.accomplishments.map((acc, idx) => (
-                  <li key={idx}>{acc}</li>
-                ))}
-                {/* <li>1580 on SAT</li>
-                <li>Won national basketball championship</li>
-                <li>1580 on SAT</li>
-                <li>Won national basketball championship</li>
-                <li>1580 on SAT</li>
-                <li>Won national basketball championship</li> */}
-              </ul>
+          <div className="pt-5 pb-3 mt-10 grid grid-cols-3 bg-slate-50 text-center rounded-full">
+            <div className="ml-10">
+              <button
+                className={`text-center ${
+                  userContent.type === "skills" && "border-b-2 border-sky-400"
+                }`}
+                onClick={changeContentHandler.bind(null, "skills")}
+              >
+                Skills / Accomplishments
+              </button>
             </div>
             <div>
-              <p>Testing</p>
+              <button
+                className={`text-center ${
+                  userContent.type === "posts" && "border-b-2 border-sky-400"
+                }`}
+                onClick={changeContentHandler.bind(null, "posts")}
+              >
+                Posts
+              </button>
             </div>
             <div>
-              <p>Testing</p>
+              <button
+                className={`text-center ${
+                  userContent.type === "experience" &&
+                  "border-b-2 border-sky-400"
+                }`}
+                onClick={changeContentHandler.bind(null, "experience")}
+              >
+                Experience
+              </button>
             </div>
           </div>
-          <div>
-            <p>POSTS:</p>
-          </div>
+
+          {userContent.content}
         </div>
       </div>
     </div>

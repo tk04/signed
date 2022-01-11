@@ -2,11 +2,20 @@ import React, { useState, useRef } from "react";
 import { updateUserData, updateProfilePic } from "../store/auth-slice";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
+import { IoCloseSharp } from "react-icons/io5";
+import {
+  AiOutlineTwitter,
+  AiFillInstagram,
+  AiFillYoutube,
+} from "react-icons/ai";
+
+import Image from "next/image";
 const EditProfile = (props) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const ACRef = useRef();
   const keywordRef = useRef();
+  const socialRef = useRef();
   const [keywordErr, setKeywordErr] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [name, setName] = useState(props.userData.name);
@@ -14,6 +23,11 @@ const EditProfile = (props) => {
   const [username, setUsername] = useState(props.userData.username);
   const [bio, setBio] = useState(props.userData.bio);
   const [AcList, setACList] = useState(props.userData.accomplishments);
+  const [socials, setSocials] = useState(props.userData.socials);
+  const [socialForm, setSocialForm] = useState({});
+  const [avatar, setAvatar] = useState(
+    `data:image/png;base64,${props.userData.avatar}`
+  );
   const [keywords, setKeywords] = useState(props.userData.keywords);
   const removeHandler = (idx, id) => {
     if (id === 1) {
@@ -23,8 +37,15 @@ const EditProfile = (props) => {
         const newList = [...l1, ...l2];
         return newList;
       });
-    } else {
+    } else if (id === 2) {
       setKeywords((prevList) => {
+        const l1 = prevList.slice(0, idx);
+        const l2 = prevList.slice(idx + 1, prevList.length + 1);
+        const newList = [...l1, ...l2];
+        return newList;
+      });
+    } else if (id === 3) {
+      setSocials((prevList) => {
         const l1 = prevList.slice(0, idx);
         const l2 = prevList.slice(idx + 1, prevList.length + 1);
         const newList = [...l1, ...l2];
@@ -74,6 +95,7 @@ const EditProfile = (props) => {
         bio,
         keywords,
         accomplishments: AcList,
+        socials,
       })
     );
     if (selectedFile) {
@@ -87,6 +109,66 @@ const EditProfile = (props) => {
   };
   const fileHandler = (e) => {
     setSelectedFile(e.target.files[0]);
+    setAvatar(URL.createObjectURL(e.target.files[0]));
+  };
+  const socialFormHandler = (e) => {
+    if (e.target.value === "twitter" || e.target.value === "instagram") {
+      setSocialForm({
+        content: (
+          <div className="flex">
+            @<input ref={socialRef} type="text"></input>
+          </div>
+        ),
+        type: e.target.value,
+      });
+    } else if (e.target.value === "youtube") {
+      setSocialForm({
+        content: (
+          <div className="flex">
+            Channel URL:{" "}
+            <input ref={socialRef} className=" w-3/5" type="text"></input>
+          </div>
+        ),
+        type: e.target.value,
+      });
+    }
+  };
+  const socialSubmitHandler = (e) => {
+    e.preventDefault();
+    const value = socialRef.current.value.trim();
+    if (!value) {
+      return setSocialForm({});
+    }
+    for (const item of socials) {
+      if (socialForm.type === Object.keys(item)[0]) {
+        return setSocialForm((prev) => {
+          return {
+            ...prev,
+            error: "Only one social link per platform allowed",
+          };
+        });
+      }
+    }
+    if (value) {
+      if (socialForm.type === "twitter") {
+        setSocials((prev) => [...prev, { twitter: value }]);
+      } else if (socialForm.type === "instagram") {
+        setSocials((prev) => [...prev, { instagram: value }]);
+      } else if (socialForm.type === "youtube") {
+        if (value.includes("https://www.youtube.com/")) {
+          setSocials((prev) => [...prev, { youtube: value }]);
+        } else {
+          return setSocialForm((prev) => {
+            return {
+              ...prev,
+              error: "Youtube link must contain the entire URL",
+            };
+          });
+        }
+      }
+      socialRef.current.value = "";
+    }
+    setSocialForm({ type: "one" });
   };
   return (
     <div className="fixed flex flex-col z-10 justify-center items-center w-screen h-screen bg-slate-600/80 ">
@@ -97,11 +179,16 @@ const EditProfile = (props) => {
             router.push(`/users/${props.userData.username}`);
           }}
         >
-          X
+          <IoCloseSharp size={35} />
         </button>
         <h1 className="text-2xl font-thin mt-7 text-center">Edit profile</h1>
-        <form className="text-left ml-20 mt-10 flex flex-col w-full space-y-2">
-          <label>Profile picture</label>
+        <div className="flex justify-center mt-10">
+          <div className="relative w-40 h-40 z-0 ">
+            <Image src={avatar} className="rounded-full" layout="fill" />
+          </div>
+        </div>
+        <form className=" ml-20 mt-5 flex flex-col w-full space-y-2">
+          <label className="">Profile picture</label>
           <input type="file" onChange={fileHandler} />
           <label>Name:</label>
           <input
@@ -196,6 +283,53 @@ const EditProfile = (props) => {
                 </li>
               ))}
             </ul>
+          </form>
+        </div>
+        <div className="mt-10">
+          <h1 className="text-2xl font-thin text-center">Social Links</h1>
+          <form
+            className="ml-20 flex flex-col w-full"
+            onSubmit={socialSubmitHandler}
+          >
+            <label htmlFor="socials" className="mt-4">
+              Choose a social plateform:
+            </label>
+            <select
+              name="socials"
+              id="socials"
+              className="w-2/3 ml-10 h-8"
+              onChange={socialFormHandler}
+              value={socialForm.type}
+            >
+              <option value="one">Select option</option>
+              <option value="twitter">Twitter</option>
+              <option value="instagram">Instagram</option>
+              <option value="youtube">Youtube</option>
+            </select>
+
+            <ul className="mt-10">
+              {socials.map((item, idx) => (
+                <li
+                  key={idx}
+                  className="flex space-x-10 space-y-4 cursor-pointer"
+                  onClick={removeHandler.bind(null, idx, 3)}
+                >
+                  <div className="flex mr-4 mt-1">
+                    {Object.keys(item)[0] === "twitter" && <AiOutlineTwitter />}{" "}
+                    {Object.keys(item)[0] === "youtube" && <AiFillYoutube />}{" "}
+                    {Object.keys(item)[0] === "instagram" && (
+                      <AiFillInstagram />
+                    )}{" "}
+                  </div>
+
+                  {item[Object.keys(item)[0]]}
+                </li>
+              ))}
+            </ul>
+            {socialForm.content}
+            {socialForm.error && (
+              <p className=" text-red-500 mt-3">{socialForm.error}</p>
+            )}
           </form>
         </div>
         <button
