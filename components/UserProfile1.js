@@ -10,7 +10,6 @@ import {
 } from "react-icons/ai";
 import Link from "next/link";
 const UserProfile1 = ({ userData }) => {
-  console.log(userData.user.experiences);
   const router = useRouter();
   const postContent = <p>No posts</p>;
   const [userContent, setUserContent] = useState({
@@ -23,7 +22,7 @@ const UserProfile1 = ({ userData }) => {
       const content = (
         <>
           {userData.user.accomplishments.length > 0 ? (
-            <ul className="list-none text-center bg-gray-50 mt-10 p-10">
+            <ul className="list-none text-center bg-slate-50 mt-10 p-10">
               {userData.user.accomplishments.map((acc, idx) => (
                 <li
                   key={idx}
@@ -47,7 +46,7 @@ const UserProfile1 = ({ userData }) => {
       const content = (
         <>
           {userData.user.experiences.length > 0 ? (
-            <ul className="mt-8 space-y-4 bg-gray-50 w-full">
+            <ul className="mt-8 space-y-4 bg-slate-50 w-full">
               {userData.user.experiences.map((item, idx) => (
                 <div
                   key={idx}
@@ -72,7 +71,7 @@ const UserProfile1 = ({ userData }) => {
       <div className="hidden lg:block">
         <h1>Testing</h1>
       </div>
-      <div className="mt-7h-screen">
+      <div className="mt-7 h-screen">
         <div className="bg-white justify-between h-fit ">
           <div className="md:flex md:justify-between  h-fit">
             <div className="md:flex">
@@ -166,7 +165,7 @@ const UserProfile1 = ({ userData }) => {
                 )}
               </div>
             </div>
-            <div className="flex space-x-5 mt-2 sm:mr-5 content-center justify-center">
+            <div className="flex space-x-5 mt-2 md:mr-5 content-center justify-center">
               {!userData.isUser && (
                 <>
                   <button className="bg-slate-100 text-black font-bold h-fit  p-3 rounded-full">

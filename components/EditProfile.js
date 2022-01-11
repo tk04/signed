@@ -230,7 +230,7 @@ const EditProfile = (props) => {
   };
   return (
     <div className="fixed flex flex-col z-10 justify-center items-center w-screen h-screen bg-slate-600/80 ">
-      <div className="bg-slate-200 w-4/5 md:w-3/5 xl:w-1/3 h-2/3  overflow-y-scroll overflow-x-hidden rounded-lg ">
+      <div className="bg-gray-100 w-4/5 md:w-3/5 xl:w-1/3 h-2/3  overflow-y-scroll overflow-x-hidden rounded-lg ">
         <button
           className="relative mt-3 ml-3 text-right"
           onClick={() => {
