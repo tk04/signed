@@ -18,3 +18,10 @@ router.post("/api/posts", auth, async (req, res) => {
     });
   }
 });
+router.get("/api/posts/:id", auth, async (req, res) => {
+  const post = await Post.findOne({ _id: req.params.id });
+  if (!post) {
+    return res.status(404).send();
+  }
+  res.send(post);
+});
