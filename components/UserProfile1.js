@@ -17,6 +17,14 @@ const UserProfile1 = ({ userData }) => {
     type: "posts",
     content: postContent,
   });
+  const [avatar, setAvatar] = useState();
+  useEffect(async () => {
+    const res = await fetch(`/api1/users/${userData.user.username}/avatar`);
+    if (res.ok) {
+      const data = await res.json();
+      setAvatar(Buffer.from(data.avatar.data).toString("base64"));
+    }
+  }, []);
   // const userContent = <p>WOW</p>;
   const changeContentHandler = (type) => {
     if (type === "skills") {
@@ -72,14 +80,14 @@ const UserProfile1 = ({ userData }) => {
       <div className="hidden lg:block">
         <SideNav />
       </div>
-      <div className="mt-7 h-screen">
+      <div className="mt-7 h-full">
         <div className="bg-white justify-between h-fit ">
           <div className="md:flex md:justify-between  h-fit">
             <div className="md:flex">
               <div className="flex flex-col items-center justify-center ">
                 <div className="relative w-40 h-40 z-0">
                   <Image
-                    src={`data:image/png;base64,${userData.user.avatar}`}
+                    src={`data:image/png;base64,${avatar}`}
                     className="rounded-full "
                     layout="fill"
                   />

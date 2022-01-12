@@ -137,6 +137,25 @@ userSchema.methods.toJSON = function () {
   delete userObject.password;
   delete userObject.createdAt;
   delete userObject.updatedAt;
+  delete userObject.avatar;
+
+  return userObject;
+};
+userSchema.methods.basicInfo = function () {
+  const user = this;
+  const userObject = user.toObject();
+
+  delete userObject.password;
+  delete userObject.createdAt;
+  delete userObject.updatedAt;
+  delete userObject.experiences;
+  delete userObject.accomplishments;
+  delete userObject.followers;
+  delete userObject.following;
+  delete userObject.bio;
+  delete userObject.email;
+  delete userObject.socials;
+  delete userObject.keywords;
 
   return userObject;
 };

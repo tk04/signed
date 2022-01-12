@@ -4,6 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const authState = {
   isAuth: Cookies.get("token") !== undefined,
   token: Cookies.get("token") ? Cookies.get("token") : null,
+  userInfo: null,
 };
 const authSlice = createSlice({
   name: "Auth",
@@ -74,6 +75,7 @@ export const updateUserData = (fields) => {
     });
     if (res.ok) {
       const data = await res.json();
+      console.log(data);
       dispatch(authActions.setUserInfo(data));
     }
   };

@@ -39,19 +39,8 @@ router.post("/api1/users/login", async (req, res) => {
   }
 });
 
-router.get("/api1/users/me", cors(), async (req, res) => {
-  try {
-    const token = req.headers.authorization.replace("Bearer ", "");
-    // // const token = req.header("Authorization").replace("Bearer ", "");
-    const decoded = jwt.verify(token, "testing123123_fzxasszxc");
-    const user = await User.findOne({ _id: decoded._id });
-    if (!user) {
-      throw new Error();
-    }
-    res.send({ user });
-  } catch (e) {
-    res.status(401).send({ error: "Please authenticate" });
-  }
+router.get("/api1/users/me", auth, async (req, res) => {
+  res.send(req.user.basicInfo());
 });
 
 router.get("/api1/users/:username", async (req, res) => {
@@ -125,5 +114,14 @@ router.post(
 
 router.get("/api1/users/me/username", auth, async (req, res) => {
   res.send({ username: req.user.username });
+});
+router.get("/api1/users/:username/avatar", async (req, res) => {
+  const uid = req.params.username;
+  const user = await User.findOne({ username: uid });
+  if (!user) {
+    return res.status(404).send({ error: "User not found" });
+  }
+  res.set("Content-Type", "image/png"); // set response headers
+  res.send({ avatar: user.avatar });
 });
 module.exports = router;
