@@ -6,12 +6,13 @@ import Cookies from "js-cookie";
 const Users = (props) => {
   const router = useRouter();
   const { edit } = router.query;
-
   return (
     <>
       {props.data ? (
         <>
-          {edit === "true" && <ProfileSettings />}
+          {edit === "true" && props.data.isUser === true && (
+            <ProfileSettings userData={props.data.user} />
+          )}
           <UserProfile userData={props.data} />
         </>
       ) : (

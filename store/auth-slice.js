@@ -57,7 +57,7 @@ export const registerAction = (name, email, username, password) => {
 };
 export const getUserData = () => {
   return async (dispatch) => {
-    const res = await fetch("/api1/users/me");
+    const res = await fetch("/api1/users/me?basic=true");
     if (res.ok) {
       const data = await res.json();
       dispatch(authActions.setUserInfo(data));
@@ -75,7 +75,6 @@ export const updateUserData = (fields) => {
     });
     if (res.ok) {
       const data = await res.json();
-      console.log(data);
       dispatch(authActions.setUserInfo(data));
     }
   };

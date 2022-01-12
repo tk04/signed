@@ -1,6 +1,10 @@
-import React, { useState, useRef } from "react";
-import { updateUserData, updateProfilePic } from "../store/auth-slice";
-import { useDispatch } from "react-redux";
+import React, { useState, useRef, useEffect } from "react";
+import {
+  updateUserData,
+  updateProfilePic,
+  getUserData,
+} from "../store/auth-slice";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { IoCloseSharp } from "react-icons/io5";
 import {
@@ -12,7 +16,6 @@ import {
 import Image from "next/image";
 const EditProfile = (props) => {
   const router = useRouter();
-  const dispatch = useDispatch();
   const ACRef = useRef();
   const keywordRef = useRef();
   const orgRef = useRef();
@@ -33,6 +36,7 @@ const EditProfile = (props) => {
   const [avatar, setAvatar] = useState(
     `data:image/png;base64,${props.userData.avatar}`
   );
+
   const [keywords, setKeywords] = useState(props.userData.keywords);
   const removeHandler = (idx, id) => {
     if (id === 1) {
@@ -241,7 +245,9 @@ const EditProfile = (props) => {
         </button>
         <div className="flex justify-center mt-2  ">
           <div className="relative w-40 h-40 z-0 ">
-            <Image src={avatar} className="rounded-full" layout="fill" />
+            {avatar && (
+              <Image src={avatar} className="rounded-full" layout="fill" />
+            )}
           </div>
         </div>
         <form className=" ml-20 mt-5 flex flex-col w-full space-y-2">

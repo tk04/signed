@@ -4,30 +4,33 @@ import UserProfile from "./UserProfile1";
 import Cookies from "js-cookie";
 import EditProfile from "./EditProfile";
 import { useRouter } from "next/router";
-const ProfileSettings = () => {
-  const token = useSelector((state) => state.auth.token);
+const ProfileSettings = (props) => {
+  const userInfo = useSelector((state) => state.auth.userInfo);
+  // console.log(avatar || "i was null");
+  if (userInfo) {
+    props.userData.avatar = userInfo.avatar;
+  }
   const router = useRouter();
-  const [userData, setUserData] = useState(null);
-  useEffect(async () => {
-    const res = await fetch(`/api1/users/me`, {
-      headers: {
-        Authorization: `Bearer ${Cookies.get("token")}`,
-      },
-    });
-    if (res.ok) {
-      const data = await res.json();
-      setUserData(data.user);
-    } else {
-      router.push("/");
-    }
-  }, [token]);
+  // const [userData, setUserData] = useState();
+  // console.log(userData);
+  // useEffect(async () => {
+  //   const res = await fetch(`/api1/users/me`);
+  //   if (res.ok) {
+  //     try {
+  //       const data = await res.json();
+  //       console.log(data);
+  //       setUserData(data.user);
+  //     } catch (e) {
+  //       console.log("error happened");
+  //     }
+  //   } else {
+  //     router.push("/");
+  //   }
+  // }, []);
   return (
     <>
-      {userData && (
-        <>
-          <EditProfile userData={userData} />
-        </>
-      )}
+      {userInfo && <EditProfile userData={props.userData} />}
+      {/* hello */}
     </>
   );
 };

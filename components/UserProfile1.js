@@ -139,6 +139,7 @@ const UserProfile1 = ({ userData }) => {
                         {Object.keys(item)[0] === "twitter" && (
                           <a
                             target="_blank"
+                            rel="noreferrer"
                             href={`https://twitter.com/${item.twitter}`}
                           >
                             <AiOutlineTwitter
@@ -150,6 +151,7 @@ const UserProfile1 = ({ userData }) => {
                         {Object.keys(item)[0] === "instagram" && (
                           <a
                             target="_blank"
+                            rel="noreferrer"
                             href={`https://instagram.com/${item.instagram}`}
                           >
                             <AiFillInstagram
@@ -160,7 +162,11 @@ const UserProfile1 = ({ userData }) => {
                           </a>
                         )}
                         {Object.keys(item)[0] === "youtube" && (
-                          <a target="_blank" href={item.youtube}>
+                          <a
+                            target="_blank"
+                            rel="noreferrer"
+                            href={item.youtube}
+                          >
                             <AiFillYoutube
                               className="mt-5 cursor-pointer"
                               onClick={() => {}}

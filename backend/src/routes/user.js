@@ -40,7 +40,13 @@ router.post("/api1/users/login", async (req, res) => {
 });
 
 router.get("/api1/users/me", auth, async (req, res) => {
-  res.send(req.user.basicInfo());
+  const isBasic = req.query.basic;
+  if (isBasic === "true") {
+    return res.send(req.user.basicInfo());
+  } else {
+    const user = req.user;
+    res.send({ user });
+  }
 });
 
 router.get("/api1/users/:username", async (req, res) => {
