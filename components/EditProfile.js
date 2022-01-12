@@ -393,7 +393,7 @@ const EditProfile = (props) => {
           <h1 className="text-2xl font-thin text-center">Experience</h1>
           <div className="flex justify-center">
             <button
-              className="mt-8 bg-gray-400 text-white border-2  p-1 "
+              className="mt-8 bg-slate-200 font-bold border-2 p-2  "
               onClick={showFormHandler}
             >
               Add experience

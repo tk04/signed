@@ -9,6 +9,7 @@ import {
   AiFillYoutube,
 } from "react-icons/ai";
 import Link from "next/link";
+import SideNav from "./SideNav";
 const UserProfile1 = ({ userData }) => {
   const router = useRouter();
   const postContent = <p>No posts</p>;
@@ -67,9 +68,9 @@ const UserProfile1 = ({ userData }) => {
     }
   };
   return (
-    <div className=" grid grid-cols-[100%] m-0 p-0 lg:grid-cols-[25%_75%] box-border">
+    <div className=" grid grid-cols-[100%]  m-0 p-0 lg:grid-cols-[25%_75%] box-border">
       <div className="hidden lg:block">
-        <h1>Testing</h1>
+        <SideNav />
       </div>
       <div className="mt-7 h-screen">
         <div className="bg-white justify-between h-fit ">
