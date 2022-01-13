@@ -159,6 +159,16 @@ userSchema.methods.basicInfo = function () {
 
   return userObject;
 };
+userSchema.methods.fullUser = function () {
+  const user = this;
+  const userObject = user.toObject();
+
+  delete userObject.password;
+  delete userObject.createdAt;
+  delete userObject.updatedAt;
+
+  return userObject;
+};
 
 userSchema.pre("save", async function (next) {
   const user = this;

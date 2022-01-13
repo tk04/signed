@@ -11,6 +11,7 @@ const SideNav = () => {
   const userData = useSelector((state) => state.auth.userInfo);
 
   const dispatch = useDispatch();
+  // console.log(userData);
 
   useEffect(() => {
     dispatch(getUserData());

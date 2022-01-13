@@ -1,19 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import UserProfile from "../../../components/UserProfile1";
 import { useRouter } from "next/router";
 import ProfileSettings from "../../../components/ProfileSettings";
-import Cookies from "js-cookie";
+import { useSelector, useDispatch } from "react-redux";
+import { getUserData } from "../../../store/auth-slice";
 const Users = (props) => {
   const router = useRouter();
+  const userInfo = useSelector((state) => state.auth.userInfo);
+  const dispatch = useDispatch();
   const { edit } = router.query;
+  console.log(userInfo);
+
+  if (!userInfo) {
+    dispatch(getUserData());
+  }
   return (
     <>
       {props.data ? (
         <>
           {edit === "true" && props.data.isUser === true && (
-            <ProfileSettings userData={props.data.user} />
+            <ProfileSettings userData={userInfo} />
           )}
-          <UserProfile userData={props.data} />
+          {props.data.isUser && userInfo && (
+            <UserProfile
+              userData={{ user: userInfo, isUser: props.data.isUser }}
+            />
+          )}
+          {!props.data.isUser && <UserProfile userData={props.data} />}
+          {/* <UserProfile userData={props.data} /> */}
         </>
       ) : (
         <p>User not found</p>
@@ -43,10 +57,5 @@ export const getServerSideProps = async (context) => {
   return {
     props: {},
   };
-  // } else {
-  //   return {
-  //     props: {},
-  //   };
-  // }
 };
 export default Users;

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import headshot from "../pictures/headshot.JPG";
 import {
   AiOutlineTwitter,
   AiFillInstagram,
@@ -235,7 +234,6 @@ const UserProfile1 = ({ userData }) => {
               </button>
             </div>
           </div>
-
           {userContent.content}
         </div>
       </div>

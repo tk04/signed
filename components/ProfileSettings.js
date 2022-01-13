@@ -5,12 +5,13 @@ import Cookies from "js-cookie";
 import EditProfile from "./EditProfile";
 import { useRouter } from "next/router";
 const ProfileSettings = (props) => {
-  const userInfo = useSelector((state) => state.auth.userInfo);
-  // console.log(avatar || "i was null");
-  if (userInfo) {
-    props.userData.avatar = userInfo.avatar;
-  }
+  // const userInfo = useSelector((state) => state.auth.userInfo);
+  // // console.log(avatar || "i was null");
+  // if (userInfo) {
+  //   props.userData.avatar = userInfo.avatar;
+  // }
   const router = useRouter();
+  console.log(props.userData);
   // const [userData, setUserData] = useState();
   // console.log(userData);
   // useEffect(async () => {
@@ -29,7 +30,7 @@ const ProfileSettings = (props) => {
   // }, []);
   return (
     <>
-      {userInfo && <EditProfile userData={props.userData} />}
+      {props.userData && <EditProfile userData={props.userData} />}
       {/* hello */}
     </>
   );

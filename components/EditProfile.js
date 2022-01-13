@@ -15,6 +15,7 @@ import {
 
 import Image from "next/image";
 const EditProfile = (props) => {
+  const dispatch = useDispatch();
   const router = useRouter();
   const ACRef = useRef();
   const keywordRef = useRef();

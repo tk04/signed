@@ -40,13 +40,12 @@ router.post("/api1/users/login", async (req, res) => {
 });
 
 router.get("/api1/users/me", auth, async (req, res) => {
-  const isBasic = req.query.basic;
-  if (isBasic === "true") {
-    return res.send(req.user.basicInfo());
-  } else {
-    const user = req.user;
-    res.send({ user });
-  }
+  const user = req.user.fullUser();
+  // if (includeAvatar === "true") {
+  //   return res.send({ user, avatar: req.user.avatar });
+  // } else {
+  res.send({ user });
+  // }
 });
 
 router.get("/api1/users/:username", async (req, res) => {
@@ -62,7 +61,7 @@ router.get("/api1/users/:username", async (req, res) => {
     }
     const decoded = jwt.verify(token, "testing123123_fzxasszxc");
     if (decoded._id === user._id.toString()) {
-      return res.send({ isUser: true, user });
+      return res.send({ isUser: true });
     }
     res.send({ user });
   } catch (e) {
@@ -92,8 +91,8 @@ router.patch("/api1/users/me", auth, async (req, res) => {
   try {
     updates.forEach((update) => (req.user[update] = req.body[update]));
     await req.user.save();
-
-    res.send(req.user);
+    const user = req.user.fullUser();
+    res.send({ user });
   } catch (e) {
     res.status(400).send(e);
   }
