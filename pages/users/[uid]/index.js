@@ -9,7 +9,6 @@ const Users = (props) => {
   const userInfo = useSelector((state) => state.auth.userInfo);
   const dispatch = useDispatch();
   const { edit } = router.query;
-  console.log(userInfo);
 
   if (!userInfo) {
     dispatch(getUserData());
@@ -27,7 +26,6 @@ const Users = (props) => {
             />
           )}
           {!props.data.isUser && <UserProfile userData={props.data} />}
-          {/* <UserProfile userData={props.data} /> */}
         </>
       ) : (
         <p>User not found</p>
@@ -37,25 +35,32 @@ const Users = (props) => {
 };
 
 export const getServerSideProps = async (context) => {
-  const token = context.req.cookies.token
-    ? `Bearer ${context.req.cookies.token}`
-    : null;
-  const res = await fetch(
-    `http://localhost:3000/api1/users/${context.params.uid}`,
-    {
-      headers: {
-        Authorization: token,
-      },
+  try {
+    const token = context.req.cookies.token
+      ? `Bearer ${context.req.cookies.token}`
+      : null;
+    const res = await fetch(
+      `http://localhost:3000/api1/users/${context.params.uid}`,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    if (res.ok) {
+      const data = await res.json();
+      return {
+        props: { data },
+      };
     }
-  );
-  if (res.ok) {
-    const data = await res.json();
     return {
-      props: { data },
+      notFound: true,
+    };
+  } catch (e) {
+    console.log(e.message);
+    return {
+      notFound: true,
     };
   }
-  return {
-    props: {},
-  };
 };
 export default Users;

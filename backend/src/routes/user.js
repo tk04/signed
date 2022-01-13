@@ -65,7 +65,7 @@ router.get("/api1/users/:username", async (req, res) => {
     }
     res.send({ user });
   } catch (e) {
-    res.send({ error: "An error occurred, try again later" });
+    res.send({ error: e.message });
   }
 });
 

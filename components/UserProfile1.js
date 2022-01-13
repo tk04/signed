@@ -85,11 +85,13 @@ const UserProfile1 = ({ userData }) => {
             <div className="md:flex">
               <div className="flex flex-col items-center justify-center ">
                 <div className="relative w-40 h-40 z-0">
-                  <Image
-                    src={`data:image/png;base64,${avatar}`}
-                    className="rounded-full "
-                    layout="fill"
-                  />
+                  {avatar && (
+                    <Image
+                      src={`data:image/png;base64,${avatar}`}
+                      className="rounded-full "
+                      layout="fill"
+                    />
+                  )}
                 </div>
                 <h1 className=" mt-5 font-bold text-2xl h-fit">
                   {userData.user.name}
