@@ -59,9 +59,11 @@ router.get("/api1/users/:username", async (req, res) => {
     if (!user) {
       return res.status(404).send({ error: "User not found" });
     }
-    const decoded = jwt.verify(token, "testing123123_fzxasszxc");
-    if (decoded._id === user._id.toString()) {
-      return res.send({ isUser: true });
+    if (token) {
+      const decoded = jwt.verify(token, "testing123123_fzxasszxc");
+      if (decoded._id === user._id.toString()) {
+        return res.send({ isUser: true });
+      }
     }
     res.send({ user });
   } catch (e) {
