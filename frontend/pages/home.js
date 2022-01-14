@@ -1,6 +1,7 @@
 import React from "react";
 import SideNav from "../components/SideNav";
 import { getData } from "./api/users/[uid]";
+import axios from "axios";
 const home = () => {
   return (
     <div className=" grid grid-cols-[100%]  m-0 p-0 lg:grid-cols-[25%_75%] box-border">
@@ -27,7 +28,8 @@ export async function getServerSideProps(context) {
   // //   notFound: true,
   // // };
   // console.log("not found");
-  const data = await fetch("http://localhost:3000/api/users/tk04");
+  const data = await axios.get("http://localhost:3000/api/users/tk04");
+  console.log(data);
   if (data.ok) {
     const res = await data.json();
     console.log(res);
