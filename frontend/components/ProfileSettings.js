@@ -11,7 +11,6 @@ const ProfileSettings = (props) => {
   //   props.userData.avatar = userInfo.avatar;
   // }
   const router = useRouter();
-  console.log(props.userData);
   // const [userData, setUserData] = useState();
   // console.log(userData);
   // useEffect(async () => {

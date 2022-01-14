@@ -29,10 +29,8 @@ export async function getServerSideProps(context) {
   // // };
   // console.log("not found");
   const data = await axios.get("http://localhost:3000/api/users/tk04");
-  console.log(data);
   if (data.ok) {
     const res = await data.json();
-    console.log(res);
   }
   // const data = await getData(null, "tk");
   // console.log(data);

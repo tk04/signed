@@ -9,16 +9,16 @@ const Users = (props) => {
   const userInfo = useSelector((state) => state.auth.userInfo);
   const dispatch = useDispatch();
   const { edit } = router.query;
-  // const [userData, setUserData] = useState();
-  // useEffect(async () => {
-  //   if (router.query.uid) {
-  //     const res = await fetch(`/api1/users/${router.query.uid}`);
-  //     if (res.ok) {
-  //       const data = await res.json();
-  //       setUserData(data);
-  //     }
-  //   }
-  // }, [router.query.uid]);
+  const [userData, setUserData] = useState();
+  useEffect(async () => {
+    if (router.query.uid) {
+      const res = await fetch(`/api1/users/${router.query.uid}`);
+      if (res.ok) {
+        const data = await res.json();
+        setUserData(data);
+      }
+    }
+  }, [router.query.uid]);
   if (!userInfo) {
     dispatch(getUserData());
   }
@@ -49,11 +49,14 @@ export async function getServerSideProps(context) {
     ? `Bearer ${context.req.cookies.token}`
     : null;
   const baseUrl = context.req ? `http://${context.req.headers.host}` : "";
-  const res = await fetch(`${baseUrl}/api1/users/${context.params.uid}`, {
-    headers: {
-      Authorization: token,
-    },
-  });
+  const res = await fetch(
+    `http://localhost:3000/api1/users/${context.params.uid}`,
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
   if (res.ok) {
     const data = await res.json();
     return {
