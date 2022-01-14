@@ -12,10 +12,12 @@ const SideNav = () => {
 
   const dispatch = useDispatch();
   // console.log(userData);
-
-  useEffect(() => {
+  if (!userData) {
     dispatch(getUserData());
-  }, []);
+  }
+  // useEffect(() => {
+  //   dispatch(getUserData());
+  // }, []);
   // console.log(userData);
   const router = useRouter();
   const onHover =
@@ -23,7 +25,10 @@ const SideNav = () => {
   return (
     <nav className=" fixed flex flex-col items-center pt-32 h-screen place-content-between ml-10 ">
       <div className="flex flex-col items-center space-x-6  p-0 m-0 w-full ">
-        <div className={`flex space-x-4 ${onHover}`}>
+        <div
+          className={`flex space-x-4 ${onHover}`}
+          onClick={() => router.push("/home")}
+        >
           <TiHomeOutline size={35} />
           <p className="font-bold mt-1">Home</p>
         </div>

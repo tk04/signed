@@ -131,4 +131,5 @@ router.get("/api1/users/:username/avatar", async (req, res) => {
   res.set("Content-Type", "image/png"); // set response headers
   res.send({ avatar: user.avatar });
 });
+
 module.exports = router;

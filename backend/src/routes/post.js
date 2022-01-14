@@ -4,17 +4,18 @@ const auth = require("../middleware/auth");
 
 const router = express.Router();
 
-router.post("/api/posts", auth, async (req, res) => {
+router.post("/api1/posts", auth, async (req, res) => {
+  console.log(req.body);
   const post = new Post({
     ...req.body,
-    owner: req.user._id,
+    owner: req.user.username,
   });
   try {
     await post.save();
     res.status(201).send(post);
   } catch (e) {
     res.status(400).send({
-      error: "an error happened while saving the post, try again later.",
+      error: e.message,
     });
   }
 });
@@ -25,3 +26,17 @@ router.get("/api/posts/:id", auth, async (req, res) => {
   }
   res.send(post);
 });
+
+router.get("/api1/posts/:uid", async (req, res) => {
+  try {
+    const posts = await Post.find({ owner: req.params.uid });
+    if (!posts) {
+      throw new Error("user not found");
+    }
+    res.send(posts);
+  } catch (e) {
+    res.status(404).send();
+  }
+});
+
+module.exports = router;
