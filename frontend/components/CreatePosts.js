@@ -81,9 +81,12 @@ const CreatePosts = React.memo(() => {
         className=" z-20 bg-gray-500/50 w-screen h-screen fixed"
         onClick={() => router.push("/home")}
       ></div>
-      <div className="z-30 fixed flex flex-col right-96 left-96 items-center pt-10">
-        <div className="flex bg-white rounded-2xl overflow-auto ">
-          <div className="mt-4 ml-4">
+      <div className="z-30 fixed flex flex-col right-96 left-96 items-center mt-10">
+        <div
+          className="flex bg-white rounded-2xl overflow-auto"
+          style={{ maxHeight: "90vh" }}
+        >
+          <div className="mt-4 ml-4 ">
             {userInfo && userInfo.avatar && (
               <Image
                 src={`data:image/png;base64,${userInfo.avatar}`}
@@ -95,7 +98,7 @@ const CreatePosts = React.memo(() => {
             )}
           </div>
 
-          <form onSubmit={submitHandler} className="bg-white p-4 rounded-2xl ">
+          <form onSubmit={submitHandler} className="bg-white p-4 rounded-2xl  ">
             <input
               type="text"
               className=" rounded-md pt-2 pl-2 leading-4 py-40 focus:outline-none text-lg"
