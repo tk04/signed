@@ -1,8 +1,11 @@
 import React, { useRef, useCallback, useState } from "react";
-
+import IconButton from "@mui/material/IconButton";
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import Image from "next/image";
 const CreatePosts = React.memo(() => {
   const postRef = useRef();
   const [files, setFiles] = useState([]);
+  const [filesErr, setFilesErr] = useState();
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -31,6 +34,15 @@ const CreatePosts = React.memo(() => {
     }
   };
 
+  const removeImgHandler = (idx) => {
+    setFiles((prevList) => {
+      const l1 = prevList.slice(0, idx);
+      const l2 = prevList.slice(idx + 1, prevList.length + 1);
+      const newList = [...l1, ...l2];
+      return newList;
+    });
+  };
+
   // const getPosts = useCallback(async () => {
   //   const res = await fetch("/api1/posts/tk");
   //   const data = await res.json();
@@ -40,19 +52,74 @@ const CreatePosts = React.memo(() => {
 
   const fileHandler = (e) => {
     if (e.target.files) {
-      for (const file of e.target.files) setFiles((prev) => prev.concat(file));
+      for (const file of e.target.files) {
+        setFiles((prev) => {
+          if (prev && prev.length >= 4) {
+            setFilesErr(
+              <p className="text-red-400">
+                A maximum of 4 images can be uploaded
+              </p>
+            );
+            return prev;
+          }
+          return prev.concat(file);
+        });
+      }
     }
   };
-
-  console.log(files);
   return (
     <div>
       <form onSubmit={submitHandler}>
-        <label>Post:</label>
-        <input type="text" ref={postRef} />
-        <input type="file" onChange={fileHandler} accept="image/*" multiple />
-        {/* <img src="http://localhost:4000/images/posts/images-1642203018932.png" /> */}
+        <label>New Post:</label>
+        <br />
+        <input
+          type="text"
+          className="border-2 border-black rounded-md"
+          ref={postRef}
+        />
+        <br />
+        <label htmlFor="icon-button-file">
+          <input
+            accept="image/*"
+            id="icon-button-file"
+            type="file"
+            className="hidden"
+            onChange={fileHandler}
+            multiple
+          />
+          {files.length < 4 ? (
+            <IconButton
+              color="primary"
+              aria-label="upload picture"
+              component="span"
+            >
+              <PhotoCamera />
+            </IconButton>
+          ) : (
+            <IconButton
+              color="primary"
+              aria-label="upload picture"
+              component="span"
+              disabled
+            >
+              <PhotoCamera />
+            </IconButton>
+          )}
+        </label>
       </form>
+      <div>
+        {filesErr && filesErr}
+        {files.map((img, idx) => (
+          <Image
+            src={URL.createObjectURL(img)}
+            key={idx}
+            width={100}
+            height={100}
+            onClick={removeImgHandler.bind(null, idx)}
+            className="cursor-pointer"
+          />
+        ))}
+      </div>
     </div>
   );
 });
