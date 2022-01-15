@@ -15,6 +15,10 @@ const postSchema = new mongoose.Schema(
       required: true,
       ref: "User",
     },
+    images: {
+      type: [String],
+      maxlength: 4,
+    },
   },
   {
     timestamps: true,

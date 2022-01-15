@@ -1,8 +1,10 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const app = express();
+const path = require("path");
 require("./db/connect");
-
+const postImgPath = path.join(__dirname, "../uploads/resized");
+app.use("/images/posts", express.static(postImgPath)); // you can access image
 const PORT = process.env.PORT || 4000;
 console.log("PORT: " + PORT);
 const userRoutes = require("./routes/user");
