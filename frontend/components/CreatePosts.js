@@ -78,10 +78,10 @@ const CreatePosts = React.memo(() => {
   return (
     <>
       <div
-        className="bg-gray-500/50 w-screen h-screen fixed"
+        className=" z-20 bg-gray-500/50 w-screen h-screen fixed"
         onClick={() => router.push("/home")}
       ></div>
-      <div className="fixed flex flex-col right-96 left-96 items-center pt-10 z-10">
+      <div className="z-30 fixed flex flex-col right-96 left-96 items-center pt-10">
         <div className="flex bg-white rounded-2xl overflow-auto ">
           <div className="mt-4 ml-4">
             {userInfo && userInfo.avatar && (
@@ -117,7 +117,7 @@ const CreatePosts = React.memo(() => {
                 </div>
               ))}
             </div>
-            <hr />
+            <hr className="mt-3" />
             <div className="flex justify-between mt-3">
               <label htmlFor="icon-button-file">
                 {files.length < 4 ? (
