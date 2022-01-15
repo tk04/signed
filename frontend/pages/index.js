@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { authActions, getUserData } from "../store/auth-slice";
 import Header from "../components/Header";
+import CreatePosts from "../components/CreatePosts";
 export default function Home() {
   const dispatch = useDispatch();
   const router = useRouter();

@@ -1,8 +1,13 @@
 import React, { useRef, useCallback, useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import { useSelector } from "react-redux";
 import Image from "next/image";
+import { useRouter } from "next/router";
 const CreatePosts = React.memo(() => {
+  const router = useRouter();
+  const userInfo = useSelector((state) => state.auth.userInfo);
+  // console.log(userAvatar);
   const postRef = useRef();
   const [files, setFiles] = useState([]);
   const [filesErr, setFilesErr] = useState();
@@ -51,6 +56,7 @@ const CreatePosts = React.memo(() => {
   // getPosts();
 
   const fileHandler = (e) => {
+    console.log("file change");
     if (e.target.files) {
       for (const file of e.target.files) {
         setFiles((prev) => {
@@ -66,61 +72,106 @@ const CreatePosts = React.memo(() => {
         });
       }
     }
+    e.target.value = null;
   };
+  console.log(files);
   return (
-    <div>
-      <form onSubmit={submitHandler}>
-        <label>New Post:</label>
-        <br />
-        <input
-          type="text"
-          className="border-2 border-black rounded-md"
-          ref={postRef}
-        />
-        <br />
-        <label htmlFor="icon-button-file">
-          <input
-            accept="image/*"
-            id="icon-button-file"
-            type="file"
-            className="hidden"
-            onChange={fileHandler}
-            multiple
-          />
-          {files.length < 4 ? (
-            <IconButton
-              color="primary"
-              aria-label="upload picture"
-              component="span"
-            >
-              <PhotoCamera />
-            </IconButton>
-          ) : (
-            <IconButton
-              color="primary"
-              aria-label="upload picture"
-              component="span"
-              disabled
-            >
-              <PhotoCamera />
-            </IconButton>
-          )}
-        </label>
-      </form>
-      <div>
-        {filesErr && filesErr}
-        {files.map((img, idx) => (
-          <Image
-            src={URL.createObjectURL(img)}
-            key={idx}
-            width={100}
-            height={100}
-            onClick={removeImgHandler.bind(null, idx)}
-            className="cursor-pointer"
-          />
-        ))}
+    <>
+      <div
+        className="bg-gray-500/50 w-screen h-screen fixed"
+        onClick={() => router.push("/home")}
+      ></div>
+      <div className="fixed flex flex-col right-96 left-96 items-center pt-10 z-10">
+        <div className="flex bg-white rounded-2xl overflow-auto ">
+          <div className="mt-4 ml-4">
+            {userInfo && userInfo.avatar && (
+              <Image
+                src={`data:image/png;base64,${userInfo.avatar}`}
+                width={62}
+                height={62}
+                className="rounded-full"
+                layout="fixed"
+              />
+            )}
+          </div>
+
+          <form onSubmit={submitHandler} className="bg-white p-4 rounded-2xl ">
+            <input
+              type="text"
+              className=" rounded-md pt-2 pl-2 leading-4 py-40 focus:outline-none text-lg"
+              size={65}
+              placeholder="New Post ?"
+              ref={postRef}
+            />
+            <br />
+            {filesErr && filesErr}
+            <div className="grid grid-cols-2 grid-flow-row gap-4">
+              {files.map((img, idx) => (
+                <div key={idx} className="w-72">
+                  <img
+                    src={URL.createObjectURL(img)}
+                    onClick={removeImgHandler.bind(null, idx)}
+                    key={idx}
+                    className="cursor-pointer rounded-xl"
+                  />
+                </div>
+              ))}
+            </div>
+            <hr />
+            <div className="flex justify-between mt-3">
+              <label htmlFor="icon-button-file">
+                {files.length < 4 ? (
+                  <>
+                    <input
+                      accept="image/*"
+                      id="icon-button-file"
+                      type="file"
+                      className="hidden"
+                      onChange={fileHandler}
+                      multiple
+                    />
+                    <IconButton
+                      color="primary"
+                      aria-label="upload picture"
+                      component="span"
+                    >
+                      <PhotoCamera />
+                    </IconButton>
+                  </>
+                ) : (
+                  <>
+                    <input
+                      accept="image/*"
+                      id="icon-button-file"
+                      type="file"
+                      className="hidden"
+                      onChange={fileHandler}
+                      multiple
+                      disabled
+                    />
+                    <IconButton
+                      color="primary"
+                      aria-label="upload picture"
+                      component="span"
+                      disabled
+                    >
+                      <PhotoCamera />
+                    </IconButton>
+                  </>
+                )}
+              </label>
+
+              <button
+                type="submit"
+                className="bg-black text-white px-6 py-2 border-black rounded-full self-end"
+              >
+                Post
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 });
 
