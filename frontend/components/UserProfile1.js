@@ -9,20 +9,44 @@ import {
 } from "react-icons/ai";
 import Link from "next/link";
 import SideNav from "./SideNav";
+import Post from "./Post";
 const UserProfile1 = ({ userData }) => {
   const router = useRouter();
-  const postContent = <p>No posts</p>;
+
+  const [avatar, setAvatar] = useState();
+  const [posts, setPosts] = useState();
   const [userContent, setUserContent] = useState({
     type: "posts",
-    content: postContent,
   });
-  const [avatar, setAvatar] = useState();
+
   useEffect(() => {
     const getData = async () => {
       const res = await fetch(`/api1/users/${userData.user.username}/avatar`);
       if (res.ok) {
         const data = await res.json();
         setAvatar(Buffer.from(data.avatar.data).toString("base64"));
+        const postRes = await fetch(`/api1/posts/${userData.user.username}`);
+        if (postRes.ok) {
+          const pData = await postRes.json();
+
+          const pContent = (
+            <div className="flex flex-col w-full mt-10 bg-slate-50">
+              {pData.map((post) => (
+                <Post
+                  avatar={`data:image/png;base64,${Buffer.from(
+                    data.avatar.data
+                  ).toString("base64")}`}
+                  name={userData.user.name}
+                  username={userData.user.username}
+                  text={post.text}
+                  images={post.images}
+                  key={post._id}
+                />
+              ))}
+            </div>
+          );
+          setPosts(pContent);
+        }
       }
     };
     getData();
@@ -52,7 +76,7 @@ const UserProfile1 = ({ userData }) => {
       );
       setUserContent({ content, type: "skills" });
     } else if (type === "posts") {
-      setUserContent({ content: postContent, type: "posts" });
+      setUserContent({ type: "posts" });
     } else if (type === "experience") {
       const content = (
         <>
@@ -78,7 +102,7 @@ const UserProfile1 = ({ userData }) => {
     }
   };
   return (
-    <div className=" grid grid-cols-[100%]  m-0 p-0 lg:grid-cols-[25%_75%] box-border">
+    <div className=" grid grid-cols-[100%] m-0 p-0 lg:grid-cols-[25%_60%]  box-border">
       <div className="hidden lg:block">
         <SideNav />
       </div>
@@ -197,7 +221,7 @@ const UserProfile1 = ({ userData }) => {
               )}
               {userData.isUser === true && (
                 <Link href={`/users/${userData.user.username}?edit=true`}>
-                  <div className="bg-slate-100 text-black font-bold text-sm h-fit whitespace-nowrap p-3 rounded-md cursor-pointer">
+                  <div className="bg-slate-100 text-black font-bold text-sm h-fit whitespace-nowrap p-3 mt-1 rounded-md cursor-pointer">
                     Edit profile
                   </div>
                 </Link>
@@ -239,7 +263,11 @@ const UserProfile1 = ({ userData }) => {
               </button>
             </div>
           </div>
-          {userContent.content}
+          {userContent.type === "posts" ? (
+            <>{posts}</>
+          ) : (
+            <> {userContent.content}</>
+          )}
         </div>
       </div>
     </div>

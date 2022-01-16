@@ -48,13 +48,6 @@ const CreatePosts = React.memo(() => {
     });
   };
 
-  // const getPosts = useCallback(async () => {
-  //   const res = await fetch("/api1/posts/tk");
-  //   const data = await res.json();
-  //   console.log(data);
-  // }, []);
-  // getPosts();
-
   const fileHandler = (e) => {
     console.log("file change");
     if (e.target.files) {
@@ -82,7 +75,7 @@ const CreatePosts = React.memo(() => {
         onClick={() => router.push("/home")}
       ></div>
       <div
-        className="z-30 fixed flex flex-col w-fit left-1/2 items-center mt-10"
+        className="z-30 fixed flex flex-col  left-1/2 items-center mt-10 "
         style={{ transform: "translate(-50%, 0)" }}
       >
         <div
@@ -105,9 +98,9 @@ const CreatePosts = React.memo(() => {
             onSubmit={submitHandler}
             className="bg-white pt-4 pl-4 pr-4 rounded-2xl  "
           >
-            <input
-              type="text"
-              className=" rounded-md pt-2 pl-2 leading-4 py-40 focus:outline-none text-lg"
+            <textarea
+              className=" resize-none rounded-md pt-2 pl-2 leading-4 focus:outline-none text-lg"
+              style={{ width: "35vw", height: "15vh" }}
               size={65}
               placeholder="New Post ?"
               ref={postRef}
