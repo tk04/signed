@@ -39,7 +39,7 @@ const Post = (props) => {
             <p>{props.text}</p>
           </div>
           <div
-            className="grid  gap-4 grid-flow-col grid-rows-1 mt-4 justify-center align-center"
+            className="grid  gap-4 grid-flow-col auto-rows-auto  mt-4 justify-center align-center"
             style={{ maxheight: "50px" }}
           >
             {props.images &&
