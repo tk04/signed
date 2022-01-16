@@ -81,7 +81,10 @@ const CreatePosts = React.memo(() => {
         className=" z-20 bg-gray-500/50 w-screen h-screen fixed"
         onClick={() => router.push("/home")}
       ></div>
-      <div className="z-30 fixed flex flex-col right-96 left-96 items-center mt-10">
+      <div
+        className="z-30 fixed flex flex-col w-fit left-1/2 items-center mt-10"
+        style={{ transform: "translate(-50%, 0)" }}
+      >
         <div
           className="flex bg-white rounded-2xl overflow-auto"
           style={{ maxHeight: "90vh" }}
@@ -98,7 +101,10 @@ const CreatePosts = React.memo(() => {
             )}
           </div>
 
-          <form onSubmit={submitHandler} className="bg-white p-4 rounded-2xl  ">
+          <form
+            onSubmit={submitHandler}
+            className="bg-white pt-4 pl-4 pr-4 rounded-2xl  "
+          >
             <input
               type="text"
               className=" rounded-md pt-2 pl-2 leading-4 py-40 focus:outline-none text-lg"
@@ -121,7 +127,7 @@ const CreatePosts = React.memo(() => {
               ))}
             </div>
             <hr className="mt-3" />
-            <div className="flex justify-between mt-3">
+            <div className="flex justify-between mt-3 pb-3">
               <label htmlFor="icon-button-file">
                 {files.length < 4 ? (
                   <>
