@@ -3,6 +3,7 @@ import CreatePosts from "../components/CreatePosts";
 import SideNav from "../components/SideNav";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Post from "../components/Post";
 const home = () => {
   const router = useRouter();
   const { newpost } = router.query;
@@ -18,9 +19,14 @@ const home = () => {
         <div>
           <SideNav />
         </div>
-        <Link href="/home?newpost=true" as="/home">
-          Create post
-        </Link>
+        <div>
+          <Link href="/home?newpost=true" as="/home">
+            Create post
+          </Link>
+          <br />
+          <br />
+          <Post />
+        </div>
       </div>
     </>
   );

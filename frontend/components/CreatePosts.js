@@ -114,7 +114,7 @@ const CreatePosts = React.memo(() => {
             />
             <br />
             {filesErr && filesErr}
-            <div className="grid grid-cols-2 grid-flow-row gap-4">
+            <div className="grid g grid-flow-row-dense gap-4 grid-cols-2 grid-rows-1">
               {files.map((img, idx) => (
                 <div key={idx} className="w-72">
                   <img
