@@ -18,7 +18,10 @@ const ImageModal = (props) => {
             className="z-30 fixed flex flex-col  left-1/2 items-center mt-2 "
             style={{ transform: "translate(-50%, 0)" }}
           >
-            <div style={{ height: "90vh", width: "38vw" }}>
+            <div
+              className="w-screen sm:w-[40rem]"
+              // style={{ height: "90vh", width: "38vw" }}
+            >
               <img src={props.src} />
             </div>
           </div>

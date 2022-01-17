@@ -11,10 +11,29 @@ const Post = (props) => {
   // const userInfo = useSelector((state) => state.auth.userInfo);
   const [fillH, setFillH] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [likes, setLikes] = useState(props.likes ? props.likes.length : 0);
   const [modalSrc, setModalSrc] = useState();
 
   const fillHandler = () => {
-    setFillH((prev) => !prev);
+    setFillH((prev) => {
+      if (prev) {
+        setLikes(0);
+      } else {
+        setLikes(1);
+      }
+      return !prev;
+    });
+    likeHandler();
+  };
+
+  const likeHandler = async () => {
+    const data = await fetch(`/api1/posts/${props.key}/like`, {
+      method: "POST",
+    });
+    if (data.ok) {
+      const res = await data.json();
+      console.log(res);
+    }
   };
 
   const imageClickHandler = (image) => {
@@ -96,7 +115,9 @@ const Post = (props) => {
                   className="cursor-pointer text-gray-500"
                 />
               )}
-              <p className="text-md text-gray-500">Likes</p>
+              <p className="text-md text-gray-500">
+                <span className="pr-1">{likes}</span> Likes
+              </p>
             </div>
             <div className="flex space-x-4 cursor-pointer">
               <IoShareSocialOutline
