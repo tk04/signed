@@ -44,11 +44,18 @@ const Post = (props) => {
     props.modalClick();
     props.imageSrc(image);
   };
-  const diableLoaderHandler = (e) => {
+  const disableLoaderHandler = (e) => {
+    if (e.naturalWidth === 0 && e.naturalHeight === 0) {
+      return setLoader(0);
+    }
     setLoader(false);
-    console.log("disabled");
+    console.log(e);
   };
 
+  const imageErrorHandler = () => {
+    setLoader(0);
+  };
+  console.log(loader);
   return (
     <>
       <div className="space-x-4 bg-white p-6 rounded-xl m-4  ">
@@ -86,8 +93,10 @@ const Post = (props) => {
                 props.images.map((image, idx) => (
                   <div onClick={imageClickHandler.bind(null, image)} key={idx}>
                     <div>
-                      {loader && <CircularProgress disableShrink />}
-                      <div className={`${loader ? "w-0 h-0" : ""}`}>
+                      {loader === true && <CircularProgress />}
+                      <div
+                        className={`${loader || loader === 0 ? "w-0 h-0" : ""}`}
+                      >
                         <Image
                           src={image}
                           key={idx}
@@ -95,7 +104,8 @@ const Post = (props) => {
                           height="350"
                           objectFit="cover"
                           className="overflow-hidden rounded-xl cursor-pointer max-h-96"
-                          onLoadingComplete={(e) => diableLoaderHandler(e)}
+                          onLoadingComplete={(e) => disableLoaderHandler(e)}
+                          onError={imageErrorHandler}
                         />
                       </div>
                     </div>
