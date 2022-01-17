@@ -31,7 +31,6 @@ const UserProfile1 = ({ userData }) => {
         const postRes = await fetch(`/api1/posts/${userData.user.username}`);
         if (postRes.ok) {
           const pData = await postRes.json();
-
           const pContent = (
             <div className="flex flex-col w-full mt-10 ">
               <div className=" mx-24">
@@ -45,6 +44,8 @@ const UserProfile1 = ({ userData }) => {
                     modalClick={() => setModalShow(true)}
                     imageSrc={(image) => setImageSrc(image)}
                     key={post._id}
+                    postId={post._id}
+                    likes={post.likes}
                   />
                 ))}
               </div>
@@ -63,7 +64,6 @@ const UserProfile1 = ({ userData }) => {
           const postRes = await fetch(`/api1/posts/${userData.user.username}`);
           if (postRes.ok) {
             const pData = await postRes.json();
-
             const pContent = (
               <div className="flex flex-col w-full mt-10 bg-slate-50">
                 {pData.map((post) => (
@@ -77,6 +77,8 @@ const UserProfile1 = ({ userData }) => {
                     images={post.images}
                     modalClick={() => setModalShow(true)}
                     key={post._id}
+                    postId={post._id}
+                    likes={post.likes}
                   />
                 ))}
               </div>

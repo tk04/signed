@@ -29,10 +29,6 @@ const home = () => {
           </Link>
           <br />
           <br />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
         </div>
         <div>
           <p>last col</p>

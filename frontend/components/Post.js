@@ -1,25 +1,26 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { BiComment } from "react-icons/bi";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { BsBookmark } from "react-icons/bs";
-import ImageModal from "./ImageModal";
 const Post = (props) => {
-  // const userInfo = useSelector((state) => state.auth.userInfo);
-  const [fillH, setFillH] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const userInfo = useSelector((state) => state.auth.userInfo);
+  const [fillH, setFillH] = useState();
+  useEffect(() => {
+    console.log(props.likes);
+    setFillH(userInfo ? props.likes.includes(userInfo.username) : false);
+  }, [userInfo]);
   const [likes, setLikes] = useState(props.likes ? props.likes.length : 0);
-  const [modalSrc, setModalSrc] = useState();
 
   const fillHandler = () => {
     setFillH((prev) => {
       if (prev) {
-        setLikes(0);
+        setLikes(prev - 1);
       } else {
-        setLikes(1);
+        setLikes(prev + 1);
       }
       return !prev;
     });
@@ -27,7 +28,7 @@ const Post = (props) => {
   };
 
   const likeHandler = async () => {
-    const data = await fetch(`/api1/posts/${props.key}/like`, {
+    const data = await fetch(`/api1/posts/${props.postId}/like`, {
       method: "POST",
     });
     if (data.ok) {
@@ -35,7 +36,6 @@ const Post = (props) => {
       console.log(res);
     }
   };
-
   const imageClickHandler = (image) => {
     props.modalClick();
     props.imageSrc(image);
