@@ -79,7 +79,7 @@ const CreatePosts = React.memo(() => {
         style={{ transform: "translate(-50%, 0)" }}
       >
         <div
-          className="flex bg-white rounded-2xl overflow-auto"
+          className="flex bg-white rounded-2xl overflow-y-auto"
           style={{ maxHeight: "90vh" }}
         >
           <div className="mt-4 ml-4 ">
@@ -109,7 +109,7 @@ const CreatePosts = React.memo(() => {
             {filesErr && filesErr}
             <div className="grid g grid-flow-row-dense gap-4 grid-cols-2 grid-rows-1">
               {files.map((img, idx) => (
-                <div key={idx} className="w-72">
+                <div key={idx}>
                   <img
                     src={URL.createObjectURL(img)}
                     onClick={removeImgHandler.bind(null, idx)}

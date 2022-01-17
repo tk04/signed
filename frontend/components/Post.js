@@ -6,9 +6,13 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { BsBookmark } from "react-icons/bs";
+import CircularProgress from "@mui/material/CircularProgress";
+
 const Post = (props) => {
   const userInfo = useSelector((state) => state.auth.userInfo);
   const [fillH, setFillH] = useState();
+  const [loader, setLoader] = useState(true);
+  console.log(loader);
   useEffect(() => {
     console.log(props.likes);
     setFillH(userInfo ? props.likes.includes(userInfo.username) : false);
@@ -39,6 +43,10 @@ const Post = (props) => {
   const imageClickHandler = (image) => {
     props.modalClick();
     props.imageSrc(image);
+  };
+  const diableLoaderHandler = (e) => {
+    setLoader(false);
+    console.log("disabled");
   };
 
   return (
@@ -78,14 +86,18 @@ const Post = (props) => {
                 props.images.map((image, idx) => (
                   <div onClick={imageClickHandler.bind(null, image)} key={idx}>
                     <div>
-                      <Image
-                        src={image}
-                        key={idx}
-                        width="400"
-                        height="350"
-                        objectFit="cover"
-                        className="overflow-hidden rounded-xl  cursor-pointer max-h-96"
-                      />
+                      {loader && <CircularProgress disableShrink />}
+                      <div className={`${loader ? "w-0 h-0" : ""}`}>
+                        <Image
+                          src={image}
+                          key={idx}
+                          width="400"
+                          height="350"
+                          objectFit="cover"
+                          className="overflow-hidden rounded-xl cursor-pointer max-h-96"
+                          onLoadingComplete={(e) => diableLoaderHandler(e)}
+                        />
+                      </div>
                     </div>
                   </div>
                 ))}
