@@ -13,11 +13,6 @@ const home = () => {
       className="w-screen h-screen overflow-auto "
       style={{ backgroundColor: "#f5f5f5" }}
     >
-      <ImageModal
-        src="http://localhost:4000/uploads/tk/images-1642355748590.png"
-        show
-      />
-
       {newpost && (
         <div>
           <CreatePosts />

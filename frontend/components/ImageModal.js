@@ -15,11 +15,11 @@ const ImageModal = (props) => {
             }}
           ></div>
           <div
-            className="z-30 fixed flex flex-col  left-1/2 items-center mt-10 "
+            className="z-30 fixed flex flex-col  left-1/2 items-center mt-2 "
             style={{ transform: "translate(-50%, 0)" }}
           >
-            <div style={{ height: "50vw", width: "35vw" }}>
-              <img src={props.src} className="" />
+            <div style={{ height: "90vh", width: "38vw" }}>
+              <img src={props.src} />
             </div>
           </div>
         </div>
