@@ -23,6 +23,11 @@ const authSlice = createSlice({
     setUserInfo(state, action) {
       state.userInfo = action.payload;
     },
+    setFollowingInfo(state, action) {
+      if (state.userInfo) {
+        state.userInfo.following = action.payload;
+      }
+    },
   },
 });
 

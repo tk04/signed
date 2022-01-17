@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   AiOutlineTwitter,
   AiFillInstagram,
@@ -11,8 +11,11 @@ import Link from "next/link";
 import SideNav from "./SideNav";
 import Post from "./Post";
 import ImageModal from "./ImageModal";
-const UserProfile1 = ({ userData }) => {
+import { authActions } from "../store/auth-slice";
+const UserProfile1 = ({ userData, isFollowing }) => {
+  const dispatch = useDispatch();
   const router = useRouter();
+  const userInfo = useSelector((state) => state.auth.userInfo);
 
   const [avatar, setAvatar] = useState(
     userData.user ? userData.user.avatar : null
@@ -21,10 +24,10 @@ const UserProfile1 = ({ userData }) => {
   const [posts, setPosts] = useState();
   const [imageSrc, setImageSrc] = useState();
   const [postModal, setPostModal] = useState();
+  const [following, setFollowing] = useState(userData.isFollowing);
   const [userContent, setUserContent] = useState({
     type: "posts",
   });
-  console.log(imageSrc);
 
   useEffect(() => {
     const getPosts = async () => {
@@ -104,6 +107,24 @@ const UserProfile1 = ({ userData }) => {
       );
       setUserContent({ content, type: "experience" });
     }
+  };
+  const followHandler = async () => {
+    setFollowing((prev) => {
+      const followingSet = new Set(userInfo.following);
+      if (prev) {
+        followingSet.delete(userData.user.username);
+
+        dispatch(authActions.setFollowingInfo(Array.from(followingSet)));
+      } else {
+        followingSet.add(userData.user.username);
+        dispatch(authActions.setFollowingInfo(Array.from(followingSet)));
+      }
+
+      return !prev;
+    });
+    const data = await fetch(`/api1/users/${userData.user.username}/follow`, {
+      method: "POST",
+    });
   };
   return (
     <>
@@ -225,8 +246,11 @@ const UserProfile1 = ({ userData }) => {
               <div className="flex space-x-5 mt-2 md:mr-5 content-center justify-center">
                 {!userData.isUser && (
                   <>
-                    <button className="bg-slate-100 text-black font-bold h-fit  p-3 rounded-full">
-                      DM
+                    <button
+                      className="bg-slate-100 text-black font-bold h-fit  p-3 rounded-full"
+                      onClick={followHandler}
+                    >
+                      {following ? "Following" : "Follow"}
                     </button>
                     <button className="bg-slate-100 text-black font-bold h-fit p-3 rounded-full">
                       IR
