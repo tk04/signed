@@ -7,11 +7,15 @@ import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { BsBookmark } from "react-icons/bs";
 import CircularProgress from "@mui/material/CircularProgress";
-
+import Popover from "@mui/material/Popover";
+import Typography from "@mui/material/Typography";
+import { MdDeleteForever } from "react-icons/md";
 const Post = (props) => {
+  const [openPopup, setOpenPopup] = useState(null);
   const userInfo = useSelector((state) => state.auth.userInfo);
   const [fillH, setFillH] = useState();
   const [loader, setLoader] = useState(true);
+  const [postHidden, setPostHidden] = useState(false);
   console.log(loader);
   useEffect(() => {
     console.log(props.likes);
@@ -56,8 +60,28 @@ const Post = (props) => {
     setLoader(0);
   };
   console.log(loader);
+  const handlePopupClick = (e) => {
+    setOpenPopup(e.currentTarget);
+  };
+  const open = Boolean(openPopup);
+  const id = open ? "simple-popover" : undefined;
+  const popupCloseHandler = () => {
+    setOpenPopup(null);
+  };
+  const deletePostHandler = async () => {
+    const data = await fetch(
+      `http://localhost:3000/api1/post/${props.postId}`,
+      {
+        method: "DELETE",
+      }
+    );
+    if (data.ok) {
+      setOpenPopup(null);
+      setPostHidden(true);
+    }
+  };
   return (
-    <>
+    <div className={`${postHidden ? "hidden" : ""}`}>
       <div className="space-x-4 bg-white p-6 rounded-xl m-4  ">
         <div className="flex items-center justify-between ">
           <div className="flex space-x-2  mb-4 ml-3">
@@ -77,8 +101,28 @@ const Post = (props) => {
           </div>
           <HiOutlineDotsHorizontal
             size={30}
+            onClick={handlePopupClick}
             className="cursor-pointer -mt-10"
           />
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={openPopup}
+            onClose={popupCloseHandler}
+            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          >
+            {props.username === userInfo.username && (
+              <Typography>
+                <div
+                  className="flex p-2 cursor-pointer"
+                  onClick={deletePostHandler}
+                >
+                  <MdDeleteForever size={25} color="red" />
+                  <span className="text-sm ">Delete</span>
+                </div>
+              </Typography>
+            )}
+          </Popover>
         </div>
         <div>
           <div>
@@ -155,7 +199,7 @@ const Post = (props) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
