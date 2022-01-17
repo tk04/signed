@@ -32,10 +32,6 @@ const CreatePosts = React.memo(() => {
         body: images,
         headers: images.getHeaders,
       });
-      if (img.ok) {
-        const imgRes = await img.json();
-        console.log(imgRes);
-      }
     }
   };
 
@@ -49,7 +45,6 @@ const CreatePosts = React.memo(() => {
   };
 
   const fileHandler = (e) => {
-    console.log("file change");
     if (e.target.files) {
       for (const file of e.target.files) {
         setFiles((prev) => {
@@ -67,7 +62,6 @@ const CreatePosts = React.memo(() => {
     }
     e.target.value = null;
   };
-  console.log(files);
   return (
     <>
       <div

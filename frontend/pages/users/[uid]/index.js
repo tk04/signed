@@ -25,7 +25,6 @@ const Users = (props) => {
       dispatch(getUserData());
     }
   }
-  console.log(props);
   return (
     <>
       {props.data ? (

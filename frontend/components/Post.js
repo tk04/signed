@@ -16,9 +16,7 @@ const Post = (props) => {
   const [fillH, setFillH] = useState();
   const [loader, setLoader] = useState(true);
   const [postHidden, setPostHidden] = useState(false);
-  console.log(loader);
   useEffect(() => {
-    console.log(props.likes);
     setFillH(userInfo ? props.likes.includes(userInfo.username) : false);
   }, [userInfo]);
   const [likes, setLikes] = useState(props.likes ? props.likes.length : 0);
@@ -39,10 +37,6 @@ const Post = (props) => {
     const data = await fetch(`/api1/posts/${props.postId}/like`, {
       method: "POST",
     });
-    if (data.ok) {
-      const res = await data.json();
-      console.log(res);
-    }
   };
   const imageClickHandler = (image) => {
     props.modalClick();
@@ -53,13 +47,11 @@ const Post = (props) => {
       return setLoader(0);
     }
     setLoader(false);
-    console.log(e);
   };
 
   const imageErrorHandler = () => {
     setLoader(0);
   };
-  console.log(loader);
   const handlePopupClick = (e) => {
     setOpenPopup(e.currentTarget);
   };
