@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import ProfileSettings from "../../../components/ProfileSettings";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserData } from "../../../store/auth-slice";
+import Cookies from "js-cookie";
 const Users = (props) => {
   const router = useRouter();
   const userInfo = useSelector((state) => state.auth.userInfo);
@@ -12,16 +13,19 @@ const Users = (props) => {
   const [userData, setUserData] = useState();
   useEffect(async () => {
     if (router.query.uid) {
-      const res = await fetch(`/api1/users/${router.query.uid}`);
+      const res = await fetch(`/api1/users/${router.query.uid}/avatar`);
       if (res.ok) {
         const data = await res.json();
         setUserData(data);
       }
     }
   }, [router.query.uid]);
-  if (!userInfo) {
-    dispatch(getUserData());
+  if (Cookies.get("token")) {
+    if (!userInfo) {
+      dispatch(getUserData());
+    }
   }
+  console.log(props);
   return (
     <>
       {props.data ? (

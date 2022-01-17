@@ -14,7 +14,9 @@ import ImageModal from "./ImageModal";
 const UserProfile1 = ({ userData }) => {
   const router = useRouter();
 
-  const [avatar, setAvatar] = useState();
+  const [avatar, setAvatar] = useState(
+    userData.user ? userData.user.avatar : null
+  );
   const [modalShow, setModalShow] = useState();
   const [posts, setPosts] = useState();
   const [imageSrc, setImageSrc] = useState();
@@ -25,70 +27,34 @@ const UserProfile1 = ({ userData }) => {
   console.log(imageSrc);
 
   useEffect(() => {
-    if (userData.isUser) {
-      setAvatar(userData.user.avatar);
-      const getPosts = async () => {
-        const postRes = await fetch(`/api1/posts/${userData.user.username}`);
-        if (postRes.ok) {
-          const pData = await postRes.json();
-          const pContent = (
-            <div className="flex flex-col w-full mt-10 ">
-              <div className=" mx-24">
-                {pData.map((post) => (
-                  <Post
-                    avatar={`data:image/png;base64,${userData.user.avatar}`}
-                    name={userData.user.name}
-                    username={userData.user.username}
-                    text={post.text}
-                    images={post.images}
-                    modalClick={() => setModalShow(true)}
-                    imageSrc={(image) => setImageSrc(image)}
-                    key={post._id}
-                    postId={post._id}
-                    likes={post.likes}
-                  />
-                ))}
-              </div>
+    const getPosts = async () => {
+      const postRes = await fetch(`/api1/posts/${userData.user.username}`);
+      if (postRes.ok) {
+        const pData = await postRes.json();
+        const pContent = (
+          <div className="flex flex-col w-full mt-10 ">
+            <div className=" mx-24">
+              {pData.map((post) => (
+                <Post
+                  avatar={`data:image/png;base64,${userData.user.avatar}`}
+                  name={userData.user.name}
+                  username={userData.user.username}
+                  text={post.text}
+                  images={post.images}
+                  modalClick={() => setModalShow(true)}
+                  imageSrc={(image) => setImageSrc(image)}
+                  key={post._id}
+                  postId={post._id}
+                  likes={post.likes}
+                />
+              ))}
             </div>
-          );
-          setPosts(pContent);
-        }
-      };
-      getPosts();
-    } else {
-      const getData = async () => {
-        const res = await fetch(`/api1/users/${userData.user.username}/avatar`);
-        if (res.ok) {
-          const data = await res.json();
-          setAvatar(Buffer.from(data.avatar.data).toString("base64"));
-          const postRes = await fetch(`/api1/posts/${userData.user.username}`);
-          if (postRes.ok) {
-            const pData = await postRes.json();
-            const pContent = (
-              <div className="flex flex-col w-full mt-10 bg-slate-50">
-                {pData.map((post) => (
-                  <Post
-                    avatar={`data:image/png;base64,${Buffer.from(
-                      data.avatar.data
-                    ).toString("base64")}`}
-                    name={userData.user.name}
-                    username={userData.user.username}
-                    text={post.text}
-                    images={post.images}
-                    modalClick={() => setModalShow(true)}
-                    key={post._id}
-                    postId={post._id}
-                    likes={post.likes}
-                  />
-                ))}
-              </div>
-            );
-            setPosts(pContent);
-          }
-        }
-        getData();
-      };
-    }
+          </div>
+        );
+        setPosts(pContent);
+      }
+    };
+    getPosts();
   }, []);
   const changeContentHandler = (type) => {
     if (type === "skills") {

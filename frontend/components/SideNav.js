@@ -7,13 +7,16 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserData } from "../store/auth-slice";
+import Cookies from "js-cookie";
 const SideNav = () => {
   const userData = useSelector((state) => state.auth.userInfo);
 
   const dispatch = useDispatch();
   // console.log(userData);
-  if (!userData) {
-    dispatch(getUserData());
+  if (Cookies.get("token")) {
+    if (!userData) {
+      dispatch(getUserData());
+    }
   }
   // useEffect(() => {
   //   dispatch(getUserData());
