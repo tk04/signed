@@ -41,6 +41,7 @@ const home = () => {
       window.scrollTo(0, document.body.scrollHeight);
     }
   };
+
   const unfollowFilter = (username) => {
     console.log("filtering");
     setPosts((prev) => prev.filter((post) => post.owner.username !== username));

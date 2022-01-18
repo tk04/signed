@@ -86,13 +86,15 @@ const Post = (props) => {
   };
   console.log(props.userId);
   const unfollowHandler = async () => {
-    await fetch(`/api1/users/${props.userId}/follow`, {
-      method: "POST",
-    });
+    setOpenPopup(null);
     if (props.unfollowFilter) {
       console.log("props filter");
       props.unfollowFilter(props.username);
     }
+    console.log(props.username);
+    await fetch(`/api1/users/${props.userId}/follow`, {
+      method: "POST",
+    });
   };
   return (
     <div className={`${postHidden ? "hidden" : ""}`}>
