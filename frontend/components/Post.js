@@ -10,12 +10,14 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import { MdDeleteForever } from "react-icons/md";
+import { RiUserUnfollowLine } from "react-icons/ri";
 const Post = (props) => {
   const [openPopup, setOpenPopup] = useState(null);
   const userInfo = useSelector((state) => state.auth.userInfo);
   const [fillH, setFillH] = useState();
   const [loader, setLoader] = useState(true);
   const [postHidden, setPostHidden] = useState(false);
+
   const [likes, setLikes] = useState({ init: true, count: props.likes.length });
   useEffect(() => {
     setFillH(userInfo ? props.likes.includes(userInfo.username) : false);
@@ -82,6 +84,16 @@ const Post = (props) => {
       setPostHidden(true);
     }
   };
+  console.log(props.userId);
+  const unfollowHandler = async () => {
+    await fetch(`/api1/users/${props.userId}/follow`, {
+      method: "POST",
+    });
+    if (props.unfollowFilter) {
+      console.log("props filter");
+      props.unfollowFilter(props.username);
+    }
+  };
   return (
     <div className={`${postHidden ? "hidden" : ""}`}>
       <div className="space-x-4 bg-white p-6 rounded-xl m-4  ">
@@ -113,7 +125,7 @@ const Post = (props) => {
             onClose={popupCloseHandler}
             anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
           >
-            {userInfo && props.username === userInfo.username && (
+            {userInfo && props.username === userInfo.username ? (
               <Typography>
                 <MdDeleteForever
                   size={35}
@@ -121,6 +133,14 @@ const Post = (props) => {
                   className="flex p-2 cursor-pointer"
                   onClick={deletePostHandler}
                 />
+              </Typography>
+            ) : (
+              <Typography
+                className="flex p-2 cursor-pointer hover:bg-slate-100"
+                onClick={unfollowHandler}
+              >
+                <RiUserUnfollowLine size={25} color="red" />
+                <span className="text-sm ml-1 text-red-500">Unfollow</span>
               </Typography>
             )}
           </Popover>

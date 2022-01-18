@@ -41,6 +41,10 @@ const home = () => {
       window.scrollTo(0, document.body.scrollHeight);
     }
   };
+  const unfollowFilter = (username) => {
+    console.log("filtering");
+    setPosts((prev) => prev.filter((post) => post.owner.username !== username));
+  };
   return (
     <>
       {modalShow && (
@@ -82,6 +86,8 @@ const home = () => {
                 postId={post._id}
                 modalClick={() => setModalShow(true)}
                 imageSrc={(image) => setImageSrc(image)}
+                userId={post.owner._id}
+                unfollowFilter={unfollowFilter}
               />
             ))}
             {postLoader === true && (
