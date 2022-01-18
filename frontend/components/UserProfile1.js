@@ -12,7 +12,7 @@ import SideNav from "./SideNav";
 import Post from "./Post";
 import ImageModal from "./ImageModal";
 import { authActions } from "../store/auth-slice";
-const UserProfile1 = ({ userData, isFollowing }) => {
+const UserProfile1 = ({ userData }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const userInfo = useSelector((state) => state.auth.userInfo);
@@ -111,7 +111,7 @@ const UserProfile1 = ({ userData, isFollowing }) => {
 
       return !prev;
     });
-    const data = await fetch(`/api1/users/${userData.user.username}/follow`, {
+    const data = await fetch(`/api1/users/${userData.user._id}/follow`, {
       method: "POST",
     });
   };
