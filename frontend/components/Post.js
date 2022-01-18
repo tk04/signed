@@ -103,15 +103,14 @@ const Post = (props) => {
             onClose={popupCloseHandler}
             anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
           >
-            {props.username === userInfo.username && (
+            {userInfo && props.username === userInfo.username && (
               <Typography>
-                <div
+                <MdDeleteForever
+                  size={35}
+                  color="red"
                   className="flex p-2 cursor-pointer"
                   onClick={deletePostHandler}
-                >
-                  <MdDeleteForever size={25} color="red" />
-                  <span className="text-sm ">Delete</span>
-                </div>
+                />
               </Typography>
             )}
           </Popover>

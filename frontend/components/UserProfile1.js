@@ -28,10 +28,11 @@ const UserProfile1 = ({ userData, isFollowing }) => {
   const [userContent, setUserContent] = useState({
     type: "posts",
   });
+  console.log(userData.user._id);
 
   useEffect(() => {
     const getPosts = async () => {
-      const postRes = await fetch(`/api1/posts/${userData.user.username}`);
+      const postRes = await fetch(`/api1/posts/${userData.user._id}`);
       if (postRes.ok) {
         const pData = await postRes.json();
         const pContent = (
