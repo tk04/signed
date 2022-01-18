@@ -38,6 +38,7 @@ const home = () => {
     const target = e.target;
     if (target.scrollHeight - target.scrollTop === target.clientHeight) {
       setSkip((prev) => prev + 3);
+      window.scrollTo(0, document.body.scrollHeight);
     }
   };
   return (

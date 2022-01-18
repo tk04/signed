@@ -16,20 +16,30 @@ const Post = (props) => {
   const [fillH, setFillH] = useState();
   const [loader, setLoader] = useState(true);
   const [postHidden, setPostHidden] = useState(false);
+  const [likes, setLikes] = useState({ init: true, count: props.likes.length });
   useEffect(() => {
     setFillH(userInfo ? props.likes.includes(userInfo.username) : false);
   }, [userInfo]);
-  const [likes, setLikes] = useState(props.likes ? props.likes.length : 0);
-
+  useEffect(() => {
+    if (!likes.init) {
+      if (fillH) {
+        setLikes((prev) => ({ ...prev, count: props.likes.length + 1 }));
+      } else if (!fillH) {
+        setLikes((prev) => ({
+          ...prev,
+          count: prev.count - 1,
+        }));
+      }
+      console.log(fillH);
+    }
+    // console.log(likes);
+  }, [fillH]);
   const fillHandler = () => {
     setFillH((prev) => {
-      if (prev) {
-        setLikes(prev - 1);
-      } else {
-        setLikes(prev + 1);
-      }
       return !prev;
     });
+    setLikes((prev) => ({ ...prev, init: false }));
+
     likeHandler();
   };
 
@@ -173,7 +183,7 @@ const Post = (props) => {
                 />
               )}
               <p className="text-md text-gray-500">
-                <span className="pr-1">{likes}</span> Likes
+                <span className="pr-1">{likes.count}</span> Likes
               </p>
             </div>
             <div className="flex space-x-4 cursor-pointer">
