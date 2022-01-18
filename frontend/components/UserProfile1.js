@@ -294,8 +294,8 @@ const UserProfile1 = ({ userData }) => {
               </div>
             </div>
             {userContent.type === "posts" ? (
-              <div className="flex flex-col w-full mt-10 ">
-                <div className="mx-24 ">
+              <div className="flex flex-col w-full md:mt-10 ">
+                <div className="md:mx-24 ">
                   {posts.map((post) => (
                     <Post
                       avatar={`data:image/png;base64,${userData.user.avatar}`}

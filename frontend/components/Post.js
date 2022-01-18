@@ -11,8 +11,10 @@ import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import { MdDeleteForever } from "react-icons/md";
 import { RiUserUnfollowLine } from "react-icons/ri";
+import Comment from "./Comment";
 const Post = (props) => {
   const [openPopup, setOpenPopup] = useState(null);
+  const [openCommentPopup, setOpenCommentPopup] = useState(null);
   const userInfo = useSelector((state) => state.auth.userInfo);
   const [fillH, setFillH] = useState();
   const [loader, setLoader] = useState(true);
@@ -68,9 +70,13 @@ const Post = (props) => {
     setOpenPopup(e.currentTarget);
   };
   const open = Boolean(openPopup);
+  const commentOpen = Boolean(openCommentPopup);
   const id = open ? "simple-popover" : undefined;
   const popupCloseHandler = () => {
     setOpenPopup(null);
+  };
+  const commentCloseHandler = () => {
+    setOpenCommentPopup(null);
   };
   const deletePostHandler = async () => {
     const data = await fetch(
@@ -96,6 +102,11 @@ const Post = (props) => {
       method: "POST",
     });
   };
+
+  const commentPopup = (e) => {
+    setOpenCommentPopup(e.currentTarget);
+  };
+
   return (
     <div className={`${postHidden ? "hidden" : ""}`}>
       <div className="space-x-4 bg-white p-6 rounded-xl m-4  ">
@@ -182,13 +193,26 @@ const Post = (props) => {
           </div>
           <hr className="mt-6" />
           <div className="flex  mt-6 w-full  justify-evenly">
-            <div className="flex space-x-4 cursor-pointer ">
+            <div
+              className="flex space-x-4 cursor-pointer"
+              onClick={commentPopup}
+            >
               <BiComment
                 size={20}
                 className="cursor-pointer hover:text-blue-600 text-gray-500 mt-1"
               />
               <p className="text-md text-gray-500">Comments</p>
             </div>
+            <Popover
+              id={id}
+              open={commentOpen}
+              anchorEl={openCommentPopup}
+              onClose={commentCloseHandler}
+              className="overflow-y-auto "
+              anchorOrigin={{ vertical: -60, horizontal: "center" }}
+            >
+              <Comment postId={props.postId} />
+            </Popover>
             <div
               className="flex space-x-4 cursor-pointer"
               onClick={fillHandler}
