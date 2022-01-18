@@ -21,45 +21,33 @@ const UserProfile1 = ({ userData, isFollowing }) => {
     userData.user ? userData.user.avatar : null
   );
   const [modalShow, setModalShow] = useState();
-  const [posts, setPosts] = useState();
+  const [posts, setPosts] = useState([]);
+  const [postSkip, setPostSkip] = useState(0);
   const [imageSrc, setImageSrc] = useState();
-  const [postModal, setPostModal] = useState();
   const [following, setFollowing] = useState(userData.isFollowing);
   const [userContent, setUserContent] = useState({
     type: "posts",
   });
   console.log(userData.user._id);
-
+  const scrollHandler = (e) => {
+    const target = e.target;
+    if (target.scrollHeight - target.scrollTop === target.clientHeight) {
+      setPostSkip((prev) => prev + 3);
+    }
+  };
   useEffect(() => {
     const getPosts = async () => {
-      const postRes = await fetch(`/api1/posts/${userData.user._id}`);
+      const postRes = await fetch(
+        `/api1/posts/${userData.user._id}?skip=${postSkip}`
+      );
       if (postRes.ok) {
         const pData = await postRes.json();
-        const pContent = (
-          <div className="flex flex-col w-full mt-10 ">
-            <div className=" mx-24">
-              {pData.map((post) => (
-                <Post
-                  avatar={`data:image/png;base64,${userData.user.avatar}`}
-                  name={userData.user.name}
-                  username={userData.user.username}
-                  text={post.text}
-                  images={post.images}
-                  modalClick={() => setModalShow(true)}
-                  imageSrc={(image) => setImageSrc(image)}
-                  key={post._id}
-                  postId={post._id}
-                  likes={post.likes}
-                />
-              ))}
-            </div>
-          </div>
-        );
-        setPosts(pContent);
+
+        setPosts((prev) => prev.concat(pData));
       }
     };
     getPosts();
-  }, []);
+  }, [postSkip]);
   const changeContentHandler = (type) => {
     if (type === "skills") {
       const content = (
@@ -136,12 +124,15 @@ const UserProfile1 = ({ userData, isFollowing }) => {
           removeHandler={() => setModalShow(false)}
         />
       )}
-      <div className=" grid grid-cols-[100%] m-0 p-0 lg:grid-cols-[25%_60%]  box-border">
+      <div
+        className=" grid grid-cols-[100%] m-0 p-0 lg:grid-cols-[25%_60%] box-border w-full h-screen overflow-y-scroll"
+        onScroll={scrollHandler}
+      >
         <div className="hidden lg:block">
           <SideNav />
         </div>
-        <div className="mt-7 h-full">
-          <div className="bg-white justify-between h-fit ">
+        <div className="mt-7 h-full  ">
+          <div className="bg-white justify-between h-fit  ">
             <div className="md:flex md:justify-between  h-fit">
               <div className="md:flex">
                 <div className="flex flex-col items-center justify-center ">
@@ -303,7 +294,24 @@ const UserProfile1 = ({ userData, isFollowing }) => {
               </div>
             </div>
             {userContent.type === "posts" ? (
-              <>{posts}</>
+              <div className="flex flex-col w-full mt-10 ">
+                <div className="mx-24 ">
+                  {posts.map((post) => (
+                    <Post
+                      avatar={`data:image/png;base64,${userData.user.avatar}`}
+                      name={userData.user.name}
+                      username={userData.user.username}
+                      text={post.text}
+                      images={post.images}
+                      modalClick={() => setModalShow(true)}
+                      imageSrc={(image) => setImageSrc(image)}
+                      key={post._id}
+                      postId={post._id}
+                      likes={post.likes}
+                    />
+                  ))}
+                </div>
+              </div>
             ) : (
               <> {userContent.content}</>
             )}

@@ -26,7 +26,7 @@ const Users = (props) => {
     }
   }
   return (
-    <>
+    <div>
       {props.data ? (
         <>
           {edit === "true" && props.data.isUser === true && (
@@ -38,12 +38,11 @@ const Users = (props) => {
             />
           )}
           {!props.data.isUser && <UserProfile userData={props.data} />}
-          {/* <UserProfile userData={userData} /> */}
         </>
       ) : (
         <p>User not found</p>
       )}
-    </>
+    </div>
   );
 };
 
