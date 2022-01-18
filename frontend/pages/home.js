@@ -4,6 +4,8 @@ import SideNav from "../components/SideNav";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Post from "../components/Post";
+import CircularProgress from "@mui/material/CircularProgress";
+
 import ImageModal from "../components/ImageModal";
 const home = () => {
   const router = useRouter();
@@ -11,20 +13,28 @@ const home = () => {
   const [modalShow, setModalShow] = useState(false);
   const [skip, setSkip] = useState(0);
   const [imageSrc, setImageSrc] = useState(null);
+  const [postLoader, setPostLoader] = useState(false);
+  const [maxPosts, setMaxPosts] = useState(false);
   const { newpost } = router.query;
   useEffect(() => {
     const getP = async () => {
+      setPostLoader(true);
       const data = await fetch(`/api1/feed?skip=${skip}`);
       if (data.ok) {
         const res = await data.json();
-        console.log(res.posts);
+        console.log(res);
+        if (res.posts.length === 0) {
+          setMaxPosts(true);
+        }
         setPosts((prev) => prev.concat(res.posts));
       }
+      setPostLoader(false);
     };
-    getP();
+    if (!maxPosts) {
+      getP();
+    }
   }, [skip]);
   const scrollHandler = (e) => {
-    // console.log(e.target);
     const target = e.target;
     if (target.scrollHeight - target.scrollTop === target.clientHeight) {
       setSkip((prev) => prev + 3);
@@ -73,6 +83,11 @@ const home = () => {
                 imageSrc={(image) => setImageSrc(image)}
               />
             ))}
+            {postLoader === true && (
+              <div className="h-40 flex justify-center">
+                <CircularProgress />
+              </div>
+            )}
           </div>
           <div>
             <p>last col</p>
