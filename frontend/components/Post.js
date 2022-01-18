@@ -12,7 +12,9 @@ import Typography from "@mui/material/Typography";
 import { MdDeleteForever } from "react-icons/md";
 import { RiUserUnfollowLine } from "react-icons/ri";
 import Comment from "./Comment";
+import { useRouter } from "next/router";
 const Post = (props) => {
+  const router = useRouter();
   const [openPopup, setOpenPopup] = useState(null);
   const [openCommentPopup, setOpenCommentPopup] = useState(null);
   const userInfo = useSelector((state) => state.auth.userInfo);
@@ -106,10 +108,12 @@ const Post = (props) => {
   const commentPopup = (e) => {
     setOpenCommentPopup(e.currentTarget);
   };
-
+  const postPageHandler = () => {
+    router.push(`/post/${props.postId}`);
+  };
   return (
     <div className={`${postHidden ? "hidden" : ""}`}>
-      <div className="space-x-4 bg-white p-6 rounded-xl m-4  ">
+      <div className="space-x-4 bg-white p-6 rounded-xl m-4 ">
         <div className="flex items-center justify-between ">
           <div className="flex space-x-2  mb-4 ml-3">
             {props.avatar && (
@@ -159,7 +163,7 @@ const Post = (props) => {
           </Popover>
         </div>
         <div>
-          <div>
+          <div onClick={postPageHandler} className=" cursor-crosshair">
             <div>
               <p>{props.text}</p>
             </div>

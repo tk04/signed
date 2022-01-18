@@ -10,7 +10,9 @@ const Comment = (props) => {
   const [avatar, setAvatar] = useState();
   const [filesErr, setFilesErr] = useState();
   useEffect(() => {
-    setAvatar(userInfo.avatar);
+    if (userInfo) {
+      setAvatar(userInfo.avatar);
+    }
   }, [userInfo]);
 
   const submitHandler = async (e) => {
