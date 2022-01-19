@@ -87,6 +87,7 @@ const home = () => {
                 modalClick={() => setModalShow(true)}
                 imageSrc={(image) => setImageSrc(image)}
                 userId={post.owner._id}
+                commentCount={post.comments.length}
                 unfollowFilter={unfollowFilter}
               />
             ))}

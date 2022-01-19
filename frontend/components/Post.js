@@ -209,7 +209,9 @@ const Post = (props) => {
                 size={20}
                 className="cursor-pointer hover:text-blue-600 text-gray-500 mt-1"
               />
-              <p className="text-md text-gray-500">Comments</p>
+              <p className="text-md text-gray-500">
+                {props.commentCount} Comments
+              </p>
             </div>
             <Popover
               id={id}

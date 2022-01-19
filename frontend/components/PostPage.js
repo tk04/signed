@@ -52,9 +52,6 @@ const PostPage = ({ pid }) => {
 
   useEffect(() => {
     if (pid) {
-      if (postRef.current) {
-        postRef.current.scrollIntoView({ behavior: "smooth" });
-      }
       getPost();
     }
   }, [pid]);
@@ -94,6 +91,9 @@ const PostPage = ({ pid }) => {
       window.scrollTo(0, document.body.scrollHeight);
     }
   };
+  if (postRef.current) {
+    postRef.current.scrollIntoView({ behavior: "smooth" });
+  }
   return (
     <>
       {modalShow && (
@@ -135,6 +135,7 @@ const PostPage = ({ pid }) => {
                           modalClick={() => setModalShow(true)}
                           imageSrc={(image) => setImageSrc(image)}
                           userId={p.owner._id}
+                          commentCount={p.comments.length}
                         />
                         <CgArrowLongUp size={150} />
                       </>
@@ -153,6 +154,7 @@ const PostPage = ({ pid }) => {
                     modalClick={() => setModalShow(true)}
                     imageSrc={(image) => setImageSrc(image)}
                     userId={post.owner._id}
+                    commentCount={post.comments.length}
                   />
                 </div>
                 <h1>Comments:</h1>
@@ -179,6 +181,7 @@ const PostPage = ({ pid }) => {
                           modalClick={() => setModalShow(true)}
                           imageSrc={(image) => setImageSrc(image)}
                           userId={comment.owner._id}
+                          commentCount={comment.comments.length}
                         />
                       ))}
                   </div>
