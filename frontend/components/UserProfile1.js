@@ -28,7 +28,6 @@ const UserProfile1 = ({ userData }) => {
   const [userContent, setUserContent] = useState({
     type: "posts",
   });
-  console.log(userData.user._id);
   const scrollHandler = (e) => {
     const target = e.target;
     if (target.scrollHeight - target.scrollTop === target.clientHeight) {

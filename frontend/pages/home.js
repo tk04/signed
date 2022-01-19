@@ -22,7 +22,6 @@ const home = () => {
       const data = await fetch(`/api1/feed?skip=${skip}`);
       if (data.ok) {
         const res = await data.json();
-        console.log(res);
         if (res.posts.length === 0) {
           setMaxPosts(true);
         }

@@ -13,6 +13,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { RiUserUnfollowLine } from "react-icons/ri";
 import Comment from "./Comment";
 import { useRouter } from "next/router";
+import Link from "next/link";
 const Post = (props) => {
   const router = useRouter();
   const [openPopup, setOpenPopup] = useState(null);
@@ -36,7 +37,6 @@ const Post = (props) => {
           count: prev.count - 1,
         }));
       }
-      console.log(fillH);
     }
     // console.log(likes);
   }, [fillH]);
@@ -92,14 +92,11 @@ const Post = (props) => {
       setPostHidden(true);
     }
   };
-  console.log(props.userId);
   const unfollowHandler = async () => {
     setOpenPopup(null);
     if (props.unfollowFilter) {
-      console.log("props filter");
       props.unfollowFilter(props.username);
     }
-    console.log(props.username);
     await fetch(`/api1/users/${props.userId}/follow`, {
       method: "POST",
     });
@@ -163,38 +160,45 @@ const Post = (props) => {
           </Popover>
         </div>
         <div>
-          <div onClick={postPageHandler} className=" cursor-crosshair">
-            <div>
-              <p>{props.text}</p>
-            </div>
-            <div
-              className="grid  gap-4 grid-flow-col auto-rows-auto  mt-4 justify-center align-center"
-              style={{ maxheight: "50px" }}
-            >
-              {props.images &&
-                props.images.map((image, idx) => (
-                  <div onClick={imageClickHandler.bind(null, image)} key={idx}>
-                    <div>
-                      {loader === true && <CircularProgress />}
-                      <div
-                        className={`${loader || loader === 0 ? "w-0 h-0" : ""}`}
-                      >
-                        <Image
-                          src={image}
-                          key={idx}
-                          width="400"
-                          height="350"
-                          objectFit="cover"
-                          className="overflow-hidden rounded-xl cursor-pointer max-h-96"
-                          onLoadingComplete={(e) => disableLoaderHandler(e)}
-                          onError={imageErrorHandler}
-                        />
+          <Link href={`/post/${props.postId}`}>
+            <div className=" cursor-crosshair">
+              <div>
+                <p>{props.text}</p>
+              </div>
+              <div
+                className="grid  gap-4 grid-flow-col auto-rows-auto  mt-4 justify-center align-center"
+                style={{ maxheight: "50px" }}
+              >
+                {props.images &&
+                  props.images.map((image, idx) => (
+                    <div
+                      onClick={imageClickHandler.bind(null, image)}
+                      key={idx}
+                    >
+                      <div>
+                        {loader === true && <CircularProgress />}
+                        <div
+                          className={`${
+                            loader || loader === 0 ? "w-0 h-0" : ""
+                          }`}
+                        >
+                          <Image
+                            src={image}
+                            key={idx}
+                            width="400"
+                            height="350"
+                            objectFit="cover"
+                            className="overflow-hidden rounded-xl cursor-pointer max-h-96"
+                            onLoadingComplete={(e) => disableLoaderHandler(e)}
+                            onError={imageErrorHandler}
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+              </div>
             </div>
-          </div>
+          </Link>
           <hr className="mt-6" />
           <div className="flex  mt-6 w-full  justify-evenly">
             <div
