@@ -160,6 +160,17 @@ const Post = (props) => {
           </Popover>
         </div>
         <div>
+          {props.commentTo && (
+            <p className="text-gray-400 -mt-3">
+              replying to{" "}
+              <span
+                className="text-blue-400 cursor-pointer"
+                onClick={() => router.push(`/users/${props.commentTo}`)}
+              >
+                @{props.commentTo}
+              </span>
+            </p>
+          )}
           <Link href={`/post/${props.postId}`}>
             <div className=" cursor-crosshair">
               <div>

@@ -88,6 +88,9 @@ const home = () => {
                 imageSrc={(image) => setImageSrc(image)}
                 userId={post.owner._id}
                 commentCount={post.comments.length}
+                commentTo={
+                  post.commentTo ? post.commentTo.owner.username : null
+                }
                 unfollowFilter={unfollowFilter}
               />
             ))}
