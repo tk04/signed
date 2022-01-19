@@ -11,8 +11,8 @@ const home = () => {
   const router = useRouter();
   const [posts, setPosts] = useState([]);
   const [modalShow, setModalShow] = useState(false);
-  const [skip, setSkip] = useState(0);
   const [imageSrc, setImageSrc] = useState(null);
+  const [skip, setSkip] = useState(0);
   const [postLoader, setPostLoader] = useState(false);
   const [maxPosts, setMaxPosts] = useState(false);
   const { newpost } = router.query;
