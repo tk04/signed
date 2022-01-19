@@ -35,7 +35,10 @@ const SideNav = () => {
           <TiHomeOutline size={35} />
           <p className="font-bold mt-1">Home</p>
         </div>
-        <div className={`flex space-x-4 ml-5 ${onHover} `}>
+        <div
+          className={`flex space-x-4 ml-5 ${onHover} `}
+          onClick={() => router.push("/popular")}
+        >
           <HiTrendingUp size={35} />
           <p className="font-bold mt-1">Trending</p>
         </div>

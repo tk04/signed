@@ -86,9 +86,11 @@ const PostPage = ({ pid }) => {
 
   const scrollHandler = (e) => {
     const target = e.target;
-    if (target.scrollHeight - target.scrollTop === target.clientHeight) {
-      setSkip((prev) => prev + 3);
-      window.scrollTo(0, document.body.scrollHeight);
+    if (!maxComments) {
+      if (target.scrollHeight - target.scrollTop === target.clientHeight) {
+        setSkip((prev) => prev + 3);
+        window.scrollTo(0, document.body.scrollHeight);
+      }
     }
   };
   if (postRef.current) {

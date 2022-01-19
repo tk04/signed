@@ -105,9 +105,7 @@ const Post = (props) => {
   const commentPopup = (e) => {
     setOpenCommentPopup(e.currentTarget);
   };
-  const postPageHandler = () => {
-    router.push(`/post/${props.postId}`);
-  };
+
   return (
     <div className={`${postHidden ? "hidden" : ""}`}>
       <div className="space-x-4 bg-white p-6 rounded-xl m-4 ">
