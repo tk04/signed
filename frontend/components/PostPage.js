@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Post from "./Post";
 import ImageModal from "./ImageModal";
 import SideNav from "./SideNav";
 import Link from "next/link";
 import CircularProgress from "@mui/material/CircularProgress";
-
+import { CgArrowLongUp } from "react-icons/cg";
 const PostPage = ({ pid }) => {
+  const postRef = useRef();
   const [post, setPost] = useState();
   const [modalShow, setModalShow] = useState(false);
   const [skip, setSkip] = useState(0);
@@ -22,6 +23,7 @@ const PostPage = ({ pid }) => {
     if (data.ok) {
       const res = await data.json();
 
+      // window.scrollTo({ top: 100, left: 0, behavior: "smooth" });
       setComments([]);
       setThreadPost(null);
       setThreadPosts([]);
@@ -50,6 +52,9 @@ const PostPage = ({ pid }) => {
 
   useEffect(() => {
     if (pid) {
+      if (postRef.current) {
+        postRef.current.scrollIntoView({ behavior: "smooth" });
+      }
       getPost();
     }
   }, [pid]);
@@ -62,7 +67,6 @@ const PostPage = ({ pid }) => {
     if (!maxComments) {
       if (post && skip !== 0) {
         getComments();
-        console.log(skip);
       }
     }
   }, [skip]);
@@ -74,7 +78,6 @@ const PostPage = ({ pid }) => {
           const data = await fetch(`/api1/post/${threadPost.commentTo._id}`);
           if (data.ok) {
             const res = await data.json();
-            console.log(res);
             setThreadPost(res);
           }
         };
@@ -84,7 +87,6 @@ const PostPage = ({ pid }) => {
     }
   }, [threadPost]);
 
-  console.log(threadPosts);
   const scrollHandler = (e) => {
     const target = e.target;
     if (target.scrollHeight - target.scrollTop === target.clientHeight) {
@@ -92,7 +94,6 @@ const PostPage = ({ pid }) => {
       window.scrollTo(0, document.body.scrollHeight);
     }
   };
-  console.log(comments);
   return (
     <>
       {modalShow && (
@@ -121,39 +122,47 @@ const PostPage = ({ pid }) => {
                 {threadPosts && (
                   <>
                     {threadPosts.reverse().map((p) => (
-                      <Post
-                        username={p.owner.username}
-                        likes={p.likes}
-                        key={p._id}
-                        name={p.owner.name}
-                        text={p.text}
-                        images={p.images}
-                        avatar={`data:image/png;base64,${p.owner.avatar}`}
-                        postId={p._id}
-                        modalClick={() => setModalShow(true)}
-                        imageSrc={(image) => setImageSrc(image)}
-                        userId={p.owner._id}
-                      />
+                      <>
+                        <Post
+                          username={p.owner.username}
+                          likes={p.likes}
+                          key={p._id}
+                          name={p.owner.name}
+                          text={p.text}
+                          images={p.images}
+                          avatar={`data:image/png;base64,${p.owner.avatar}`}
+                          postId={p._id}
+                          modalClick={() => setModalShow(true)}
+                          imageSrc={(image) => setImageSrc(image)}
+                          userId={p.owner._id}
+                        />
+                        <CgArrowLongUp size={150} />
+                      </>
                     ))}
                   </>
                 )}
-                <Post
-                  username={post.owner.username}
-                  likes={post.likes}
-                  name={post.owner.name}
-                  text={post.text}
-                  images={post.images}
-                  avatar={`data:image/png;base64,${post.owner.avatar}`}
-                  postId={post._id}
-                  modalClick={() => setModalShow(true)}
-                  imageSrc={(image) => setImageSrc(image)}
-                  userId={post.owner._id}
-                />
-
+                <div ref={postRef}>
+                  <Post
+                    username={post.owner.username}
+                    likes={post.likes}
+                    name={post.owner.name}
+                    text={post.text}
+                    images={post.images}
+                    avatar={`data:image/png;base64,${post.owner.avatar}`}
+                    postId={post._id}
+                    modalClick={() => setModalShow(true)}
+                    imageSrc={(image) => setImageSrc(image)}
+                    userId={post.owner._id}
+                  />
+                </div>
                 <h1>Comments:</h1>
                 <div
-                  className="flex flex-col justify-center items-center rounded-lg "
-                  style={{ width: "100%", backgroundColor: "#fafafa" }}
+                  className="flex flex-col  items-center rounded-lg "
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    backgroundColor: "#fafafa",
+                  }}
                 >
                   <div style={{ width: "40vw" }}>
                     {comments &&
