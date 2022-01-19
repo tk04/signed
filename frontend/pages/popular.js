@@ -17,6 +17,7 @@ const popular = () => {
       }
     };
     getPosts();
+    console.log(skip);
   }, [skip]);
   console.log(posts);
   const scrollHandler = (e) => {
@@ -58,7 +59,7 @@ const popular = () => {
                       username={post.owner.username}
                       likes={post.likes}
                       name={post.owner.name}
-                      key={idx}
+                      key={post._id}
                       text={post.text}
                       images={post.images}
                       avatar={`data:image/png;base64,${post.owner.avatar}`}
