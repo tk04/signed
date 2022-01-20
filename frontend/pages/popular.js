@@ -54,7 +54,7 @@ const popular = () => {
           <div className="flex flex-col  ">
             <div className="bg-slate-400 mt-5">
               <h1 className="ml-20 mb-3 font-bold text-lg ">Trending</h1>
-              <hr />
+              <hr className="ml-10" style={{ width: "90%" }} />
               <Link href="/home?newpost=true" as="/home">
                 <div className="flex mt-6 space-x-2 cursor-pointer justify-center">
                   {userInfo && userInfo.avatar && (

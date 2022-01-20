@@ -9,11 +9,17 @@ const Comment = (props) => {
   const [files, setFiles] = useState([]);
   const [avatar, setAvatar] = useState();
   const [filesErr, setFilesErr] = useState();
+  const [height, setHeight] = useState(40);
   useEffect(() => {
     if (userInfo) {
       setAvatar(userInfo.avatar);
     }
   }, [userInfo]);
+
+  // const adjustSize = () => {
+  //   const textbox = document.getElementById("commentTextBox");
+  //   textbox.style.height = 500;
+  // };
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -70,7 +76,7 @@ const Comment = (props) => {
     e.target.value = null;
   };
   return (
-    <div className="flex w-full">
+    <div className="flex" style={{ width: "100%" }}>
       <div className="mt-4 ml-4 ">
         {userInfo && userInfo.avatar && (
           <Image
@@ -87,8 +93,9 @@ const Comment = (props) => {
         className="bg-white pt-4 pl-4 pr-4 rounded-2xl  "
       >
         <textarea
-          className=" resize-none rounded-md pt-2 pl-2 leading-4 focus:outline-none text-lg"
-          style={{ width: "30vw", height: "10vh" }}
+          className=" resize-none rounded-md pt-2 pl-2 leading-4 focus:outline-none text-lg "
+          style={{ width: "21vw" }}
+          id="commentTextBox"
           size={65}
           placeholder="New comment  ?"
           ref={postRef}
