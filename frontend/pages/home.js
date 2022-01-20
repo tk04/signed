@@ -8,6 +8,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import ImageModal from "../components/ImageModal";
 import SearchBox from "../components/SearchBox";
+import UserSuggestions from "../components/UserSuggestions";
 const home = () => {
   const router = useRouter();
   const [posts, setPosts] = useState([]);
@@ -103,6 +104,7 @@ const home = () => {
           </div>
           <div>
             <SearchBox />
+            <UserSuggestions />
           </div>
         </div>
       </div>

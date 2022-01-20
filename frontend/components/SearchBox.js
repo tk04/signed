@@ -70,7 +70,7 @@ const SearchBox = () => {
         />
       </div>
       {openPopup && (
-        <div className="w-full bg-slate-100 h-80  rounded-xl mt-3 overflow-auto">
+        <div className="absolute w-full bg-slate-100 h-80  rounded-xl mt-3 overflow-auto z-10">
           {users.length > 0 && (
             <ul>
               {users.map((user) => (
