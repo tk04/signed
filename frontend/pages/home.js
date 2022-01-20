@@ -70,7 +70,7 @@ const home = () => {
           <div className="hidden lg:block">
             <SideNav />
           </div>
-          <div className="flex flex-col  ">
+          <div className="flex flex-col ">
             <Link href="/home?newpost=true" as="/home">
               Create post
             </Link>

@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserData } from "../store/auth-slice";
 import Cookies from "js-cookie";
+import Link from "next/link";
 const SideNav = () => {
   const userData = useSelector((state) => state.auth.userInfo);
 
@@ -26,8 +27,8 @@ const SideNav = () => {
   const onHover =
     "px-7 py-2 my-4 hover:bg-slate-50 rounded-full hover:cursor-pointer";
   return (
-    <nav className=" fixed flex flex-col items-center pt-32 h-screen place-content-between ml-10 ">
-      <div className="flex flex-col items-center space-x-6  p-0 m-0 w-full ">
+    <nav className=" fixed flex flex-col items-center pt-32 h-screen place-content-between ml-20 ">
+      <div className="flex flex-col items-start p-0 m-0 w-full ">
         <div
           className={`flex space-x-4 ${onHover} `}
           onClick={() => router.push("/home")}
@@ -36,19 +37,26 @@ const SideNav = () => {
           <p className="font-bold mt-1">Home</p>
         </div>
         <div
-          className={`flex space-x-4 ml-5 ${onHover} `}
+          className={`flex space-x-4  ${onHover} `}
           onClick={() => router.push("/popular")}
         >
           <HiTrendingUp size={35} />
           <p className="font-bold mt-1">Trending</p>
         </div>
-        <div className={`flex space-x-4 ml-7 ${onHover}`}>
+        <div className={`flex space-x-4  ${onHover}`}>
           <BiMessageRoundedDetail size={35} />
           <p className="font-bold mt-1">Messages</p>
         </div>
-        <div className={`flex space-x-4 relative left-3 ${onHover}`}>
+        <div className={`flex space-x-4  ${onHover}`}>
           <AiOutlineNotification size={35} />
           <p className="font-bold mt-1">Notifications</p>
+        </div>
+        <div
+          className={`flex space-x-4  w-full items-center ml-5  justify-center bg-sky-500 rounded-full px-7 py-2 my-4 cursor-pointer hover:bg-sky-600`}
+        >
+          <Link href="/home?newpost=true">
+            <p className="text-lg py-0.5  font-bold text-white ">Post</p>
+          </Link>
         </div>
       </div>
       <div

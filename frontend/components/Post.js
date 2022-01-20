@@ -108,7 +108,7 @@ const Post = (props) => {
 
   return (
     <div className={`${postHidden ? "hidden" : ""}`}>
-      <div className="space-x-4 bg-white p-6 rounded-xl m-4 ">
+      <div className="space-x-4 bg-white p-6 rounded-xl">
         <div className="flex items-center justify-between ">
           <div
             className="flex space-x-2  mb-4 ml-3 cursor-pointer"
