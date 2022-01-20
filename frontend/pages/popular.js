@@ -3,6 +3,8 @@ import Post from "../components/Post";
 import ImageModal from "../components/ImageModal";
 import SideNav from "../components/SideNav";
 import Link from "next/link";
+import SearchBox from "../components/SearchBox";
+import UserSuggestions from "../components/UserSuggestions";
 const popular = () => {
   const [posts, setPosts] = useState([]);
   const [modalShow, setModalShow] = useState(false);
@@ -23,7 +25,7 @@ const popular = () => {
   const scrollHandler = (e) => {
     const target = e.target;
     if (target.scrollHeight - target.scrollTop === target.clientHeight) {
-      setSkip((prev) => prev + 3);
+      setSkip((prev) => prev + 4);
       window.scrollTo(0, document.body.scrollHeight);
     }
   };
@@ -83,7 +85,8 @@ const popular = () => {
             )} */}
           </div>
           <div>
-            <p>last col</p>
+            <SearchBox />
+            <UserSuggestions />
           </div>
         </div>
       </div>

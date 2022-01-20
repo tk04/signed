@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { TiHomeOutline } from "react-icons/ti";
+// import { TiHomeOutline } from "react-icons/ti";
+import { RiHomeSmileLine } from "react-icons/ri";
 import { HiTrendingUp } from "react-icons/hi";
 // import { AiOutlineNotification } from "react-icons/ai";
 import { MdNotificationsNone } from "react-icons/md";
@@ -34,7 +35,7 @@ const SideNav = () => {
           className={`flex space-x-4  ${onHover} `}
           onClick={() => router.push("/home")}
         >
-          <TiHomeOutline className="" size={35} />
+          <RiHomeSmileLine className="font-bold" size={35} />
           <p className="font-bold mt-1 ">Home</p>
         </div>
         <div
@@ -52,13 +53,13 @@ const SideNav = () => {
           <MdNotificationsNone className="" size={35} />
           <p className="font-bold mt-1 ">Notifications</p>
         </div>
-        <div
-          className={`flex space-x-4  w-full items-center ml-5  justify-center bg-sky-500 rounded-full px-7 py-2 my-4 cursor-pointer hover:bg-sky-600`}
-        >
-          <Link href="/home?newpost=true">
+        <Link href="/home?newpost=true">
+          <div
+            className={`flex space-x-4  w-full items-center ml-5  justify-center bg-sky-500 rounded-full px-7 py-2 my-4 cursor-pointer hover:bg-sky-600`}
+          >
             <p className="text-lg py-0.5  font-bold text-white ">Post</p>
-          </Link>
-        </div>
+          </div>
+        </Link>
       </div>
       <div
         className={`flex mb-10 justify-center w-full ml-7  ${onHover}`}

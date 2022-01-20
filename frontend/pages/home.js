@@ -5,12 +5,15 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Post from "../components/Post";
 import CircularProgress from "@mui/material/CircularProgress";
-
+import { BsImage } from "react-icons/bs";
 import ImageModal from "../components/ImageModal";
 import SearchBox from "../components/SearchBox";
 import UserSuggestions from "../components/UserSuggestions";
+import { useSelector } from "react-redux";
+import Image from "next/image";
 const home = () => {
   const router = useRouter();
+  const userInfo = useSelector((state) => state.auth.userInfo);
   const [posts, setPosts] = useState([]);
   const [modalShow, setModalShow] = useState(false);
   const [imageSrc, setImageSrc] = useState(null);
@@ -70,10 +73,37 @@ const home = () => {
           <div className="hidden lg:block">
             <SideNav />
           </div>
-          <div className="flex flex-col ">
-            <Link href="/home?newpost=true" as="/home">
-              Create post
-            </Link>
+          <div className="flex flex-col  ">
+            <div className="bg-slate-400 mt-5">
+              <h1 className="ml-20 mb-3 font-bold text-lg ">Home</h1>
+              <hr />
+              <Link href="/home?newpost=true" as="/home">
+                <div className="flex mt-6 space-x-2 cursor-pointer justify-center">
+                  {userInfo && userInfo.avatar && (
+                    <Image
+                      src={`data:image/png;base64,${userInfo.avatar}`}
+                      width={52}
+                      height={52}
+                      layout="fixed"
+                      className="rounded-full"
+                    />
+                  )}
+                  <section className=" bg-slate-50 w-3/4 rounded-full ">
+                    <div
+                      className="flex justify-between"
+                      style={{ width: "95%" }}
+                    >
+                      <p className="ml-4 mt-3 text-gray-500">
+                        {" "}
+                        What's on your mind?
+                      </p>
+
+                      <BsImage size={25} className="ml-4 mt-3 0 " />
+                    </div>
+                  </section>
+                </div>
+              </Link>
+            </div>
             <br />
             <br />
             {posts.map((post, idx) => (

@@ -94,7 +94,7 @@ const CreatePosts = React.memo(() => {
           >
             <textarea
               className=" resize-none rounded-md pt-2 pl-2 leading-4 focus:outline-none text-lg"
-              style={{ width: "35vw", height: "15vh" }}
+              style={{ width: "100%", minWidth: "35vw", height: "15vh" }}
               size={65}
               placeholder="New Post ?"
               ref={postRef}

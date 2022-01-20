@@ -17,7 +17,7 @@ const UserSuggestions = () => {
   }, []);
   console.log(relatedUsers);
   return (
-    <div className=" z-0">
+    <div className="mt-20 z-0" style={{ width: "100%" }}>
       <h1 className="ml-3 mt-5 mb-5 text-xl">Suggested Users </h1>
       <ul>
         {relatedUsers.map((user) => (
@@ -30,7 +30,7 @@ const UserSuggestions = () => {
               src={`data:image/png;base64,${user.avatar}`}
               width={52}
               height={52}
-              className="rounded-full"
+              className="rounded-full "
               layout="fixed"
             />
             <section className="ml-2">
