@@ -72,8 +72,8 @@ const Post = (props) => {
     setOpenPopup(e.currentTarget);
   };
   const open = Boolean(openPopup);
-  const commentOpen = Boolean(openCommentPopup);
   const id = open ? "simple-popover" : undefined;
+  const commentOpen = Boolean(openCommentPopup);
   const popupCloseHandler = () => {
     setOpenPopup(null);
   };
@@ -110,7 +110,10 @@ const Post = (props) => {
     <div className={`${postHidden ? "hidden" : ""}`}>
       <div className="space-x-4 bg-white p-6 rounded-xl m-4 ">
         <div className="flex items-center justify-between ">
-          <div className="flex space-x-2  mb-4 ml-3">
+          <div
+            className="flex space-x-2  mb-4 ml-3 cursor-pointer"
+            onClick={() => router.push(`/users/${props.username}`)}
+          >
             {props.avatar && (
               <Image
                 src={props.avatar}
