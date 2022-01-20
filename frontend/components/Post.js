@@ -231,7 +231,7 @@ const Post = (props) => {
               anchorEl={openCommentPopup}
               onClose={commentCloseHandler}
               className="overflow-y-auto "
-              anchorOrigin={{ vertical: -60, horizontal: "center" }}
+              anchorOrigin={{ vertical: 30, horizontal: -40 }}
             >
               <Comment postId={props.postId} />
             </Popover>

@@ -168,7 +168,7 @@ const PostPage = ({ pid }) => {
                     backgroundColor: "#fafafa",
                   }}
                 >
-                  <div style={{ width: "40vw" }}>
+                  <div style={{ width: "40vw" }} className="p-4">
                     {comments &&
                       comments.map((comment) => (
                         <Post

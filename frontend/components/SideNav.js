@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { TiHomeOutline } from "react-icons/ti";
 import { HiTrendingUp } from "react-icons/hi";
-import { AiOutlineNotification } from "react-icons/ai";
+// import { AiOutlineNotification } from "react-icons/ai";
+import { MdNotificationsNone } from "react-icons/md";
 import { BiMessageRoundedDetail } from "react-icons/bi";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -30,26 +31,26 @@ const SideNav = () => {
     <nav className=" fixed flex flex-col items-center pt-32 h-screen place-content-between ml-20 ">
       <div className="flex flex-col items-start p-0 m-0 w-full ">
         <div
-          className={`flex space-x-4 ${onHover} `}
+          className={`flex space-x-4  ${onHover} `}
           onClick={() => router.push("/home")}
         >
-          <TiHomeOutline size={35} />
-          <p className="font-bold mt-1">Home</p>
+          <TiHomeOutline className="" size={35} />
+          <p className="font-bold mt-1 ">Home</p>
         </div>
         <div
-          className={`flex space-x-4  ${onHover} `}
+          className={`flex space-x-4     ${onHover} `}
           onClick={() => router.push("/popular")}
         >
           <HiTrendingUp size={35} />
           <p className="font-bold mt-1">Trending</p>
         </div>
-        <div className={`flex space-x-4  ${onHover}`}>
+        <div className={`flex space-x-4   ${onHover}`}>
           <BiMessageRoundedDetail size={35} />
           <p className="font-bold mt-1">Messages</p>
         </div>
-        <div className={`flex space-x-4  ${onHover}`}>
-          <AiOutlineNotification size={35} />
-          <p className="font-bold mt-1">Notifications</p>
+        <div className={`flex space-x-4    ${onHover}`}>
+          <MdNotificationsNone className="" size={35} />
+          <p className="font-bold mt-1 ">Notifications</p>
         </div>
         <div
           className={`flex space-x-4  w-full items-center ml-5  justify-center bg-sky-500 rounded-full px-7 py-2 my-4 cursor-pointer hover:bg-sky-600`}

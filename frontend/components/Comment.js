@@ -70,7 +70,7 @@ const Comment = (props) => {
     e.target.value = null;
   };
   return (
-    <div className="flex">
+    <div className="flex w-full">
       <div className="mt-4 ml-4 ">
         {userInfo && userInfo.avatar && (
           <Image
