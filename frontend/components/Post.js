@@ -172,45 +172,41 @@ const Post = (props) => {
               </span>
             </p>
           )}
-          <Link href={`/post/${props.postId}`}>
-            <div className=" cursor-crosshair">
+          <div className=" cursor-crosshair">
+            <Link href={`/post/${props.postId}`}>
               <div>
                 <p>{props.text}</p>
               </div>
-              <div
-                className="grid  gap-4 grid-flow-col auto-rows-auto  mt-4 justify-center align-center"
-                style={{ maxheight: "50px" }}
-              >
-                {props.images &&
-                  props.images.map((image, idx) => (
-                    <div
-                      onClick={imageClickHandler.bind(null, image)}
-                      key={idx}
-                    >
-                      <div>
-                        {loader === true && <CircularProgress />}
-                        <div
-                          className={`${
-                            loader || loader === 0 ? "w-0 h-0" : ""
-                          }`}
-                        >
-                          <Image
-                            src={image}
-                            key={idx}
-                            width="400"
-                            height="350"
-                            objectFit="cover"
-                            className="overflow-hidden rounded-xl cursor-pointer max-h-96"
-                            onLoadingComplete={(e) => disableLoaderHandler(e)}
-                            onError={imageErrorHandler}
-                          />
-                        </div>
+            </Link>
+            <div
+              className="grid  gap-4 grid-flow-col auto-rows-auto  mt-4 justify-center align-center"
+              style={{ maxheight: "50px" }}
+            >
+              {props.images &&
+                props.images.map((image, idx) => (
+                  <div onClick={imageClickHandler.bind(null, image)} key={idx}>
+                    <div>
+                      {loader === true && <CircularProgress />}
+                      <div
+                        className={`${loader || loader === 0 ? "w-0 h-0" : ""}`}
+                      >
+                        <Image
+                          src={image}
+                          key={idx}
+                          width="400"
+                          height="350"
+                          objectFit="cover"
+                          className="overflow-hidden rounded-xl cursor-pointer max-h-96"
+                          onLoadingComplete={(e) => disableLoaderHandler(e)}
+                          onError={imageErrorHandler}
+                        />
                       </div>
                     </div>
-                  ))}
-              </div>
+                  </div>
+                ))}
             </div>
-          </Link>
+          </div>
+
           <hr className="mt-6" />
           <div className="flex  mt-6 w-full  justify-evenly">
             <div

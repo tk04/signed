@@ -26,8 +26,9 @@ const UserSuggestions = () => {
             className="flex m-3 mb-3 cursor-pointer"
             onClick={() => router.push(`/users/${user.username}`)}
           >
-            <Image
+            <img
               src={`data:image/png;base64,${user.avatar}`}
+              style={{ width: 52, height: 52 }}
               width={52}
               height={52}
               className="rounded-full "
