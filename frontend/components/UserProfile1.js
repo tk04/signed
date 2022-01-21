@@ -21,8 +21,13 @@ const UserProfile1 = ({ userData }) => {
     userData.user ? userData.user.avatar : null
   );
   const [modalShow, setModalShow] = useState();
+
   const [posts, setPosts] = useState([]);
   const [postSkip, setPostSkip] = useState(0);
+  const [followersCount, setFollowersCount] = useState(
+    userData.user.followers.length
+  );
+
   const [imageSrc, setImageSrc] = useState();
   const [following, setFollowing] = useState(userData.isFollowing);
   const [userContent, setUserContent] = useState({
@@ -41,8 +46,12 @@ const UserProfile1 = ({ userData }) => {
       );
       if (postRes.ok) {
         const pData = await postRes.json();
-
-        setPosts((prev) => prev.concat(pData));
+        console.log(pData);
+        if (postSkip === 0 && pData.length === 0) {
+          setPosts(true);
+        } else if (posts !== true) {
+          setPosts((prev) => prev.concat(pData));
+        }
       }
     };
     getPosts();
@@ -96,15 +105,18 @@ const UserProfile1 = ({ userData }) => {
       setUserContent({ content, type: "experience" });
     }
   };
+
   const followHandler = async () => {
     setFollowing((prev) => {
       const followingSet = new Set(userInfo.following);
       if (prev) {
         followingSet.delete(userData.user.username);
-
+        setFollowersCount((prev) => prev - 1);
         dispatch(authActions.setFollowingInfo(Array.from(followingSet)));
       } else {
         followingSet.add(userData.user.username);
+        setFollowersCount((prev) => prev + 1);
+
         dispatch(authActions.setFollowingInfo(Array.from(followingSet)));
       }
 
@@ -166,26 +178,19 @@ const UserProfile1 = ({ userData }) => {
                   </div>
                   <div className="flex gap-4 md:ml-20 mt-3 mb-5 justify-center md:justify-start">
                     <p className="text-xl">
-                      1,142{" "}
-                      <span className=" text-sm text-gray-400">followers</span>
+                      {followersCount}
+                      <span className=" text-sm text-gray-400 pl-2">
+                        followers
+                      </span>
                     </p>
                     <p className="text-xl">
-                      100{" "}
-                      <span className=" text-sm text-gray-400">following</span>
+                      {userData.user.following.length}
+                      <span className=" text-sm text-gray-400 pl-2">
+                        following
+                      </span>
                     </p>
                   </div>
-                  <p className="ml-20 mt-2 text-left">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industrys
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a
-                    type specimen book. It has survived not only five centuries,
-                    but also the leap into electronic typesetting, remaining
-                    essentially unchanged. It was popularised in the 1960s with
-                    the release of Letraset sheets containing Lorem Ipsum
-                    passages, and more recently with desktop publishing software
-                    like Aldus PageMaker including versions of Lorem Ipsum.
-                  </p>
+                  <p className="ml-20 mt-2 text-left">{userData.user.bio}</p>
                   {userData.user.socials && (
                     <div className="flex md:ml-20 space-x-5 justify-center md:justify-start ">
                       {userData.user.socials.map((item, idx) => (
@@ -294,22 +299,29 @@ const UserProfile1 = ({ userData }) => {
             </div>
             {userContent.type === "posts" ? (
               <div className="flex flex-col w-full md:mt-10 ">
-                <div className="md:mx-24 ">
-                  {posts.map((post) => (
-                    <Post
-                      avatar={`data:image/png;base64,${userData.user.avatar}`}
-                      name={userData.user.name}
-                      username={userData.user.username}
-                      text={post.text}
-                      images={post.images}
-                      modalClick={() => setModalShow(true)}
-                      imageSrc={(image) => setImageSrc(image)}
-                      key={post._id}
-                      postId={post._id}
-                      likes={post.likes}
-                    />
-                  ))}
-                </div>
+                {typeof posts === "object" ? (
+                  <div className="md:mx-24 ">
+                    {posts.map((post) => (
+                      <Post
+                        avatar={`data:image/png;base64,${userData.user.avatar}`}
+                        name={userData.user.name}
+                        username={userData.user.username}
+                        text={post.text}
+                        images={post.images}
+                        modalClick={() => setModalShow(true)}
+                        imageSrc={(image) => setImageSrc(image)}
+                        key={post._id}
+                        postId={post._id}
+                        likes={post.likes}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-center">
+                    <span className="font-bold">{userData.user.name}</span> has
+                    no posts
+                  </p>
+                )}
               </div>
             ) : (
               <> {userContent.content}</>
