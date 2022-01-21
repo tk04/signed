@@ -58,7 +58,7 @@ const SearchBox = () => {
   };
   return (
     <>
-      <div className="flex items-center mt-3  rounded-full pl-4 bg-slate-100 p-1">
+      <div className="flex items-center mt-3 mx-8 rounded-full pl-4 bg-slate-100 p-1">
         <IoSearchOutline size={25} />
         <input
           type="text"
@@ -73,7 +73,7 @@ const SearchBox = () => {
       </div>
       {openPopup && (
         <div
-          className="absolute bg-slate-100 h-80  rounded-xl mt-3 overflow-y-auto overflow-x-hidden z-10"
+          className="absolute bg-slate-100 h-80 mx-8 rounded-xl mt-3 overflow-y-auto overflow-x-hidden z-10"
           style={{ width: "410px" }}
         >
           {loading && (

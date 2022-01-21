@@ -11,6 +11,7 @@ import SearchBox from "../components/SearchBox";
 import UserSuggestions from "../components/UserSuggestions";
 import { useSelector } from "react-redux";
 import Image from "next/image";
+import classes from "../components/layout.module.css";
 const home = () => {
   const router = useRouter();
   const userInfo = useSelector((state) => state.auth.userInfo);
@@ -21,6 +22,7 @@ const home = () => {
   const [postLoader, setPostLoader] = useState(false);
   const [maxPosts, setMaxPosts] = useState(false);
   const { newpost } = router.query;
+
   useEffect(() => {
     const getP = async () => {
       setPostLoader(true);
@@ -50,6 +52,7 @@ const home = () => {
     console.log("filtering");
     setPosts((prev) => prev.filter((post) => post.owner.username !== username));
   };
+
   return (
     <>
       {modalShow && (
@@ -69,8 +72,8 @@ const home = () => {
           </div>
         )}
 
-        <div className=" grid grid-cols-[100%]  m-0 p-0 lg:grid-cols-[25%_50%_25%] box-border">
-          <div className="hidden lg:block">
+        <div className={classes.main}>
+          <div className="hidden lg:block w-full ">
             <SideNav />
           </div>
           <div className="flex flex-col  ">

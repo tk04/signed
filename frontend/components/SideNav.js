@@ -29,10 +29,13 @@ const SideNav = () => {
   const onHover =
     "px-7 py-2 my-4 hover:bg-slate-50 rounded-full hover:cursor-pointer";
   return (
-    <nav className=" fixed flex flex-col items-center pt-32 h-screen place-content-between ml-32 ">
-      <div className="flex flex-col items-start p-0 m-0 w-full ">
+    <nav
+      className=" fixed  flex flex-col  pt-20 h-screen place-content-between"
+      style={{ marginLeft: "6.5rem" }}
+    >
+      <div className="flex flex-col  p-0 m-0 w-full  ">
         <div
-          className={`flex space-x-4  ${onHover} `}
+          className={`flex space-x-4   ${onHover} `}
           onClick={() => router.push("/home")}
         >
           <RiHomeSmileLine className="font-bold" size={35} />

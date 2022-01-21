@@ -17,7 +17,7 @@ const UserSuggestions = () => {
   }, []);
   console.log(relatedUsers);
   return (
-    <div className="mt-20 z-0" style={{ width: "100%" }}>
+    <div className="mt-20 z-0 px-4" style={{ width: "100%" }}>
       <h1 className="ml-3 mt-5 mb-5 text-xl">Suggested Users </h1>
       <ul>
         {relatedUsers.map((user) => (
@@ -37,7 +37,10 @@ const UserSuggestions = () => {
             <section className="ml-2">
               <h1 className="font-bold">{user.name}</h1>
               <p className="text-sm text-gray-500">@{user.username}</p>
-              <p className="overflow-hidden block text-ellipsis w-72 h-20 whitespace-nowrap">
+              <p
+                className="overflow-hidden  text-ellipsis h-12  whitespace-wrap"
+                // style={{ width: "80%" }}
+              >
                 {user.bio}
               </p>
             </section>

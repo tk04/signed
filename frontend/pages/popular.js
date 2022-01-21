@@ -8,6 +8,8 @@ import UserSuggestions from "../components/UserSuggestions";
 import { useSelector } from "react-redux";
 import { BsImage } from "react-icons/bs";
 import Image from "next/image";
+import classes from "../components/layout.module.css";
+
 const popular = () => {
   const userInfo = useSelector((state) => state.auth.userInfo);
   const [posts, setPosts] = useState([]);
@@ -47,7 +49,7 @@ const popular = () => {
         className="relative w-screen h-screen overflow-y-auto "
         onScroll={scrollHandler}
       >
-        <div className=" grid grid-cols-[100%]  m-0 p-0 lg:grid-cols-[25%_50%_25%] box-border">
+        <div className={classes.main}>
           <div className="hidden lg:block">
             <SideNav />
           </div>
