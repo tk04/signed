@@ -34,12 +34,14 @@ const SearchBox = () => {
   };
   useEffect(() => {
     const fetchUsers = async () => {
+      setLoading(true);
       const data = await fetch(`api1/search/users?keyword=${textVal}&skip=0`);
       if (data.ok) {
         const res = await data.json();
         setUsers(res);
         console.log(res);
       }
+      setLoading(false);
     };
     if (textVal.trim()) {
       const getUsers = setTimeout(() => {
@@ -56,7 +58,7 @@ const SearchBox = () => {
   };
   return (
     <>
-      <div className="flex items-center mt-1  rounded-full pl-4 bg-slate-100 p-1">
+      <div className="flex items-center mt-3  rounded-full pl-4 bg-slate-100 p-1">
         <IoSearchOutline size={25} />
         <input
           type="text"
@@ -70,7 +72,16 @@ const SearchBox = () => {
         />
       </div>
       {openPopup && (
-        <div className="absolute w-full bg-slate-100 h-80  rounded-xl mt-3 overflow-auto z-10">
+        <div
+          className="absolute bg-slate-100 h-80  rounded-xl mt-3 overflow-y-auto overflow-x-hidden z-10"
+          style={{ width: "410px" }}
+        >
+          {loading && (
+            <div className="flex w-full justify-center ">
+              <CircularProgress disableShrink />
+            </div>
+          )}
+
           {users.length > 0 && (
             <ul>
               {users.map((user) => (
