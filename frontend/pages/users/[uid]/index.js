@@ -50,7 +50,7 @@ export async function getServerSideProps(context) {
   const token = context.req.cookies.token
     ? `Bearer ${context.req.cookies.token}`
     : null;
-  const baseUrl = context.req ? `http://${context.req.headers.host}` : "";
+  // const baseUrl = context.req ? `http://${context.req.headers.host}` : "";
   console.log(process.env.server);
   const res = await fetch(
     `${process.env.server}/api1/users/${context.params.uid}`,
