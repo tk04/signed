@@ -60,6 +60,9 @@ const home = () => {
   };
   const showNotiHandler = () => {
     setShowNoti(true);
+    setTimeout(() => {
+      setShowNoti(false);
+    }, 5000);
   };
   return (
     <>
@@ -80,7 +83,7 @@ const home = () => {
               className="flex justify-center  space-x-10 items-center fixed bg-sky-400 z-30 rounded-2xl text-white font-bold"
               style={{
                 bottom: "5vw",
-                width: "15rem",
+                width: "16rem",
                 // height: "40px",
               }}
             >
@@ -89,7 +92,7 @@ const home = () => {
               </p>
               <IoIosCloseCircleOutline
                 size={20}
-                className="cursor-pointer"
+                className="cursor-pointer "
                 onClick={closeNotiHandler}
               />
             </div>

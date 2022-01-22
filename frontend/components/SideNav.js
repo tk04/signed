@@ -52,7 +52,12 @@ const SideNav = () => {
           <BiMessageRoundedDetail size={35} />
           <p className="font-bold mt-1">Messages</p>
         </div>
-        <div className={`flex space-x-4    ${onHover}`}>
+        <div
+          className={`flex space-x-4    ${onHover}`}
+          onClick={() => {
+            router.push("/notifications");
+          }}
+        >
           <MdNotificationsNone className="" size={35} />
           <p className="font-bold mt-1 ">Notifications</p>
         </div>
