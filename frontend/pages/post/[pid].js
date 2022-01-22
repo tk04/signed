@@ -1,7 +1,7 @@
 import React from "react";
 import PostPage from "../../components/PostPage";
 import { useRouter } from "next/router";
-const pid = () => {
+const Pid = () => {
   const router = useRouter();
   const pid = router.query.pid;
   return (
@@ -11,4 +11,4 @@ const pid = () => {
   );
 };
 
-export default pid;
+export default Pid;

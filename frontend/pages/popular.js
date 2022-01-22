@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { BsImage } from "react-icons/bs";
 import Image from "next/image";
 import classes from "../components/layout.module.css";
-const popular = () => {
+const Popular = () => {
   const userInfo = useSelector((state) => state.auth.userInfo);
   const [posts, setPosts] = useState([]);
   const [modalShow, setModalShow] = useState(false);
@@ -124,4 +124,4 @@ const popular = () => {
   );
 };
 
-export default popular;
+export default Popular;

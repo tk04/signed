@@ -14,7 +14,7 @@ import ImageModal from "./ImageModal";
 import { authActions } from "../store/auth-slice";
 const UserProfile1 = ({ userData }) => {
   const dispatch = useDispatch();
-  const router = useRouter();
+  // const router = useRouter();
   const userInfo = useSelector((state) => state.auth.userInfo);
 
   const [avatar, setAvatar] = useState(

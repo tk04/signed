@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 import Image from "next/image";
 import classes from "../components/layout.module.css";
 import { IoIosCloseCircleOutline } from "react-icons/io";
-const home = () => {
+const Home = () => {
   const router = useRouter();
   const userInfo = useSelector((state) => state.auth.userInfo);
   const [posts, setPosts] = useState([]);
@@ -178,4 +178,4 @@ const home = () => {
   );
 };
 
-export default home;
+export default Home;

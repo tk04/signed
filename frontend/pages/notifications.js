@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { BiComment } from "react-icons/bi";
 import { AiFillHeart } from "react-icons/ai";
 import { BsPersonPlusFill } from "react-icons/bs";
-const notifications = () => {
+const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
   const [followers, setFollowers] = useState([]);
   const [type, setType] = useState("followers");
@@ -46,14 +46,29 @@ const notifications = () => {
             <br />
             <br />
 
-            <div className="justify-between flex w-3/4 ml-20    ">
-              <button onClick={changeTypeHandler.bind(null, "likes")}>
+            <div className={`justify-between flex w-3/4 ml-20`}>
+              <button
+                onClick={changeTypeHandler.bind(null, "likes")}
+                className={`${
+                  type === "likes" && " border-b-2 border-sky-400"
+                } `}
+              >
                 Likes
               </button>
-              <button onClick={changeTypeHandler.bind(null, "comments")}>
+              <button
+                onClick={changeTypeHandler.bind(null, "comments")}
+                className={`${
+                  type === "comments" && " border-b-2 border-sky-400"
+                } `}
+              >
                 Comments
               </button>
-              <button onClick={changeTypeHandler.bind(null, "followers")}>
+              <button
+                onClick={changeTypeHandler.bind(null, "followers")}
+                className={`${
+                  type === "followers" && " border-b-2 border-sky-400"
+                } `}
+              >
                 Followers
               </button>
             </div>
@@ -133,4 +148,4 @@ const notifications = () => {
   );
 };
 
-export default notifications;
+export default Notifications;
