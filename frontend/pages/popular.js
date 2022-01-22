@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 import { BsImage } from "react-icons/bs";
 import Image from "next/image";
 import classes from "../components/layout.module.css";
-
 const popular = () => {
   const userInfo = useSelector((state) => state.auth.userInfo);
   const [posts, setPosts] = useState([]);
@@ -25,9 +24,7 @@ const popular = () => {
       }
     };
     getPosts();
-    console.log(skip);
   }, [skip]);
-  console.log(posts);
   const scrollHandler = (e) => {
     const target = e.target;
     if (target.scrollHeight - target.scrollTop === target.clientHeight) {

@@ -46,7 +46,6 @@ const UserProfile1 = ({ userData }) => {
       );
       if (postRes.ok) {
         const pData = await postRes.json();
-        console.log(pData);
         if (postSkip === 0 && pData.length === 0) {
           setPosts(true);
         } else if (posts !== true) {

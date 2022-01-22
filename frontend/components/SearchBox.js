@@ -39,7 +39,6 @@ const SearchBox = () => {
       if (data.ok) {
         const res = await data.json();
         setUsers(res);
-        console.log(res);
       }
       setLoading(false);
     };
@@ -58,7 +57,7 @@ const SearchBox = () => {
   };
   return (
     <>
-      <div className="flex items-center mt-3 mx-8 rounded-full pl-4 bg-slate-100 p-1">
+      <div className="flex items-center mt-3 mx-12 rounded-full pl-4 bg-slate-100 p-1">
         <IoSearchOutline size={25} />
         <input
           type="text"
@@ -73,7 +72,7 @@ const SearchBox = () => {
       </div>
       {openPopup && (
         <div
-          className="absolute bg-slate-100 h-80 mx-8 rounded-xl mt-3 overflow-y-auto overflow-x-hidden z-10"
+          className="absolute bg-slate-100 h-80 mx-12 rounded-xl mt-3 overflow-y-auto overflow-x-hidden z-10"
           style={{ width: "410px" }}
         >
           {loading && (
@@ -83,11 +82,11 @@ const SearchBox = () => {
           )}
 
           {users.length > 0 && (
-            <ul>
+            <ul className="mt-4">
               {users.map((user) => (
                 <li
                   key={user._id}
-                  className="flex m-3 mb-3 cursor-pointer"
+                  className="flex m-3 cursor-pointer"
                   onClick={userClickHandler.bind(null, user.username)}
                 >
                   <Image
@@ -100,7 +99,7 @@ const SearchBox = () => {
                   <section className="ml-2">
                     <h1 className="font-bold">{user.name}</h1>
                     <p className="text-sm text-gray-500">@{user.username}</p>
-                    <p className="overflow-hidden block text-ellipsis w-72 h-20 whitespace-nowrap">
+                    <p className="overflow-hidden block text-ellipsis w-72 h-16 whitespace-nowrap">
                       {user.bio}
                     </p>
                   </section>

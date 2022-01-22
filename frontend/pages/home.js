@@ -12,11 +12,13 @@ import UserSuggestions from "../components/UserSuggestions";
 import { useSelector } from "react-redux";
 import Image from "next/image";
 import classes from "../components/layout.module.css";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 const home = () => {
   const router = useRouter();
   const userInfo = useSelector((state) => state.auth.userInfo);
   const [posts, setPosts] = useState([]);
   const [modalShow, setModalShow] = useState(false);
+  const [showNoti, setShowNoti] = useState(false);
   const [imageSrc, setImageSrc] = useState(null);
   const [skip, setSkip] = useState(0);
   const [postLoader, setPostLoader] = useState(false);
@@ -53,6 +55,12 @@ const home = () => {
     setPosts((prev) => prev.filter((post) => post.owner.username !== username));
   };
 
+  const closeNotiHandler = () => {
+    setShowNoti(false);
+  };
+  const showNotiHandler = () => {
+    setShowNoti(true);
+  };
   return (
     <>
       {modalShow && (
@@ -66,9 +74,31 @@ const home = () => {
         className="relative w-screen h-screen overflow-y-auto "
         onScroll={scrollHandler}
       >
+        {showNoti && (
+          <div className="flex justify-center flex-nowrap">
+            <div
+              className="flex justify-center  space-x-10 items-center fixed bg-sky-400 z-30 rounded-2xl text-white font-bold"
+              style={{
+                bottom: "5vw",
+                width: "15rem",
+                // height: "40px",
+              }}
+            >
+              <p className="text-center py-2 whitespace-nowrap ">
+                Post succesfully sent
+              </p>
+              <IoIosCloseCircleOutline
+                size={20}
+                className="cursor-pointer"
+                onClick={closeNotiHandler}
+              />
+            </div>
+          </div>
+        )}
+
         {newpost && (
           <div>
-            <CreatePosts />
+            <CreatePosts onPost={showNotiHandler} />
           </div>
         )}
 

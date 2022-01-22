@@ -15,11 +15,13 @@ const UserSuggestions = () => {
     };
     getRelated();
   }, []);
-  console.log(relatedUsers);
   return (
-    <div className="mt-20 z-0 px-4" style={{ width: "100%" }}>
-      <h1 className="ml-3 mt-5 mb-5 text-xl">Suggested Users </h1>
-      <ul>
+    <div
+      className="mt-20 z-0 mx-8 px-3 py-2 rounded-2xl "
+      // style={{ width: "100%" }}
+    >
+      <h1 className="ml-3 mt-2 mb-5 text-xl font-bold">Who to follow </h1>
+      <ul className=" space-y-10 px-6">
         {relatedUsers.map((user) => (
           <li
             key={user._id}
@@ -47,6 +49,7 @@ const UserSuggestions = () => {
           </li>
         ))}
       </ul>
+      <hr />
     </div>
   );
 };

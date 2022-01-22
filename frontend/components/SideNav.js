@@ -33,9 +33,9 @@ const SideNav = () => {
       className=" fixed  flex flex-col  pt-20 h-screen place-content-between"
       style={{ marginLeft: "6.5rem" }}
     >
-      <div className="flex flex-col  p-0 m-0 w-full  ">
+      <div className="flex flex-col  w-full  ">
         <div
-          className={`flex space-x-4   ${onHover} `}
+          className={`flex space-x-4 w-fit pr-12  ${onHover} `}
           onClick={() => router.push("/home")}
         >
           <RiHomeSmileLine className="font-bold" size={35} />

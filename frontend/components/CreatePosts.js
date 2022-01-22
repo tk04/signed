@@ -4,7 +4,7 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import { useSelector } from "react-redux";
 import Image from "next/image";
 import { useRouter } from "next/router";
-const CreatePosts = React.memo(() => {
+const CreatePosts = React.memo((props) => {
   const router = useRouter();
   const userInfo = useSelector((state) => state.auth.userInfo);
   // console.log(userAvatar);
@@ -12,6 +12,8 @@ const CreatePosts = React.memo(() => {
   const [files, setFiles] = useState([]);
   const [filesErr, setFilesErr] = useState();
   const submitHandler = async (e) => {
+    props.onPost();
+    router.push("/home");
     e.preventDefault();
 
     const data = await fetch("/api1/posts", {
@@ -94,7 +96,7 @@ const CreatePosts = React.memo(() => {
           >
             <textarea
               className=" resize-none rounded-md pt-2 pl-2 leading-4 focus:outline-none text-lg"
-              style={{ width: "100%", minWidth: "35vw", height: "15vh" }}
+              style={{ width: "100%", minWidth: "35vw", height: "10vh" }}
               size={65}
               placeholder="New Post ?"
               ref={postRef}
