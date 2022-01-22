@@ -73,8 +73,8 @@ const Notifications = () => {
               </button>
             </div>
             <div className="ml-20 mt-10 ">
-              {notifications.map((post) => (
-                <div key={post._id}>
+              {notifications.map((post, idx) => (
+                <div key={idx}>
                   {type === "comments" && (
                     <div>
                       {post.comments.map((comment) => (

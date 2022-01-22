@@ -72,7 +72,7 @@ const Popular = () => {
                     >
                       <p className="ml-4 mt-3 text-gray-500">
                         {" "}
-                        What's on your mind?
+                        Whats on your mind?
                       </p>
 
                       <BsImage size={25} className="ml-4 mt-3 0 " />
