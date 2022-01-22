@@ -74,11 +74,11 @@ const Notifications = () => {
             </div>
             <div className="ml-20 mt-10 ">
               {notifications.map((post) => (
-                <div>
+                <div key={post._id}>
                   {type === "comments" && (
                     <div>
                       {post.comments.map((comment) => (
-                        <div>
+                        <div key={comment._id}>
                           <div className="flex space-x-6 items-center">
                             <BiComment size={25} />
                             <p className="ml-3">
@@ -100,8 +100,8 @@ const Notifications = () => {
                   {type === "likes" && (
                     <>
                       {" "}
-                      {post.likes.reverse().map((like) => (
-                        <div className="flex space-x-4 items-center">
+                      {post.likes.reverse().map((like, idx) => (
+                        <div className="flex space-x-4 items-center" key={idx}>
                           <AiFillHeart color="red" />
                           <p>
                             <span className="font-bold text-lg">{like}</span>
@@ -117,8 +117,8 @@ const Notifications = () => {
               ))}
               {type === "followers" && (
                 <>
-                  {followers.map((follower) => (
-                    <div className="flex space-x-2 items-center">
+                  {followers.map((follower, idx) => (
+                    <div className="flex space-x-2 items-center" key={idx}>
                       <BsPersonPlusFill size={25} />
                       <p className="font-bold">
                         {follower.username}
