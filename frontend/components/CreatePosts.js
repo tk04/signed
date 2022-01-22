@@ -4,7 +4,7 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import { useSelector } from "react-redux";
 import Image from "next/image";
 import { useRouter } from "next/router";
-const CreatePosts = React.memo((props) => {
+const CreatePosts = (props) => {
   const router = useRouter();
   const userInfo = useSelector((state) => state.auth.userInfo);
   // console.log(userAvatar);
@@ -171,6 +171,6 @@ const CreatePosts = React.memo((props) => {
       </div>
     </>
   );
-});
+};
 
 export default CreatePosts;
