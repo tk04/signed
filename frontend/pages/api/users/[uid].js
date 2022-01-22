@@ -1,7 +1,9 @@
 export const getData = async (token, user) => {
   //   console.log(user);
   if (user) {
-    const response = await fetch(`http://localhost:3000/api1/users/${user}`);
+    const response = await fetch(
+      `https://signed-be.herokuapp.com/api1/users/${user}`
+    );
     // console.log(response);
     if (response.ok) {
       const data = await response.json();

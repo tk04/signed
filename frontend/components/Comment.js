@@ -37,14 +37,11 @@ const Comment = (props) => {
       for (const item of files) {
         images.append("images", item);
       }
-      const img = await fetch(
-        `http://localhost:3000/api1/posts/${res._id}/images`,
-        {
-          method: "POST",
-          body: images,
-          headers: images.getHeaders,
-        }
-      );
+      const img = await fetch(`/api1/posts/${res._id}/images`, {
+        method: "POST",
+        body: images,
+        headers: images.getHeaders,
+      });
     }
   };
 

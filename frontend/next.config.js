@@ -4,13 +4,13 @@ module.exports = {
       fallback: [
         {
           source: "/:path*",
-          destination: "http://localhost:4000/:path*/",
+          destination: "https://signed-be.herokuapp.com/:path*/",
         },
       ],
     };
   },
   images: {
-    domains: ["localhost"],
+    domains: ["signed-be.herokuapp.com"],
   },
   reactStrictMode: true,
 };

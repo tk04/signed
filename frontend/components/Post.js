@@ -81,12 +81,9 @@ const Post = (props) => {
     setOpenCommentPopup(null);
   };
   const deletePostHandler = async () => {
-    const data = await fetch(
-      `http://localhost:3000/api1/post/${props.postId}`,
-      {
-        method: "DELETE",
-      }
-    );
+    const data = await fetch(`/api1/post/${props.postId}`, {
+      method: "DELETE",
+    });
     if (data.ok) {
       setOpenPopup(null);
       setPostHidden(true);
