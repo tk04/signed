@@ -64,6 +64,7 @@ const Home = () => {
       setShowNoti(false);
     }, 5000);
   };
+
   return (
     <>
       {modalShow && (
@@ -77,6 +78,7 @@ const Home = () => {
         className="relative w-screen h-screen overflow-y-auto "
         onScroll={scrollHandler}
       >
+        <p>{process.env.NEXT_PUBLIC_tk}</p>
         {showNoti && (
           <div className="flex justify-center flex-nowrap">
             <div
