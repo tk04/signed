@@ -10,7 +10,7 @@ module.exports = {
     };
   },
   images: {
-    domains: [process.env.imgDomain],
+    domains: [`${process.env.imgDomain}`],
   },
   reactStrictMode: true,
 };
