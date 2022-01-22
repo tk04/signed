@@ -105,7 +105,7 @@ const Comment = (props) => {
         <div className="grid  gap-4 grid-flow-col auto-rows-auto  mt-4 justify-center align-center">
           {files &&
             files.map((image, idx) => (
-              <div>
+              <div key={idx}>
                 <div>
                   <Image
                     src={URL.createObjectURL(image)}
