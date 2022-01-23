@@ -52,7 +52,7 @@ export async function getServerSideProps(context) {
     : null;
   const baseUrl = context.req ? `http://${context.req.headers.host}` : "";
   const res = await fetch(
-    `https://signed-be.herokuapp.com/api1/users/${context.params.uid}`,
+    `http://localhost:3000/api1/users/${context.params.uid}`,
     {
       headers: {
         Authorization: token,

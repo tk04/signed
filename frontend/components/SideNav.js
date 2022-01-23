@@ -48,7 +48,10 @@ const SideNav = () => {
           <HiTrendingUp size={35} />
           <p className="font-bold mt-1">Trending</p>
         </div>
-        <div className={`flex space-x-4   ${onHover}`}>
+        <div
+          className={`flex space-x-4   ${onHover}`}
+          onClick={() => router.push("/messages")}
+        >
           <BiMessageRoundedDetail size={35} />
           <p className="font-bold mt-1">Messages</p>
         </div>

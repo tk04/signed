@@ -1,0 +1,11 @@
+.main {
+  position: fixed;
+  width: 100%;
+  margin-left: 70px;
+}
+@media (min-width: 1024px) {
+  .main {
+    width: 50vw;
+    margin-left: 100px;
+  }
+}

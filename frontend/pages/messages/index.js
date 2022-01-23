@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
-import SideNav from "../components/SideNav";
-import SearchBox from "../components/SearchBox";
-import UserSuggestions from "../components/UserSuggestions";
-import classes from "../components/layout.module.css";
-import { useSelector } from "react-redux";
-import { BiComment } from "react-icons/bi";
-import { AiFillHeart } from "react-icons/ai";
-import { BsPersonPlusFill } from "react-icons/bs";
+import React, { useRef, useState } from "react";
+import SideNav from "../../components/SideNav";
+import SearchBox from "../../components/SearchBox";
+import UserSuggestions from "../../components/UserSuggestions";
+import classes from "../../components/layout.module.css";
+
 const Messages = () => {
+  const msgRef = useRef();
+
   return (
     <>
       <div
@@ -25,7 +24,13 @@ const Messages = () => {
             </div>
             <br />
             <br />
-            <p>testing</p>
+            {/* <form onSubmit={msgHandler}>
+              <input
+                type="text"
+                className="border-2 border-black"
+                ref={msgRef}
+              />
+            </form> */}
           </div>
           <div className="hidden lg:block">
             <SearchBox />
