@@ -5,7 +5,16 @@ import UserSuggestions from "../../components/UserSuggestions";
 import classes from "../../components/layout.module.css";
 
 const Messages = () => {
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const getDMs = async () => {
+      const data = await fetch("/api1/messages");
+      if (data.ok) {
+        const res = await data.json();
+        console.log(res);
+      }
+    };
+    getDMs();
+  }, []);
   return (
     <>
       <div

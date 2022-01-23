@@ -45,7 +45,7 @@ const DM = () => {
   };
   useEffect(() => {
     socket.on("message", (msg) => {
-      setMessages((prev) => prev.concat(msg));
+      // setMessages((prev) => prev.concat(msg));
     });
     socket.on("joined", () => {
       setDisable(false);
@@ -57,7 +57,7 @@ const DM = () => {
     });
 
     socket.on("loadMessages", (data) => {
-      setMessages((prev) => prev.concat(data));
+      // setMessages((prev) => prev.concat(data));
     });
   }, [socket]);
   console.log(messages);
@@ -79,12 +79,13 @@ const DM = () => {
             <br />
             <br />
             {error && <p>testing</p>}
-            {messages.map((msg, idx) => (
-              <p key={idx}>
-                <span className="text-gray-500">{msg.from[0]} </span>
-                {msg.body}
-              </p>
-            ))}
+            {messages[0] !== null &&
+              messages.map((msg, idx) => (
+                <p key={idx}>
+                  <span className="text-gray-500">{msg.from[0]} </span>
+                  {msg.body}
+                </p>
+              ))}
             <form
               onSubmit={msgHandler}
               className={msgClasses.main}
