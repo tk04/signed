@@ -12,58 +12,43 @@ import UserSuggestions from "../../components/UserSuggestions";
 import classes from "../../components/layout.module.css";
 import msgClasses from "../../components/msg.module.css";
 import { useRouter } from "next/router";
-// const socket = io.connect("http://localhost:4000");
-import { socketActions } from "../../store/socket-slice";
+import socket from "../../utils/socket";
 const DM = () => {
-  const dispatch = useDispatch();
-
-  const socket = useSelector((state) => state.socket.socket);
-  console.log(socket);
-  useEffect(() => {
-    dispatch(socketActions.initSocket());
-  }, []);
   const router = useRouter();
   const msgRef = useRef();
   const { dm } = router.query;
   const [disabled, setDisable] = useState(false);
+  const [sendMsg, setSendMsg] = useState(false);
   const [messages, setMessages] = useState([]);
 
-  //   if (dm) {
-  // const manager = new Manager("http://localhost:4000", {
-  //   autoConnect: true,
-  //   query: {
-  //     toUser: dm,
-  //   },
-  // });
-  // useEffect(() => {
-  //   if (dm) {
-  //     socket.emit("join", dm);
-  //   }
-  // }, [dm]);
-
-  // socket.on("connect", () => {
-  //   console.log(socket.connected); // true
-  // });
-
-  // socket.on("authorized", () => {
-  //   console.log("AUTHORIZED");
-  //   setDisable(false);
-  // });
-  // socket.emit("hello", "from client");
+  useEffect(() => {
+    if (sendMsg) {
+      socket.connect();
+      socket.emit("join", "tk");
+      socket.on("test", () => {
+        console.log("TESTING");
+      });
+      return () => {
+        socket.disconnect();
+      };
+    }
+  }, [sendMsg]);
 
   const msgHandler = (e) => {
-    console.log("sending msg");
+    // console.log("sending msg");
     e.preventDefault();
-    // socket.emit("newMessage", {
-    //   body: msgRef.current.value,
-    //   to: "tk",
-    // });
+    setSendMsg(true);
+
+    socket.emit("newMessage", {
+      body: "test ",
+      userId: "tk",
+    });
   };
-  // console.log(socket);
 
   // socket.on("message", (msg) => {
-  //   setMessages((prev) => prev.concat(msg));
-  //   console.log("MESSAGE SENT TO ROOMS");
+  //   // setMessages((prev) => prev.concat(msg));
+  //   console.log(msg);
+  //   // console.log("MESSAGE SENT TO ROOMS");
   // });
 
   return (
