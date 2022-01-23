@@ -17,40 +17,50 @@ const DM = () => {
   const router = useRouter();
   const msgRef = useRef();
   const { dm } = router.query;
-  const [disabled, setDisable] = useState(false);
-  const [sendMsg, setSendMsg] = useState(false);
+  const [disabled, setDisable] = useState(true);
+  const [error, setError] = useState(false);
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    if (sendMsg) {
-      socket.connect();
-      socket.emit("join", "tk");
+    socket.connect();
+    const join = async () => {
+      socket.emit("join", dm);
       socket.on("test", () => {
         console.log("TESTING");
       });
-      return () => {
-        socket.disconnect();
-      };
+    };
+    if (dm) {
+      join();
     }
-  }, [sendMsg]);
+    return () => {
+      socket.disconnect();
+    };
+  }, [dm]);
 
-  const msgHandler = (e) => {
+  const msgHandler = async (e) => {
     // console.log("sending msg");
     e.preventDefault();
-    setSendMsg(true);
 
-    socket.emit("newMessage", {
-      body: "test ",
-      userId: "tk",
-    });
+    socket.emit("newMessage", msgRef.current.value);
   };
+  useEffect(() => {
+    socket.on("message", (msg) => {
+      setMessages((prev) => prev.concat(msg));
+    });
+    socket.on("joined", () => {
+      setDisable(false);
 
-  // socket.on("message", (msg) => {
-  //   // setMessages((prev) => prev.concat(msg));
-  //   console.log(msg);
-  //   // console.log("MESSAGE SENT TO ROOMS");
-  // });
+      console.log("joined successfully");
+    });
+    socket.on("failed", () => {
+      setError(true);
+    });
 
+    socket.on("loadMessages", (data) => {
+      setMessages((prev) => prev.concat(data));
+    });
+  }, [socket]);
+  console.log(messages);
   return (
     <>
       <div
@@ -68,8 +78,12 @@ const DM = () => {
             </div>
             <br />
             <br />
+            {error && <p>testing</p>}
             {messages.map((msg, idx) => (
-              <p key={idx}>{msg.body}</p>
+              <p key={idx}>
+                <span className="text-gray-500">{msg.from[0]} </span>
+                {msg.body}
+              </p>
             ))}
             <form
               onSubmit={msgHandler}

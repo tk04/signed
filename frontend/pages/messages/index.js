@@ -1,12 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import SideNav from "../../components/SideNav";
 import SearchBox from "../../components/SearchBox";
 import UserSuggestions from "../../components/UserSuggestions";
 import classes from "../../components/layout.module.css";
 
 const Messages = () => {
-  const msgRef = useRef();
-
+  useEffect(() => {}, []);
   return (
     <>
       <div
