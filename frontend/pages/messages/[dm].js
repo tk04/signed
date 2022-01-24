@@ -13,6 +13,7 @@ import classes from "../../components/layout.module.css";
 import msgClasses from "../../components/msg.module.css";
 import { useRouter } from "next/router";
 import socket from "../../utils/socket";
+import Image from "next/image";
 const DM = () => {
   const router = useRouter();
   const msgRef = useRef();
@@ -20,6 +21,7 @@ const DM = () => {
   const [disabled, setDisable] = useState(true);
   const [error, setError] = useState(false);
   const [messages, setMessages] = useState([]);
+  const [toInfo, setToInfo] = useState({});
 
   useEffect(() => {
     socket.connect();
@@ -45,7 +47,7 @@ const DM = () => {
   };
   useEffect(() => {
     socket.on("message", (msg) => {
-      // setMessages((prev) => prev.concat(msg));
+      setMessages((prev) => prev.concat(msg));
     });
     socket.on("joined", () => {
       setDisable(false);
@@ -57,7 +59,10 @@ const DM = () => {
     });
 
     socket.on("loadMessages", (data) => {
-      // setMessages((prev) => prev.concat(data));
+      setMessages((prev) => prev.concat(data));
+    });
+    socket.on("userInfo", (data) => {
+      setToInfo(data);
     });
   }, [socket]);
   console.log(messages);
@@ -79,13 +84,44 @@ const DM = () => {
             <br />
             <br />
             {error && <p>testing</p>}
-            {messages[0] !== null &&
-              messages.map((msg, idx) => (
-                <p key={idx}>
-                  <span className="text-gray-500">{msg.from[0]} </span>
-                  {msg.body}
-                </p>
-              ))}
+            <div className="ml-20">
+              {messages[0] !== null &&
+                messages.map((msg, idx) => (
+                  <div key={idx} style={{ margin: "20px" }}>
+                    {msg.isUser != dm ? (
+                      <div
+                        className="flex items-center m-10"
+                        style={{
+                          justifyContent: "flex-end",
+                          marginRight: "5rem",
+                        }}
+                      >
+                        <div
+                          className=" text-white bg-sky-400 rounded-lg "
+                          style={{ padding: "5px 20px" }}
+                        >
+                          <p className="">{msg.body}</p>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex space-x-5">
+                        <div>
+                          <Image
+                            src={`data:image/png;base64,${toInfo.avatar}`}
+                            width={42}
+                            height={42}
+                            className="rounded-full"
+                            layout="fixed"
+                          />
+                        </div>
+                        {/* <p className="text-gray-500">{msg.isUser}</p> */}
+                        <p>{msg.body}</p>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              <br />
+            </div>
             <form
               onSubmit={msgHandler}
               className={msgClasses.main}

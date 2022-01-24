@@ -3,13 +3,17 @@ import SideNav from "../../components/SideNav";
 import SearchBox from "../../components/SearchBox";
 import UserSuggestions from "../../components/UserSuggestions";
 import classes from "../../components/layout.module.css";
-
+import Image from "next/image";
+import { useRouter } from "next/router";
 const Messages = () => {
+  const router = useRouter();
+  const [DMs, setDMs] = useState([]);
   useEffect(() => {
     const getDMs = async () => {
       const data = await fetch("/api1/messages");
       if (data.ok) {
         const res = await data.json();
+        setDMs(res);
         console.log(res);
       }
     };
@@ -32,13 +36,35 @@ const Messages = () => {
             </div>
             <br />
             <br />
-            {/* <form onSubmit={msgHandler}>
-              <input
-                type="text"
-                className="border-2 border-black"
-                ref={msgRef}
-              />
-            </form> */}
+            {DMs.length > 0 &&
+              DMs.map((dm) => (
+                <div key={dm._id}>
+                  <div
+                    className="flex ml-20  p-10 cursor-pointer"
+                    onClick={() =>
+                      router.push(`messages/${dm.users[0].username}`)
+                    }
+                  >
+                    <div>
+                      <Image
+                        src={`data:image/png;base64,${dm.users[0].avatar}`}
+                        width={52}
+                        height={52}
+                        className="rounded-full"
+                        layout="fixed"
+                      />
+                    </div>
+                    <div className=" ml-3">
+                      <p className="font-bold text-lg">{dm.users[0].name}</p>
+                      <p className="text-gray-400">@{dm.users[0].username}</p>
+                      <p className="text-gray-400">
+                        {dm.body.length > 0 && dm.body[dm.body.length - 1].body}
+                      </p>
+                    </div>
+                  </div>
+                  <hr />
+                </div>
+              ))}
           </div>
           <div className="hidden lg:block">
             <SearchBox />
