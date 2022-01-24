@@ -116,7 +116,7 @@ const DM = () => {
                         className="flex space-x-5 bg-gray-100 rounded-xl items-center pl-4"
                         style={{ marginRight: "80px" }}
                       >
-                        <div>
+                        <div style={{ paddingTop: "5px" }}>
                           <Image
                             src={`data:image/png;base64,${toInfo.avatar}`}
                             width={42}
