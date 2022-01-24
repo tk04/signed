@@ -53,7 +53,7 @@ export async function getServerSideProps(context) {
   // const baseUrl = context.req ? `http://${context.req.headers.host}` : "";
   console.log(process.env.server);
   const res = await fetch(
-    `${process.env.server}/api1/users/${context.params.uid}`,
+    `https://signed-be.herokuapp.com/api1/users/${context.params.uid}`,
     {
       headers: {
         Authorization: token,

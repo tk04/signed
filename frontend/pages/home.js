@@ -128,7 +128,7 @@ const Home = () => {
                   <section className=" bg-slate-50 w-3/4 rounded-full ">
                     <div
                       className="flex justify-between"
-                      style={{ width: "95%" }}
+                      style={{ width: "95%", paddingBottom: "10px" }}
                     >
                       <p className="ml-4 mt-3 text-gray-500">
                         {" "}
