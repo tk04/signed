@@ -42,8 +42,9 @@ const DM = () => {
   const msgHandler = async (e) => {
     // console.log("sending msg");
     e.preventDefault();
-
-    socket.emit("newMessage", msgRef.current.value);
+    const currentVal = msgRef.current.value;
+    socket.emit("newMessage", currentVal);
+    msgRef.current.value = "";
   };
   useEffect(() => {
     socket.on("message", (msg) => {
@@ -55,7 +56,7 @@ const DM = () => {
       console.log("joined successfully");
     });
     socket.on("failed", () => {
-      setError(true);
+      router.push("/messages");
     });
 
     socket.on("loadMessages", (data) => {
@@ -84,7 +85,14 @@ const DM = () => {
             <br />
             <br />
             {error && <p>testing</p>}
-            <div className="ml-20">
+            <div
+              className="ml-20"
+              style={{
+                marginBottom: "5rem",
+                height: "77vh",
+                overflow: "auto",
+              }}
+            >
               {messages[0] !== null &&
                 messages.map((msg, idx) => (
                   <div key={idx} style={{ margin: "20px" }}>
@@ -97,14 +105,17 @@ const DM = () => {
                         }}
                       >
                         <div
-                          className=" text-white bg-sky-400 rounded-lg "
+                          className=" text-white bg-sky-400 rounded-xl "
                           style={{ padding: "5px 20px" }}
                         >
                           <p className="">{msg.body}</p>
                         </div>
                       </div>
                     ) : (
-                      <div className="flex space-x-5">
+                      <div
+                        className="flex space-x-5 bg-gray-100 rounded-xl items-center pl-4"
+                        style={{ marginRight: "80px" }}
+                      >
                         <div>
                           <Image
                             src={`data:image/png;base64,${toInfo.avatar}`}
@@ -115,11 +126,12 @@ const DM = () => {
                           />
                         </div>
                         {/* <p className="text-gray-500">{msg.isUser}</p> */}
-                        <p>{msg.body}</p>
+                        <p style={{ padding: "5px 20px" }}>{msg.body}</p>
                       </div>
                     )}
                   </div>
                 ))}
+              <br />
               <br />
             </div>
             <form
