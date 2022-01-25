@@ -14,7 +14,7 @@ import ImageModal from "./ImageModal";
 import { authActions } from "../store/auth-slice";
 const UserProfile1 = ({ userData }) => {
   const dispatch = useDispatch();
-  // const router = useRouter();
+  const router = useRouter();
   const userInfo = useSelector((state) => state.auth.userInfo);
 
   const [avatar, setAvatar] = useState(
@@ -247,8 +247,13 @@ const UserProfile1 = ({ userData }) => {
                     >
                       {following ? "Following" : "Follow"}
                     </button>
-                    <button className="bg-slate-100 text-black font-bold h-fit p-3 rounded-full">
-                      IR
+                    <button
+                      className="bg-slate-100 text-black font-bold h-fit p-3 rounded-full"
+                      onClick={() =>
+                        router.push(`/messages/${userData.user.username}`)
+                      }
+                    >
+                      DM
                     </button>
                   </>
                 )}
