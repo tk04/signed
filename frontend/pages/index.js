@@ -69,10 +69,15 @@ export default function Home() {
       )} */}
       </div>
       <footer
-        className="flex space-x-4 justify-center w-full absolute  "
-        style={{ bottom: "5px", fontSize: "12px" }}
+        className="flex space-x-4 justify-center w-full absolute flex-wrap"
+        style={{
+          bottom: "5px",
+          fontSize: "12px",
+          overflowX: "hidden",
+          overflowWrap: "break-word",
+        }}
       >
-        <p className=" hover:border-b-8 hover:border-sky-400">About</p>
+        <p className=" hover:border-b-8 hover:border-sky-400 ">About</p>
         <p>Help Center</p>
         <p>Terms of Service</p>
         <p>Private Policy</p>
