@@ -27,7 +27,7 @@ export default function Home() {
     <div className="bg-slate-50 h-screen w-screen  m-0 p-0">
       <div style={{ margin: "0 4vw", paddingTop: "4vw" }}>
         <Header />
-        <div className="flex items-center    ">
+        <div className="flex items-center justify-evenly  ">
           <div className="ml-20">
             <p></p>
             <p
@@ -38,7 +38,8 @@ export default function Home() {
                 // marginRight: "35rem",
               }}
             >
-              Grow Your Brand
+              Grow Your
+              <br /> Brand
             </p>
             <p
               className="mt-2 text-gray-500"
