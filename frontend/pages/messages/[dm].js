@@ -40,7 +40,6 @@ const DM = () => {
   }, [dm]);
 
   const msgHandler = async (e) => {
-    // console.log("sending msg");
     e.preventDefault();
     const currentVal = msgRef.current.value;
     socket.emit("newMessage", currentVal);

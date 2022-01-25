@@ -5,6 +5,8 @@ import SideNav from "./SideNav";
 import Link from "next/link";
 import CircularProgress from "@mui/material/CircularProgress";
 import { CgArrowLongUp } from "react-icons/cg";
+import SearchBox from "./SearchBox";
+import UserSuggestions from "./UserSuggestions";
 const PostPage = ({ pid }) => {
   const postRef = useRef();
   const [post, setPost] = useState();
@@ -113,7 +115,7 @@ const PostPage = ({ pid }) => {
           <div className="hidden lg:block">
             <SideNav />
           </div>
-          <div className="flex flex-col  ">
+          <div className="flex flex-col lg:pl-16" style={{}}>
             <Link href="/home?newpost=true" as="/home">
               Create post
             </Link>
@@ -196,8 +198,9 @@ const PostPage = ({ pid }) => {
               </div>
             )}
           </div>
-          <div>
-            <p>last col</p>
+          <div className="hidden lg:block">
+            <SearchBox />
+            <UserSuggestions />
           </div>
         </div>
       </div>

@@ -205,9 +205,9 @@ const Post = (props) => {
           </div>
 
           <hr className="mt-6" />
-          <div className="flex  mt-6 w-full  justify-evenly">
+          <div className="flex  mt-6 w-full  justify-evenly ">
             <div
-              className="flex space-x-4 cursor-pointer"
+              className="flex space-x-4 cursor-pointer "
               onClick={commentPopup}
             >
               <BiComment
@@ -229,7 +229,7 @@ const Post = (props) => {
               <Comment postId={props.postId} />
             </Popover>
             <div
-              className="flex space-x-4 cursor-pointer"
+              className="flex space-x-4 cursor-pointer "
               onClick={fillHandler}
             >
               {fillH ? (
