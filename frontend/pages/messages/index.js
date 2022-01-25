@@ -40,33 +40,39 @@ const Messages = () => {
               DMs.map((dm) => (
                 <div key={dm._id}>
                   {dm.users.length > 0 && (
-                    <div
-                      className="flex ml-20  p-10 cursor-pointer"
-                      onClick={() =>
-                        router.push(`messages/${dm.users[0].username}`)
-                      }
-                    >
-                      <div>
-                        <Image
-                          src={`data:image/png;base64,${dm.users[0].avatar}`}
-                          width={52}
-                          height={52}
-                          className="rounded-full"
-                          layout="fixed"
-                        />
-                      </div>
+                    <>
+                      <div
+                        className="flex ml-20  p-10 cursor-pointer"
+                        onClick={() =>
+                          router.push(`messages/${dm.users[0].username}`)
+                        }
+                      >
+                        <div>
+                          <Image
+                            src={`data:image/png;base64,${dm.users[0].avatar}`}
+                            width={52}
+                            height={52}
+                            className="rounded-full"
+                            layout="fixed"
+                          />
+                        </div>
 
-                      <div className=" ml-3">
-                        <p className="font-bold text-lg">{dm.users[0].name}</p>
-                        <p className="text-gray-400">@{dm.users[0].username}</p>
-                        <p className="text-gray-400">
-                          {dm.body.length > 0 &&
-                            dm.body[dm.body.length - 1].body}
-                        </p>
+                        <div className=" ml-3">
+                          <p className="font-bold text-lg">
+                            {dm.users[0].name}
+                          </p>
+                          <p className="text-gray-400">
+                            @{dm.users[0].username}
+                          </p>
+                          <p className="text-gray-400">
+                            {dm.body.length > 0 &&
+                              dm.body[dm.body.length - 1].body}
+                          </p>
+                        </div>
                       </div>
-                    </div>
+                      <hr />
+                    </>
                   )}
-                  <hr />
                 </div>
               ))}
           </div>
