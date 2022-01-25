@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Comforter+Brush&display=swap");
 .list {
   padding: 0 25px;
 }
@@ -15,11 +16,20 @@
 }
 
 .header {
-  border-bottom: 2px solid black;
+  /* border-bottom: 2px solid black; */
   margin-bottom: 4vh;
   padding-bottom: 20px;
   margin-top: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.header p {
+  font-family: "Comforter Brush", cursive;
+  /* font-size: 40px; */
+}
+@media (min-width: 1024px) {
+  .header {
+    margin: auto 200px;
+  }
 }
