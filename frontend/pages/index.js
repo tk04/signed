@@ -29,11 +29,11 @@ export default function Home() {
         <Header />
         <div className="flex items-center justify-evenly  ">
           <div className="ml-20">
-            <p></p>
             <p
               className=" -mt-20 font-semibold"
               style={{
                 fontSize: "100px",
+                // fontFamily: "'Rubik', sans-serif",
                 // marginLeft: "10rem",
                 // marginRight: "35rem",
               }}
@@ -68,6 +68,29 @@ export default function Home() {
         <button onClick={loginHandler}>Login</button>
       )} */}
       </div>
+      <footer
+        className="flex space-x-4 justify-center w-full absolute  "
+        style={{ bottom: "5px", fontSize: "12px" }}
+      >
+        <p className=" hover:border-b-8 hover:border-sky-400">About</p>
+        <p>Help Center</p>
+        <p>Terms of Service</p>
+        <p>Private Policy</p>
+        <p>Cookie Policy</p>
+        <p>Accessibility</p>
+        <p>Ads info</p>
+        <p>Blog</p>
+        <p>Status</p>
+        <p>Careers</p>
+        <p>Brand Resources</p>
+        <p>Advertising</p>
+        <p>Marketing</p>
+        <p>Signed for Business</p>
+        <p>Developers</p>
+        <p>Directory</p>
+        <p>Settings</p>
+        <p>&copy; Signed, inc.</p>
+      </footer>
     </div>
   );
 }
