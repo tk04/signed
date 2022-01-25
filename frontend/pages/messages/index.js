@@ -45,15 +45,17 @@ const Messages = () => {
                       router.push(`messages/${dm.users[0].username}`)
                     }
                   >
-                    <div>
-                      <Image
-                        src={`data:image/png;base64,${dm.users[0].avatar}`}
-                        width={52}
-                        height={52}
-                        className="rounded-full"
-                        layout="fixed"
-                      />
-                    </div>
+                    {dm.users.length > 0 && (
+                      <div>
+                        <Image
+                          src={`data:image/png;base64,${dm.users[0].avatar}`}
+                          width={52}
+                          height={52}
+                          className="rounded-full"
+                          layout="fixed"
+                        />
+                      </div>
+                    )}
                     <div className=" ml-3">
                       <p className="font-bold text-lg">{dm.users[0].name}</p>
                       <p className="text-gray-400">@{dm.users[0].username}</p>

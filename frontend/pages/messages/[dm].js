@@ -115,15 +115,17 @@ const DM = () => {
                         className="flex space-x-5 bg-gray-100 rounded-xl items-center pl-4"
                         style={{ marginRight: "80px" }}
                       >
-                        <div style={{ paddingTop: "5px" }}>
-                          <Image
-                            src={`data:image/png;base64,${toInfo.avatar}`}
-                            width={42}
-                            height={42}
-                            className="rounded-full"
-                            layout="fixed"
-                          />
-                        </div>
+                        {toInfo.avatar && (
+                          <div style={{ paddingTop: "5px" }}>
+                            <Image
+                              src={`data:image/png;base64,${toInfo.avatar}`}
+                              width={42}
+                              height={42}
+                              className="rounded-full"
+                              layout="fixed"
+                            />
+                          </div>
+                        )}
                         {/* <p className="text-gray-500">{msg.isUser}</p> */}
                         <p style={{ padding: "5px 20px" }}>{msg.body}</p>
                       </div>
