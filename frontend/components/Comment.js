@@ -23,6 +23,7 @@ const Comment = (props) => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    props.onPost();
 
     const data = await fetch(`/api1/comment/${props.postId}`, {
       method: "POST",
