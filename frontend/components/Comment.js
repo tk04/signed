@@ -23,6 +23,7 @@ const Comment = (props) => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    props.onPost();
 
     const data = await fetch(`/api1/comment/${props.postId}`, {
       method: "POST",
@@ -118,7 +119,7 @@ const Comment = (props) => {
             ))}
         </div>
         <hr className="mt-3" />
-        <div className="flex justify-between mt-3 pb-3">
+        <div className="flex justify-between mt-3 pb-3 ">
           <label htmlFor="icon-button-file">
             {files.length < 4 ? (
               <>

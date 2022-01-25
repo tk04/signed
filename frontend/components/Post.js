@@ -14,6 +14,7 @@ import { RiUserUnfollowLine } from "react-icons/ri";
 import Comment from "./Comment";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import SuccessNotifier from "./SuccessNotifier";
 const Post = (props) => {
   const router = useRouter();
   const [openPopup, setOpenPopup] = useState(null);
@@ -22,6 +23,7 @@ const Post = (props) => {
   const [fillH, setFillH] = useState();
   const [loader, setLoader] = useState(true);
   const [postHidden, setPostHidden] = useState(false);
+  const [notifier, setNotifier] = useState(false);
 
   const [likes, setLikes] = useState({ init: true, count: props.likes.length });
   useEffect(() => {
@@ -102,10 +104,26 @@ const Post = (props) => {
   const commentPopup = (e) => {
     setOpenCommentPopup(e.currentTarget);
   };
-
+  const closeHandler = () => {
+    setNotifier(false);
+  };
+  const showNotiHandler = () => {
+    setOpenCommentPopup(null);
+    setNotifier(true);
+    setTimeout(() => {
+      setNotifier(false);
+    }, 5000);
+  };
   return (
     <div className={`${postHidden ? "hidden" : ""}`}>
-      <div className="space-x-4 bg-white p-6 rounded-xl mx-10">
+      {notifier && (
+        <SuccessNotifier
+          closeHandler={closeHandler}
+          message={"Comment succesfully sent"}
+          comment
+        />
+      )}
+      <div className="space-x-4 bg-white py-6 px-2 rounded-xl mx-10">
         <div className="flex items-center justify-between ">
           <div
             className="flex space-x-2  mb-4 ml-3 cursor-pointer"
@@ -205,17 +223,19 @@ const Post = (props) => {
           </div>
 
           <hr className="mt-6" />
-          <div className="flex  mt-6 w-full  justify-evenly">
+          <div className="flex  mt-6 space-x-6 w-full   justify-evenly  ">
             <div
-              className="flex space-x-4 cursor-pointer"
+              className="flex space-x-2 cursor-pointer flex-wrap overflow-hidden "
+              style={{ maxHeight: "30px" }}
               onClick={commentPopup}
             >
               <BiComment
                 size={20}
                 className="cursor-pointer hover:text-blue-600 text-gray-500 mt-1"
               />
+              <span className="text-gray-500">{props.commentCount} </span>
               <p className="text-md text-gray-500">
-                {props.commentCount} Comments
+                <span className="hidden sm:inline"> Comments</span>
               </p>
             </div>
             <Popover
@@ -226,10 +246,11 @@ const Post = (props) => {
               className="overflow-y-auto "
               anchorOrigin={{ vertical: 30, horizontal: -40 }}
             >
-              <Comment postId={props.postId} />
+              <Comment postId={props.postId} onPost={showNotiHandler} />
             </Popover>
             <div
-              className="flex space-x-4 cursor-pointer"
+              className="flex space-x-2 cursor-pointer flex-wrap overflow-hidden"
+              style={{ maxHeight: "30px" }}
               onClick={fillHandler}
             >
               {fillH ? (
@@ -243,20 +264,21 @@ const Post = (props) => {
                   className="cursor-pointer text-gray-500"
                 />
               )}
-              <p className="text-md text-gray-500">
-                <span className="pr-1">{likes.count}</span> Likes
+              <span className="text-gray-500 ">{likes.count}</span>
+              <p className="text-md text-gray-500 ">
+                <span className="hidden sm:inline">Likes</span>
               </p>
             </div>
-            <div className="flex space-x-4 cursor-pointer">
+            <div className="flex space-x-2 cursor-pointer">
               <IoShareSocialOutline
                 size={25}
                 className="cursor-pointer text-gray-500"
               />
-              <p className="text-md text-gray-500">Shares</p>
+              <p className="text-md text-gray-500 hidden sm:inline">Shares</p>
             </div>
-            <div className="flex space-x-4 cursor-pointer">
+            <div className="flex space-x-2 cursor-pointer">
               <BsBookmark size={25} className="cursor-pointer text-gray-500" />
-              <p className="text-md text-gray-500">Save</p>
+              <p className="text-md text-gray-500 hidden sm:inline">Save</p>
             </div>
           </div>
         </div>

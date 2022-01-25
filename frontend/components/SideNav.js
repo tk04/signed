@@ -27,7 +27,7 @@ const SideNav = () => {
   // console.log(userData);
   const router = useRouter();
   const onHover =
-    "px-7 py-2 my-4 hover:bg-slate-50 rounded-full hover:cursor-pointer";
+    "px-4 py-2 my-4 hover:bg-slate-50 rounded-full hover:cursor-pointer";
   return (
     <nav
       className=" fixed  flex flex-col  pt-20 h-screen place-content-between"
