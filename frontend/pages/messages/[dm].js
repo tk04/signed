@@ -143,7 +143,7 @@ const DM = () => {
               {disabled ? (
                 <input
                   type="text"
-                  className="border-2 border-black h-10 rounded-xl pl-2 focus:outline-none w-4/5 lg:w-96 "
+                  className="border-2 border-gray-600 h-10 rounded-xl pl-2 focus:outline-none w-4/5 lg:w-96 "
                   // style={{ width: "40vw" }}
                   ref={msgRef}
                   disabled
@@ -151,8 +151,8 @@ const DM = () => {
               ) : (
                 <input
                   type="text"
-                  className="border-2 border-black h-10 rounded-xl pl-2 focus:outline-none w-4/5 lg:w-96"
-                  // style={{ width: "40vw" }}
+                  className="h-10 rounded-xl pl-2 focus:outline-none w-4/5 lg:w-96"
+                  style={{ border: "2px solid rgb(203 213 225)" }}
                   ref={msgRef}
                 />
               )}
