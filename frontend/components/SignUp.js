@@ -42,7 +42,7 @@ const SignUp = () => {
 
   useEffect(() => {
     if (isAuth) {
-      // router.push("/home");
+      router.push("/home");
     }
   }, [isAuth]);
 
