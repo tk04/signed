@@ -4,7 +4,9 @@
 }
 .logo {
   display: flex;
-  margin-left: 10vw;
+  justify-content: center;
+  /* margin-left: 10vw; */
+  margin-bottom: 50px;
   vertical-align: middle;
   font-style: semi-bold;
   font-size: 24px;
@@ -13,8 +15,9 @@
 .ul {
   margin: auto;
   display: flex;
+  justify-content: center;
   list-style: none;
-  margin-right: 5rem;
+  margin-right: 0;
 }
 
 .header {
@@ -22,7 +25,7 @@
   margin-bottom: 4vh;
   padding-bottom: 20px;
   margin-top: 20px;
-  display: flex;
+  display: block;
   align-items: center;
   justify-content: space-between;
 }
@@ -36,5 +39,36 @@
   }
   .logo {
     margin-left: 0;
+  }
+  .ul {
+    /* margin: auto; */
+
+    margin-right: 5rem;
+  }
+}
+
+@media (min-width: 500px) {
+  .header {
+    /* margin: auto 200px; */
+    display: flex;
+  }
+  .logo {
+    margin-left: 10px;
+    justify-content: flex-start;
+    /* margin-left: 10vw; */
+    margin-bottom: 0;
+  }
+  .ul {
+    /* margin: auto; */
+    display: flex;
+    list-style: none;
+    /* margin-right: 5rem; */
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 600px) {
+  .ul {
+    margin-right: 0;
   }
 }
