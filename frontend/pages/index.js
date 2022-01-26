@@ -45,14 +45,14 @@ export default function Home() {
               className="mt-2 text-gray-500"
               style={{ width: "250px", fontSize: "20px" }}
             >
-              Grow you're career, showcase your skills and experience, and
+              Grow you&apos;re career, showcase your skills and experience, and
               connect with like-minded people
             </p>
             <button
               className="border-2 border-sky-400 p-4  text-black mt-6 w-72 font-bold text-xl"
               onClick={() => router.push("/users/sign-up")}
             >
-              Sign Up <span className="text-sm">--it's free</span>
+              Sign Up <span className="text-sm">--it&apos;s free</span>
             </button>
           </div>
           <div>
