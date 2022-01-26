@@ -10,7 +10,7 @@ module.exports = {
     };
   },
   images: {
-    domains: [`signed-be.herokuapp.com`],
+    domains: [`signed-be.herokuapp.com`, "localhost"],
   },
   reactStrictMode: true,
 };

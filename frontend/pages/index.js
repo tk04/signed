@@ -25,6 +25,13 @@ export default function Home() {
 
   return (
     <div className="bg-slate-50 h-screen w-screen  m-0 p-0">
+      <Head>
+        <title>Signed --Homepage</title>
+        <meta
+          name="description"
+          content="A social plateform that helps you grow your career and network with like-minded individuals"
+        />
+      </Head>
       <div style={{ margin: "0 4vw", paddingTop: "4vw" }}>
         <Header />
         <div className="flex items-center justify-evenly  ">

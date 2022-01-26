@@ -7,7 +7,11 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { CgArrowLongUp } from "react-icons/cg";
 import SearchBox from "./SearchBox";
 import UserSuggestions from "./UserSuggestions";
+import { useSelector } from "react-redux";
+import { BsImage } from "react-icons/bs";
+import Image from "next/image";
 const PostPage = ({ pid }) => {
+  const userInfo = useSelector((state) => state.auth.userInfo);
   const postRef = useRef();
   const [post, setPost] = useState();
   const [modalShow, setModalShow] = useState(false);
@@ -117,7 +121,30 @@ const PostPage = ({ pid }) => {
           </div>
           <div className="flex flex-col lg:pl-16" style={{}}>
             <Link href="/home?newpost=true" as="/home">
-              Create post
+              <div className="flex mt-6 space-x-2 cursor-pointer justify-center">
+                {userInfo && userInfo.avatar && (
+                  <Image
+                    src={`data:image/png;base64,${userInfo.avatar}`}
+                    width={52}
+                    height={52}
+                    layout="fixed"
+                    className="rounded-full"
+                  />
+                )}
+                <section className=" bg-slate-50 w-3/4 rounded-full ">
+                  <div
+                    className="flex justify-between"
+                    style={{ width: "95%", paddingBottom: "10px" }}
+                  >
+                    <p className="ml-4 mt-3 text-gray-500">
+                      {" "}
+                      Whats on your mind?
+                    </p>
+
+                    <BsImage size={25} className="ml-4 mt-3 0 " />
+                  </div>
+                </section>
+              </div>
             </Link>
             <br />
             <br />

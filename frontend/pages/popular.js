@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { BsImage } from "react-icons/bs";
 import Image from "next/image";
 import classes from "../components/layout.module.css";
+import Head from "next/head";
 const Popular = () => {
   const userInfo = useSelector((state) => state.auth.userInfo);
   const [posts, setPosts] = useState([]);
@@ -42,6 +43,10 @@ const Popular = () => {
           removeHandler={() => setModalShow(false)}
         />
       )}
+      <Head>
+        <title>Popular</title>
+        <meta name="description" content="Popular posts on Signed" />
+      </Head>
       <div
         className="relative w-screen h-screen overflow-y-auto "
         onScroll={scrollHandler}

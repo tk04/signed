@@ -5,6 +5,7 @@ import ProfileSettings from "../../../components/ProfileSettings";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserData } from "../../../store/auth-slice";
 import Cookies from "js-cookie";
+import Head from "next/head";
 const Users = (props) => {
   const router = useRouter();
   const userInfo = useSelector((state) => state.auth.userInfo);
@@ -25,8 +26,23 @@ const Users = (props) => {
       dispatch(getUserData());
     }
   }
+  let title;
+  let getTitle = () => {
+    if (props.data && props.data.isUser) {
+      title = userInfo.username;
+    } else if (props.data && props.data.user.username) {
+      title = props.data.user.username;
+    } else {
+      title = "User";
+    }
+  };
+  getTitle();
+
   return (
     <div>
+      <Head>
+        <title>{title}</title>
+      </Head>
       {props.data ? (
         <>
           {edit === "true" && props.data.isUser === true && (

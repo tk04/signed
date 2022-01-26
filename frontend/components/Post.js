@@ -187,7 +187,8 @@ const Post = (props) => {
               </span>
             </p>
           )}
-          <div className=" cursor-crosshair">
+          <div className=" cursor-pointer">
+            {" "}
             <Link href={`/post/${props.postId}`}>
               <div>
                 <p>{props.text}</p>

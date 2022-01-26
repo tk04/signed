@@ -5,6 +5,7 @@ import UserSuggestions from "../../components/UserSuggestions";
 import classes from "../../components/layout.module.css";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import Head from "next/head";
 const Messages = () => {
   const router = useRouter();
   const [DMs, setDMs] = useState([]);
@@ -25,6 +26,10 @@ const Messages = () => {
         className="relative w-screen h-screen overflow-y-auto "
         // onScroll={scrollHandler}
       >
+        <Head>
+          <title>Messages</title>
+          <meta name="description" content="Messages" />
+        </Head>
         <div className={classes.main}>
           <div className="hidden lg:block w-full ">
             <SideNav />

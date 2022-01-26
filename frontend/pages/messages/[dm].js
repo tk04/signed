@@ -14,6 +14,7 @@ import msgClasses from "../../components/msg.module.css";
 import { useRouter } from "next/router";
 import socket from "../../utils/socket";
 import Image from "next/image";
+import Head from "next/head";
 const DM = () => {
   const router = useRouter();
   const msgRef = useRef();
@@ -72,6 +73,10 @@ const DM = () => {
         className="relative w-screen h-screen overflow-y-auto "
         // onScroll={scrollHandler}
       >
+        <Head>
+          <title>Message</title>
+          <meta name="description" content="Messages" />
+        </Head>
         <div className={classes.main}>
           <div className="hidden lg:block w-full ">
             <SideNav />

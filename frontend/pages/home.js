@@ -14,6 +14,7 @@ import Image from "next/image";
 import classes from "../components/layout.module.css";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import SuccessNotifier from "../components/SuccessNotifier";
+import Head from "next/head";
 const Home = () => {
   const router = useRouter();
   const userInfo = useSelector((state) => state.auth.userInfo);
@@ -91,7 +92,10 @@ const Home = () => {
             <CreatePosts onPost={showNotiHandler} />
           </div>
         )}
-
+        <Head>
+          <title>Home</title>
+          <meta name="description" content="Home" />
+        </Head>
         <div className={classes.main}>
           <div className="hidden lg:block w-full ">
             <SideNav />

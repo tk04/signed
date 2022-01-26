@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { BiComment } from "react-icons/bi";
 import { AiFillHeart } from "react-icons/ai";
 import { BsPersonPlusFill } from "react-icons/bs";
+import Head from "next/head";
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
   const [followers, setFollowers] = useState([]);
@@ -34,6 +35,10 @@ const Notifications = () => {
         className="relative w-screen h-screen overflow-y-auto "
         // onScroll={scrollHandler}
       >
+        <Head>
+          <title>Notifications</title>
+          <meta name="description" content="Notifications" />
+        </Head>
         <div className={classes.main}>
           <div className="hidden lg:block w-full ">
             <SideNav />
