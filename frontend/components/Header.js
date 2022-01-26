@@ -16,9 +16,10 @@ const Header = () => {
           </li>
           <li
             onClick={() => router.push("/users/sign-up")}
-            className="bg-sky-400 p-2 rounded-full text-white px-8 hover:bg-sky-700 cursor-pointer"
+            className="p-2 rounded-full text-white px-8 hover:bg-sky-700 cursor-pointer"
+            style={{ backgroundColor: "#a68671" }}
           >
-            <button>Get started</button>
+            <button>Sign Up</button>
           </li>
         </ul>
       </nav>

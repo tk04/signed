@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Header from "../components/Header";
-import MainIMG from "../public/frontimg.jpeg";
+import MainIMG from "../public/main1.jpeg";
 import classes from "../styles/Home.module.css";
 export default function Home() {
   const router = useRouter();
@@ -36,10 +36,11 @@ export default function Home() {
                 and connect with like-minded people
               </p>
               <button
-                className="border-2 border-sky-400 p-4  text-black mt-6 w-full md:w-72 font-bold text-xl"
+                className="border-2 p-4  text-black mt-6 w-full md:w-72 font-semibold text-xl"
+                style={{ borderColor: "#cbb8aa" }}
                 onClick={() => router.push("/users/sign-up")}
               >
-                Sign Up <span className="text-sm">--it&apos;s free</span>
+                Get Started <span className="text-sm">--it&apos;s free</span>
               </button>
             </div>
             <div className="hidden sm:block ">
