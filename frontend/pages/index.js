@@ -8,7 +8,7 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <html className="bg-slate-50 overflow-x-hidden h-screen">
+    <div className="bg-slate-50 overflow-x-hidden h-screen">
       <Head>
         <title>Signed --Homepage</title>
         <meta
@@ -87,6 +87,6 @@ export default function Home() {
           <p>&copy; Signed, inc.</p>
         </footer>
       </div>
-    </html>
+    </div>
   );
 }
