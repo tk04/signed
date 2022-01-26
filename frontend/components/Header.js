@@ -5,9 +5,7 @@ const Header = () => {
   const router = useRouter();
   return (
     <header className={classes.header}>
-      <p className={classes.logo} className="text-2xl font-semibold">
-        Signed
-      </p>
+      <p className={classes.logo}>Signed</p>
       <nav className={classes["main-nav"]}>
         <ul className={classes.ul}>
           <li
