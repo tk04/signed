@@ -113,6 +113,7 @@ const Home = () => {
                       height={52}
                       layout="fixed"
                       className="rounded-full"
+                      alt=""
                     />
                   )}
                   <section className=" bg-slate-50 w-3/4 rounded-full ">

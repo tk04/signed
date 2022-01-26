@@ -81,6 +81,7 @@ const CreatePosts = (props) => {
           <div className="mt-4 ml-4 ">
             {userInfo && userInfo.avatar && (
               <Image
+                alt=""
                 src={`data:image/png;base64,${userInfo.avatar}`}
                 width={62}
                 height={62}

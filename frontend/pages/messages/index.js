@@ -59,6 +59,7 @@ const Messages = () => {
                             height={52}
                             className="rounded-full"
                             layout="fixed"
+                            alt=""
                           />
                         </div>
 

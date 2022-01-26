@@ -78,6 +78,7 @@ const Comment = (props) => {
       <div className="mt-4 ml-4 ">
         {userInfo && userInfo.avatar && (
           <Image
+            alt=""
             src={`data:image/png;base64,${userInfo.avatar}`}
             width={52}
             height={52}
@@ -107,6 +108,7 @@ const Comment = (props) => {
                 <div>
                   <Image
                     src={URL.createObjectURL(image)}
+                    alt=""
                     key={idx}
                     width="200"
                     height="200"

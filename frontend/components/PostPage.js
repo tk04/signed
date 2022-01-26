@@ -124,6 +124,7 @@ const PostPage = ({ pid }) => {
               <div className="flex mt-6 space-x-2 cursor-pointer justify-center">
                 {userInfo && userInfo.avatar && (
                   <Image
+                    alt=""
                     src={`data:image/png;base64,${userInfo.avatar}`}
                     width={52}
                     height={52}

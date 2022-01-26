@@ -90,6 +90,7 @@ const SearchBox = () => {
                   onClick={userClickHandler.bind(null, user.username)}
                 >
                   <Image
+                    alt=""
                     src={`data:image/png;base64,${user.avatar}`}
                     width={52}
                     height={52}

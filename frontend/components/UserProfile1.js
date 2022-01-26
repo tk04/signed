@@ -149,6 +149,7 @@ const UserProfile1 = ({ userData }) => {
                   <div className="relative w-40 h-40 z-0">
                     {avatar && (
                       <Image
+                        alt=""
                         src={`data:image/png;base64,${avatar}`}
                         className="rounded-full "
                         layout="fill"

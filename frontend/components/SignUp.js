@@ -60,7 +60,13 @@ const SignUp = () => {
             <p>Create an account to continue</p>
           </div>
           <div className="absolute bottom-4">
-            <Image src={MainIMG} width={600} height={600} objectFit="contain" />
+            <Image
+              src={MainIMG}
+              width={600}
+              height={600}
+              objectFit="contain"
+              alt=""
+            />
           </div>
         </div>
       </div>

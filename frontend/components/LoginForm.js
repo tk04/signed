@@ -56,7 +56,13 @@ const LoginForm = () => {
             <p>Login with your email & password to continue</p>
           </div>
           <div className="absolute bottom-4">
-            <Image src={MainIMG} width={500} height={500} objectFit="contain" />
+            <Image
+              src={MainIMG}
+              width={500}
+              height={500}
+              objectFit="contain"
+              alt=""
+            />
           </div>
         </div>
       </div>

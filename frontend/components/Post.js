@@ -144,6 +144,7 @@ const Post = (props) => {
             {props.avatar && (
               <Image
                 src={props.avatar}
+                alt=""
                 width={62}
                 height={62}
                 className="rounded-full"
@@ -232,6 +233,7 @@ const Post = (props) => {
                       >
                         <Image
                           src={image}
+                          alt=""
                           key={idx}
                           width="400"
                           height="350"

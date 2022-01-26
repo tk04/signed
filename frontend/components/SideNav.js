@@ -82,6 +82,7 @@ const SideNav = () => {
           <>
             {" "}
             <Image
+              alt=""
               src={`data:image/png;base64,${userData.avatar}`}
               className="rounded-full "
               width={52}

@@ -127,6 +127,7 @@ const DM = () => {
                               width={42}
                               height={42}
                               className="rounded-full"
+                              alt=""
                               layout="fixed"
                             />
                           </div>

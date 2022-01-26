@@ -17,6 +17,7 @@ const UserProfile = () => {
               width={120}
               height={120}
               className="rounded-full"
+              alt=""
             />
             <h1 className="grow relative pt-2 top-12 left-5 text-2xl font-bold">
               TK

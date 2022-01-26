@@ -247,7 +247,12 @@ const EditProfile = (props) => {
         <div className="flex justify-center mt-2  ">
           <div className="relative w-40 h-40 z-0 ">
             {avatar && (
-              <Image src={avatar} className="rounded-full" layout="fill" />
+              <Image
+                src={avatar}
+                className="rounded-full"
+                layout="fill"
+                alt=""
+              />
             )}
           </div>
         </div>
