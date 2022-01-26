@@ -14,6 +14,12 @@ const authSlice = createSlice({
       state.isAuth = true;
       state.token = action.payload.token;
     },
+    follow(state, action) {
+      state.userInfo.following.concat(action.payload);
+    },
+    unfollow(state, action) {
+      state.userInfo.following.splice(action.payload, 1);
+    },
     logout(state) {
       Cookies.remove("token");
       state.isAuth = false;

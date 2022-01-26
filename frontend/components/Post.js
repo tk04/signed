@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { authActions } from "../store/auth-slice";
 import { BiComment } from "react-icons/bi";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
@@ -15,6 +16,8 @@ import Comment from "./Comment";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import SuccessNotifier from "./SuccessNotifier";
+import { BsPersonPlusFill } from "react-icons/bs";
+
 const Post = (props) => {
   const router = useRouter();
   const [openPopup, setOpenPopup] = useState(null);
@@ -24,7 +27,7 @@ const Post = (props) => {
   const [loader, setLoader] = useState(true);
   const [postHidden, setPostHidden] = useState(false);
   const [notifier, setNotifier] = useState(false);
-
+  const dispatch = useDispatch();
   const [likes, setLikes] = useState({ init: true, count: props.likes.length });
   useEffect(() => {
     setFillH(userInfo ? props.likes.includes(userInfo.username) : false);
@@ -93,9 +96,17 @@ const Post = (props) => {
   };
   const unfollowHandler = async () => {
     setOpenPopup(null);
+    dispatch(authActions.unfollow(props.userId));
     if (props.unfollowFilter) {
       props.unfollowFilter(props.username);
     }
+    await fetch(`/api1/users/${props.userId}/follow`, {
+      method: "POST",
+    });
+  };
+  const FollowHandler = async () => {
+    setOpenPopup(null);
+    dispatch(authActions.follow(props.userId));
     await fetch(`/api1/users/${props.userId}/follow`, {
       method: "POST",
     });
@@ -114,6 +125,7 @@ const Post = (props) => {
       setNotifier(false);
     }, 5000);
   };
+
   return (
     <div className={`${postHidden ? "hidden" : ""}`}>
       {notifier && (
@@ -165,13 +177,25 @@ const Post = (props) => {
                 />
               </Typography>
             ) : (
-              <Typography
-                className="flex p-2 cursor-pointer hover:bg-slate-100"
-                onClick={unfollowHandler}
-              >
-                <RiUserUnfollowLine size={25} color="red" />
-                <span className="text-sm ml-1 text-red-500">Unfollow</span>
-              </Typography>
+              <>
+                {userInfo && userInfo.following.includes(props.userId) ? (
+                  <Typography
+                    className="flex p-2 cursor-pointer hover:bg-slate-100"
+                    onClick={unfollowHandler}
+                  >
+                    <RiUserUnfollowLine size={25} color="red" />
+                    <span className="text-sm ml-1 text-red-500">Unfollow</span>
+                  </Typography>
+                ) : (
+                  <Typography
+                    className="flex p-2 cursor-pointer hover:bg-slate-100"
+                    onClick={FollowHandler}
+                  >
+                    <BsPersonPlusFill size={25} color="blue" />
+                    <span className="text-sm ml-1 text-blue-500">Follow</span>
+                  </Typography>
+                )}
+              </>
             )}
           </Popover>
         </div>

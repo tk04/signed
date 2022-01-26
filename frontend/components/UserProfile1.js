@@ -308,6 +308,7 @@ const UserProfile1 = ({ userData }) => {
                     {posts.map((post) => (
                       <Post
                         avatar={`data:image/png;base64,${userData.user.avatar}`}
+                        userId={userData.user._id}
                         name={userData.user.name}
                         username={userData.user.username}
                         text={post.text}
