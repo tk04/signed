@@ -17,7 +17,7 @@ export default function Home() {
         />
       </Head>
       <div className="flex flex-col content-between bg-slate-50  ">
-        <div style={{ margin: "0 4vw", paddingTop: "4vw" }}>
+        <div className={classes.headerMain}>
           <Header />
           <div className="flex items-center justify-evenly    ">
             <div className="md:ml-20">

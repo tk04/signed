@@ -16,9 +16,20 @@
 .footer p {
   margin-right: 10px;
 }
-@media (min-width: 1024px) {
+
+.headerMain {
+  margin: 0;
+  padding-top: 4vw;
+}
+@media (min-width: 500px) {
   .footer {
     position: absolute;
     margin-top: 0;
   }
+  .headerMain {
+    margin: 0 4vw;
+    padding-top: 4vw;
+  }
 }
+
+/* style={{ margin: "0 4vw", paddingTop: "4vw" }} */

@@ -4,7 +4,7 @@
 }
 .logo {
   display: flex;
-  margin-left: 5rem;
+  margin-left: 10vw;
   vertical-align: middle;
   font-style: semi-bold;
   font-size: 24px;
@@ -33,5 +33,8 @@
 @media (min-width: 1024px) {
   .header {
     margin: auto 200px;
+  }
+  .logo {
+    margin-left: 0;
   }
 }
