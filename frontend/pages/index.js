@@ -16,25 +16,20 @@ export default function Home() {
           content="A social plateform that helps you grow your career and network with like-minded individuals"
         />
       </Head>
-      <div className="flex flex-col content-between bg-slate-50  ">
+      <div className="flex flex-col content-between  bg-slate-50   ">
         <div className={classes.headerMain}>
           <Header />
-          <div className="flex items-center justify-evenly    ">
-            <div className="md:ml-20">
-              <p
-                className=" -mt-20 font-semibold"
-                style={{
-                  fontSize: "100px",
-                  // fontFamily: "'Rubik', sans-serif",
-                  // marginLeft: "10rem",
-                  // marginRight: "35rem",
-                }}
-              >
+          <div className="flex items-center justify-evenly">
+            <div
+              className="md:ml-20 flex flex-col"
+              // style={{ alignItems: "center" }}
+            >
+              <p className={classes.mainText}>
                 Grow Your
                 <br /> Brand
               </p>
               <p
-                className="mt-2 text-gray-500"
+                className="mt-2 text-gray-500 "
                 style={{ width: "250px", fontSize: "20px" }}
               >
                 Grow you&apos;re career, showcase your skills and experience,

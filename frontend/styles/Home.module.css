@@ -21,6 +21,14 @@
   margin: 0;
   padding-top: 4vw;
 }
+.mainText {
+  /* margin-top: 2rem; */
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  font-size: 80px;
+}
+
 @media (min-height: 810px) {
   .footer {
     position: absolute;
@@ -31,5 +39,11 @@
     padding-top: 4vw;
   }
 }
-
-/* style={{ margin: "0 4vw", paddingTop: "4vw" }} */
+@media (min-width: 1400px) {
+  .mainText {
+    /* margin-top: rem; */
+    font-weight: normal;
+    font: semi-bold;
+    font-size: 100px;
+  }
+}
