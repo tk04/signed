@@ -42,7 +42,7 @@ export default function Home() {
                 Sign Up <span className="text-sm">--it&apos;s free</span>
               </button>
             </div>
-            <div className="hidden sm:block">
+            <div className="hidden sm:block ">
               <Image
                 src={MainIMG}
                 width={700}
