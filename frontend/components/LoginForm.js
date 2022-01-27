@@ -15,6 +15,7 @@ import Image from "next/image";
 import classes from "../styles/Home.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "../store/auth-slice";
+
 const LoginForm = () => {
   const dispatch = useDispatch();
   const isAuth = useSelector((state) => state.auth.isAuth);
@@ -43,33 +44,15 @@ const LoginForm = () => {
   }, [isAuth]);
 
   return (
-    <div className="grid grid-cols-[100%] lg:grid-cols-[70%_30%]">
-      <div className=" hidden lg:block bg-slate-100">
-        <div className="flex flex-col items-center">
-          <div className="mt-10 flex flex-col items-center space-y-4">
-            <p
-              className={`${classes.welcome} text-5xl`}
-              style={{ fontFamily: "'Neonderthaw', cursive" }}
-            >
-              Welcome{" "}
-            </p>
-            <p>Login with your email & password to continue</p>
-          </div>
-          <div className="absolute bottom-4">
-            <Image
-              src={MainIMG}
-              width={500}
-              height={500}
-              objectFit="contain"
-              alt=""
-            />
-          </div>
-        </div>
-      </div>
+    <div className="">
       <form
         onSubmit={submitHandler}
-        className="flex flex-col justify-center items-center  h-screen "
+        className="flex flex-col fixed justify-center items-center w-[500px] bg-gray-50 p-20 pt-32  border-b-[20px] border-zinc-300 rounded-md   left-1/2"
+        style={{ transform: "translate(-50%, -50%)", top: "50%" }}
       >
+        <h1 className="absolute top-16 font-light text-2xl from-inherit">
+          Sign in
+        </h1>
         <TextField
           sx={{ m: 1, width: "90%" }}
           required

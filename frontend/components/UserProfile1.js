@@ -243,7 +243,8 @@ const UserProfile1 = ({ userData }) => {
                 {!userData.isUser && (
                   <>
                     <button
-                      className="bg-slate-100 text-black font-bold h-fit  p-3 rounded-full"
+                      style={{ backgroundColor: "#cbb8aa" }}
+                      className="bg-slate-100 text-white font-bold h-fit  p-3 rounded-full"
                       onClick={followHandler}
                     >
                       {following ? "Following" : "Follow"}
@@ -259,7 +260,10 @@ const UserProfile1 = ({ userData }) => {
                   </>
                 )}
                 {userData.isUser === true && (
-                  <Link href={`/users/${userData.user.username}?edit=true`}>
+                  <Link
+                    href={`/users/${userData.user.username}?edit=true`}
+                    as={`/users/${userData.user.username}`}
+                  >
                     <div className="bg-slate-100 text-black font-bold text-sm h-fit whitespace-nowrap p-3 mt-1 rounded-md cursor-pointer">
                       Edit profile
                     </div>

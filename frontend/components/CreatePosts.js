@@ -162,6 +162,7 @@ const CreatePosts = (props) => {
 
               <button
                 type="submit"
+                style={{ backgroundColor: "#cbb8aa" }}
                 className="bg-black text-white px-6 py-2 border-black rounded-full self-end"
               >
                 Post

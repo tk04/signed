@@ -66,6 +66,7 @@ const SideNav = () => {
         </div>
         <Link href="/home?newpost=true">
           <div
+            style={{ backgroundColor: "#cbb8aa" }}
             className={`flex space-x-4  w-full items-center ml-5  justify-center bg-sky-500 rounded-full px-7 py-2 my-4 cursor-pointer hover:bg-sky-600`}
           >
             <p className="text-lg py-0.5  font-bold text-white ">Post</p>

@@ -28,12 +28,12 @@ const Users = (props) => {
   }
   let title;
   let getTitle = () => {
-    if (props.data && props.data.isUser) {
+    if (props.data && props.data.isUser && userInfo) {
       title = userInfo.username;
-    } else if (props.data && props.data.user.username) {
+    } else if (props.data && props.data.user && props.data.user.username) {
       title = props.data.user.username;
     } else {
-      title = "User";
+      title = "Profile -Signed";
     }
   };
   getTitle();
