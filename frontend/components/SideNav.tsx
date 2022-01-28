@@ -19,17 +19,18 @@ import { FaSignature } from "react-icons/fa";
 
 const SideNav = () => {
   const userData = useSelector((state: RootState) => state.auth.userInfo);
+  // const [userData, setUserData] = useState<any>({});
 
   const dispatch = useDispatch();
   // console.log(userData);
-  if (Cookies.get("token")) {
-    if (!userData) {
-      dispatch(getUserData());
-    }
-  }
-  // useEffect(() => {
-  //   dispatch(getUserData());
-  // }, []);
+  // if (Cookies.get("token")) {
+  //   if (!userData) {
+  //     dispatch(getUserData());
+  //   }
+  // }
+  useEffect(() => {
+    dispatch(getUserData());
+  }, []);
   // console.log(userData);
   const router = useRouter();
   const onHover =
