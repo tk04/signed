@@ -11,8 +11,8 @@ import LoginForm from "../components/LoginForm";
 import SignUp from "../components/SignUp";
 export default function Home() {
   const router = useRouter();
-  const [open, setOpen] = useState(false);
-  const [openS, setOpenS] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
+  const [openS, setOpenS] = useState<boolean>(false);
   // const open = Boolean(openPopup);
   // const id = open ? "simple-popover" : undefined;
   const popupCloseHandler = () => {
@@ -21,7 +21,7 @@ export default function Home() {
       setOpenS(false);
     }
   };
-  const handlePopupClick = (e) => {
+  const handlePopupClick = () => {
     setOpen(true);
   };
   const pop2CloseHandler = () => {
@@ -29,10 +29,9 @@ export default function Home() {
       setOpenS(false);
     }
   };
-  const handlePopup2Click = (e) => {
+  const handlePopup2Click = () => {
     setOpenS(true);
   };
-  console.log(openS);
   return (
     <div className="bg-slate-50 overflow-x-hidden h-screen">
       <Head>

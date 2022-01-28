@@ -15,25 +15,26 @@ import classes from "../styles/Home.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { registerAction } from "../store/auth-slice";
 import { useRouter } from "next/router";
+import { RootState } from "../store/store";
 
 const SignUp = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const isAuth = useSelector((state) => state.auth.isAuth);
+  const isAuth = useSelector((state: RootState) => state.auth.isAuth);
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [password, setPassword] = useState("");
-  const emailRef = useRef();
-  const nameRef = useRef();
-  const usernameRef = useRef();
-  const handleChange = (e) => {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [password, setPassword] = useState<string>("");
+  const emailRef = useRef<HTMLInputElement>();
+  const nameRef = useRef<HTMLInputElement>();
+  const usernameRef = useRef<HTMLInputElement>();
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
   const handleClickShowPassword = () => {
     setShowPassword((prevPass) => !prevPass);
   };
 
-  const submitHandler = async (e) => {
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const email = emailRef.current.value;
     const name = nameRef.current.value;

@@ -3,13 +3,14 @@ import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import { useSelector } from "react-redux";
 import Image from "next/image";
+import { RootState } from "../store/store";
 const Comment = (props) => {
-  const userInfo = useSelector((state) => state.auth.userInfo);
-  const postRef = useRef();
+  const userInfo = useSelector((state: RootState) => state.auth.userInfo);
+  const postRef = useRef<HTMLTextAreaElement>();
   const [files, setFiles] = useState([]);
-  const [avatar, setAvatar] = useState();
-  const [filesErr, setFilesErr] = useState();
-  const [height, setHeight] = useState(40);
+  const [avatar, setAvatar] = useState<string | null>();
+  const [filesErr, setFilesErr] = useState<any>();
+  const [height, setHeight] = useState<number>(40);
   useEffect(() => {
     if (userInfo) {
       setAvatar(userInfo.avatar);
@@ -34,7 +35,7 @@ const Comment = (props) => {
     });
     if (data.ok) {
       const res = await data.json();
-      const images = new FormData();
+      const images: any = new FormData();
       for (const item of files) {
         images.append("images", item);
       }
@@ -95,7 +96,7 @@ const Comment = (props) => {
           className=" resize-none rounded-md pt-2 pl-2 leading-4 focus:outline-none text-lg "
           style={{ width: "21vw" }}
           id="commentTextBox"
-          size={65}
+          // size={"65"}
           placeholder="New comment  ?"
           ref={postRef}
         />

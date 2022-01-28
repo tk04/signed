@@ -34,7 +34,6 @@ const UserSuggestions = () => {
               width={52}
               height={52}
               className="rounded-full "
-              layout="fixed"
             />
             <section className="ml-2">
               <h1 className="font-bold">{user.name}</h1>

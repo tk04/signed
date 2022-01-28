@@ -11,7 +11,9 @@ import Head from "next/head";
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
   const [followers, setFollowers] = useState([]);
-  const [type, setType] = useState("followers");
+  const [type, setType] = useState<"followers" | "likes" | "comments">(
+    "followers"
+  );
 
   useEffect(() => {
     const getNoti = async () => {
@@ -20,12 +22,11 @@ const Notifications = () => {
         const res = await data.json();
         setNotifications(res.notis);
         setFollowers(res.newFollowers);
-        console.log(res);
       }
     };
     getNoti();
   }, []);
-  const changeTypeHandler = (newType) => {
+  const changeTypeHandler = (newType: "followers" | "likes" | "comments") => {
     setType(newType);
   };
 

@@ -10,17 +10,18 @@ import UserSuggestions from "./UserSuggestions";
 import { useSelector } from "react-redux";
 import { BsImage } from "react-icons/bs";
 import Image from "next/image";
+import { RootState } from "../store/store";
 const PostPage = ({ pid }) => {
-  const userInfo = useSelector((state) => state.auth.userInfo);
-  const postRef = useRef();
-  const [post, setPost] = useState();
-  const [modalShow, setModalShow] = useState(false);
-  const [skip, setSkip] = useState(0);
-  const [imageSrc, setImageSrc] = useState(null);
-  const [postLoader, setPostLoader] = useState(false);
-  const [threadPosts, setThreadPosts] = useState([]);
-  const [threadPost, setThreadPost] = useState();
-  const [maxComments, setMaxComments] = useState(false);
+  const userInfo = useSelector((state: RootState) => state.auth.userInfo);
+  const postRef = useRef<HTMLDivElement>();
+  const [post, setPost] = useState<any>();
+  const [modalShow, setModalShow] = useState<boolean>(false);
+  const [skip, setSkip] = useState<number>(0);
+  const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [postLoader, setPostLoader] = useState<boolean>(false);
+  const [threadPosts, setThreadPosts] = useState<any>([]);
+  const [threadPost, setThreadPost] = useState<any>();
+  const [maxComments, setMaxComments] = useState<boolean>(false);
   const [comments, setComments] = useState([]);
 
   const getPost = async () => {

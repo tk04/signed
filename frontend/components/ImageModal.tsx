@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 const ImageModal = (props) => {
   const router = useRouter();
-  const [show, setShow] = useState(props.show);
+  const [show, setShow] = useState<boolean>(props.show);
   return (
     <>
       {show ? (

@@ -1,16 +1,17 @@
-import React, { useRef, useCallback, useState } from "react";
+import React, { useRef, useCallback, useState, ReactElement } from "react";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import { useSelector } from "react-redux";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { RootState } from "../store/store";
 const CreatePosts = (props) => {
   const router = useRouter();
-  const userInfo = useSelector((state) => state.auth.userInfo);
+  const userInfo = useSelector((state: RootState) => state.auth.userInfo);
   // console.log(userAvatar);
-  const postRef = useRef();
+  const postRef = useRef<HTMLTextAreaElement>();
   const [files, setFiles] = useState([]);
-  const [filesErr, setFilesErr] = useState();
+  const [filesErr, setFilesErr] = useState<ReactElement>();
   const submitHandler = async (e) => {
     props.onPost();
     router.push("/home");
@@ -25,7 +26,7 @@ const CreatePosts = (props) => {
     });
     if (data.ok) {
       const res = await data.json();
-      const images = new FormData();
+      const images: any = new FormData();
       for (const item of files) {
         images.append("images", item);
       }
@@ -98,7 +99,7 @@ const CreatePosts = (props) => {
             <textarea
               className=" resize-none rounded-md pt-2 pl-2 leading-4 focus:outline-none text-lg"
               style={{ width: "100%", minWidth: "35vw", height: "10vh" }}
-              size={65}
+              // size={65}
               placeholder="New Post ?"
               ref={postRef}
             />

@@ -6,27 +6,32 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUserData } from "../../../store/auth-slice";
 import Cookies from "js-cookie";
 import Head from "next/head";
+import { RootState } from "../../../store/store";
+import { ParsedUrlQuery } from "querystring";
 const Users = (props) => {
   const router = useRouter();
-  const userInfo = useSelector((state) => state.auth.userInfo);
+  const userInfo = useSelector((state: RootState) => state.auth.userInfo);
   const dispatch = useDispatch();
-  const { edit } = router.query;
+  const { edit }: ParsedUrlQuery = router.query;
   const [userData, setUserData] = useState();
-  useEffect(async () => {
-    if (router.query.uid) {
-      const res = await fetch(`/api1/users/${router.query.uid}/avatar`);
-      if (res.ok) {
-        const data = await res.json();
-        setUserData(data);
+  useEffect(() => {
+    const getData = async () => {
+      if (router.query.uid) {
+        const res = await fetch(`/api1/users/${router.query.uid}/avatar`);
+        if (res.ok) {
+          const data = await res.json();
+          setUserData(data);
+        }
       }
-    }
+    };
+    getData();
   }, [router.query.uid]);
   if (Cookies.get("token")) {
     if (!userInfo) {
       dispatch(getUserData());
     }
   }
-  let title;
+  let title: string;
   let getTitle = () => {
     if (props.data && props.data.isUser && userInfo) {
       title = userInfo.username;

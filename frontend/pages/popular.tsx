@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { UIEvent, UIEventHandler, useEffect, useState } from "react";
 import Post from "../components/Post";
 import ImageModal from "../components/ImageModal";
 import SideNav from "../components/SideNav";
@@ -10,12 +10,13 @@ import { BsImage } from "react-icons/bs";
 import Image from "next/image";
 import classes from "../components/layout.module.css";
 import Head from "next/head";
+import { RootState } from "../store/store";
 const Popular = () => {
-  const userInfo = useSelector((state) => state.auth.userInfo);
+  const userInfo = useSelector((state: RootState) => state.auth.userInfo);
   const [posts, setPosts] = useState([]);
-  const [modalShow, setModalShow] = useState(false);
-  const [imageSrc, setImageSrc] = useState(null);
-  const [skip, setSkip] = useState(0);
+  const [modalShow, setModalShow] = useState<boolean>(false);
+  const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [skip, setSkip] = useState<number>(0);
   useEffect(() => {
     const getPosts = async () => {
       const data = await fetch(`/api1/popular?skip=${skip}`);

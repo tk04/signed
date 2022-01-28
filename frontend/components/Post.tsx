@@ -17,18 +17,22 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import SuccessNotifier from "./SuccessNotifier";
 import { BsPersonPlusFill } from "react-icons/bs";
+import { RootState } from "../store/store";
 
 const Post = (props) => {
   const router = useRouter();
   const [openPopup, setOpenPopup] = useState(null);
   const [openCommentPopup, setOpenCommentPopup] = useState(null);
-  const userInfo = useSelector((state) => state.auth.userInfo);
-  const [fillH, setFillH] = useState();
-  const [loader, setLoader] = useState(true);
-  const [postHidden, setPostHidden] = useState(false);
-  const [notifier, setNotifier] = useState(false);
+  const userInfo = useSelector((state: RootState) => state.auth.userInfo);
+  const [fillH, setFillH] = useState<boolean | undefined>();
+  const [loader, setLoader] = useState<boolean | number>(true);
+  const [postHidden, setPostHidden] = useState<boolean>(false);
+  const [notifier, setNotifier] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const [likes, setLikes] = useState({ init: true, count: props.likes.length });
+  const [likes, setLikes] = useState<{ init: boolean; count: number }>({
+    init: true,
+    count: props.likes.length,
+  });
   useEffect(() => {
     setFillH(userInfo ? props.likes.includes(userInfo.username) : false);
   }, [userInfo]);
@@ -221,7 +225,7 @@ const Post = (props) => {
             </Link>
             <div
               className="grid  gap-4 grid-flow-col auto-rows-auto  mt-4 justify-center align-center"
-              style={{ maxheight: "50px" }}
+              style={{ maxHeight: "50px" }}
             >
               {props.images &&
                 props.images.map((image, idx) => (

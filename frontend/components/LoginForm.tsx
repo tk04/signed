@@ -15,24 +15,25 @@ import Image from "next/image";
 import classes from "../styles/Home.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "../store/auth-slice";
+import { RootState } from "../store/store";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const isAuth = useSelector((state) => state.auth.isAuth);
-  const token = useSelector((state) => state.auth.token);
+  const isAuth = useSelector((state: RootState) => state.auth.isAuth);
+  const token = useSelector((state: RootState) => state.auth.token);
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [password, setPassword] = useState("");
-  const emailRef = useRef();
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [password, setPassword] = useState<string>("");
+  const emailRef = useRef<HTMLInputElement>();
   const router = useRouter();
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
   const handleClickShowPassword = () => {
     setShowPassword((prevPass) => !prevPass);
   };
 
-  const submitHandler = async (e) => {
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const email = emailRef.current.value;
     dispatch(loginAction(email, password));

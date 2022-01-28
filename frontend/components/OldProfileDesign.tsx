@@ -1,7 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import profilePic from "../pictures/profilePic.png";
-import headshot from "../pictures/headshot.JPG";
+// import headshot from "../pictures/headshot.JPG";
+// import headshot from "../pictures/headshot.JPG";
 const UserProfile = () => {
   return (
     <div className="overflow-hidden grid grid-cols-[100%] gap-3 m-0 p-0 lg:grid-cols-[25%_50%_25%] sm:grid-cols-[20%_80%]">
@@ -12,13 +13,13 @@ const UserProfile = () => {
         </div>
         <div className="bg-slate-50 ">
           <div className="flex relative  bottom-12 sm:left-10 ">
-            <Image
+            {/* <Image
               src={headshot}
               width={120}
               height={120}
               className="rounded-full"
               alt=""
-            />
+            /> */}
             <h1 className="grow relative pt-2 top-12 left-5 text-2xl font-bold">
               TK
             </h1>

@@ -1,7 +1,11 @@
 import Cookies from "js-cookie";
 import { createSlice } from "@reduxjs/toolkit";
-
-const authState = {
+type initState = {
+  isAuth: boolean;
+  token: string | null;
+  userInfo: any;
+};
+const authState: initState = {
   isAuth: Cookies.get("token") !== undefined,
   token: Cookies.get("token") ? Cookies.get("token") : null,
   userInfo: null,
@@ -37,7 +41,7 @@ const authSlice = createSlice({
   },
 });
 
-export const loginAction = (email, password) => {
+export const loginAction = (email: string, password: string) => {
   return async (dispatch) => {
     const res = await fetch("/api1/users/login", {
       method: "POST",
@@ -52,7 +56,12 @@ export const loginAction = (email, password) => {
     dispatch(authActions.login({ token: data.token }));
   };
 };
-export const registerAction = (name, email, username, password) => {
+export const registerAction = (
+  name: string,
+  email: string,
+  username: string,
+  password: string
+) => {
   return async (dispatch) => {
     const res = await fetch("/api1/users/signup", {
       method: "POST",

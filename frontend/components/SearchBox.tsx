@@ -5,20 +5,20 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 const SearchBox = () => {
   const router = useRouter();
-  const textRef = useRef();
-  const [openPopup, setOpenPopup] = useState(false);
-  const [textVal, setTextVal] = useState("");
+  const textRef = useRef<HTMLInputElement>();
+  const [openPopup, setOpenPopup] = useState<boolean>(false);
+  const [textVal, setTextVal] = useState<string>("");
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const open = Boolean(openPopup);
-  const id = open ? "simple-popover" : undefined;
+  // const id = open ? "simple-popover" : undefined;
   // const popupCloseHandler = () => {
   //   setOpenPopup(null);
   // };
   // const handlePopupClick = (e) => {
   //   setOpenPopup(e.currentTarget);
   // };
-  const onChangeHandler = (e) => {
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.trim()) {
       setOpenPopup(true);
     } else {
@@ -52,7 +52,7 @@ const SearchBox = () => {
     }
   }, [textVal]);
 
-  const userClickHandler = (username) => {
+  const userClickHandler = (username: string) => {
     router.push(`/users/${username}`);
   };
   return (

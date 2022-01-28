@@ -15,16 +15,17 @@ import classes from "../components/layout.module.css";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import SuccessNotifier from "../components/SuccessNotifier";
 import Head from "next/head";
+import { RootState } from "../store/store";
 const Home = () => {
   const router = useRouter();
-  const userInfo = useSelector((state) => state.auth.userInfo);
+  const userInfo = useSelector((state: RootState) => state.auth.userInfo);
   const [posts, setPosts] = useState([]);
-  const [modalShow, setModalShow] = useState(false);
-  const [showNoti, setShowNoti] = useState(false);
-  const [imageSrc, setImageSrc] = useState(null);
-  const [skip, setSkip] = useState(0);
-  const [postLoader, setPostLoader] = useState(false);
-  const [maxPosts, setMaxPosts] = useState(false);
+  const [modalShow, setModalShow] = useState<boolean>(false);
+  const [showNoti, setShowNoti] = useState<boolean>(false);
+  const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [skip, setSkip] = useState<number>(0);
+  const [postLoader, setPostLoader] = useState<boolean>(false);
+  const [maxPosts, setMaxPosts] = useState<boolean>(false);
   const { newpost } = router.query;
 
   useEffect(() => {
@@ -52,7 +53,7 @@ const Home = () => {
     }
   };
 
-  const unfollowFilter = (username) => {
+  const unfollowFilter = (username: string) => {
     console.log("filtering");
     setPosts((prev) => prev.filter((post) => post.owner.username !== username));
   };

@@ -1,4 +1,4 @@
-export const getData = async (token, user) => {
+export const getData = async (token: string, user) => {
   //   console.log(user);
   if (user) {
     const response = await fetch(

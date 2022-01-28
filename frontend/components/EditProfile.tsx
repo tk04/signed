@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, ReactElement } from "react";
 import {
   updateUserData,
   updateProfilePic,
@@ -17,29 +17,31 @@ import Image from "next/image";
 const EditProfile = (props) => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const ACRef = useRef();
-  const keywordRef = useRef();
-  const orgRef = useRef();
-  const positionRef = useRef();
-  const descRef = useRef();
-  const socialRef = useRef();
-  const [keywordErr, setKeywordErr] = useState(false);
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [name, setName] = useState(props.userData.name);
-  const [email, setEmail] = useState(props.userData.email);
-  const [username, setUsername] = useState(props.userData.username);
-  const [bio, setBio] = useState(props.userData.bio);
-  const [AcList, setACList] = useState(props.userData.accomplishments);
+  const ACRef = useRef<HTMLInputElement>();
+  const keywordRef = useRef<HTMLInputElement>();
+  const orgRef = useRef<HTMLInputElement>();
+  const positionRef = useRef<HTMLInputElement>();
+  const descRef = useRef<HTMLTextAreaElement>();
+  const socialRef = useRef<HTMLInputElement>();
+  const [keywordErr, setKeywordErr] = useState<boolean>(false);
+  const [selectedFile, setSelectedFile] = useState<string | null>(null);
+  const [name, setName] = useState<string>(props.userData.name);
+  const [email, setEmail] = useState<string>(props.userData.email);
+  const [username, setUsername] = useState<string>(props.userData.username);
+  const [bio, setBio] = useState<string>(props.userData.bio);
+  const [AcList, setACList] = useState<string[]>(
+    props.userData.accomplishments
+  );
   const [socials, setSocials] = useState(props.userData.socials);
-  const [socialForm, setSocialForm] = useState({});
-  const [experience, setExperience] = useState(props.userData.experiences);
-  const [experienceForm, setExperienceForm] = useState({});
-  const [avatar, setAvatar] = useState(
+  const [socialForm, setSocialForm] = useState<any>({});
+  const [experience, setExperience] = useState<any>(props.userData.experiences);
+  const [experienceForm, setExperienceForm] = useState<any>({});
+  const [avatar, setAvatar] = useState<string>(
     `data:image/png;base64,${props.userData.avatar}`
   );
 
-  const [keywords, setKeywords] = useState(props.userData.keywords);
-  const removeHandler = (idx, id) => {
+  const [keywords, setKeywords] = useState<string[]>(props.userData.keywords);
+  const removeHandler = (idx: number, id: number) => {
     if (id === 1) {
       setACList((prevList) => {
         const l1 = prevList.slice(0, idx);
@@ -155,7 +157,7 @@ const EditProfile = (props) => {
     e.preventDefault();
     const value = socialRef.current.value.trim();
     if (!value) {
-      return setSocialForm({});
+      return setSocialForm(null);
     }
     for (const item of socials) {
       if (socialForm.type === Object.keys(item)[0]) {
@@ -186,7 +188,7 @@ const EditProfile = (props) => {
       }
       socialRef.current.value = "";
     }
-    setSocialForm({ type: "one" });
+    // setSocialForm({ type: "one" });
   };
 
   const showFormHandler = () => {
@@ -292,7 +294,6 @@ const EditProfile = (props) => {
           />
           <label>Bio:</label>
           <textarea
-            type="text"
             onChange={inputChangeHandler.bind(null, "bio")}
             value={bio}
             className="ml-5 border-2 border-sky-100 w-2/3"

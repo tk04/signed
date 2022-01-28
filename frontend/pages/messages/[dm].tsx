@@ -17,12 +17,16 @@ import Image from "next/image";
 import Head from "next/head";
 const DM = () => {
   const router = useRouter();
-  const msgRef = useRef();
+  const msgRef = useRef<HTMLInputElement>();
   const { dm } = router.query;
-  const [disabled, setDisable] = useState(true);
-  const [error, setError] = useState(false);
+  const [disabled, setDisable] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
   const [messages, setMessages] = useState([]);
-  const [toInfo, setToInfo] = useState({});
+  const [toInfo, setToInfo] = useState<{
+    avatar: string;
+    username: string;
+    name: string;
+  }>({ avatar: "", username: "", name: "" });
 
   useEffect(() => {
     socket.connect();
@@ -47,7 +51,7 @@ const DM = () => {
     msgRef.current.value = "";
   };
   useEffect(() => {
-    socket.on("message", (msg) => {
+    socket.on("message", (msg: string) => {
       setMessages((prev) => prev.concat(msg));
     });
     socket.on("joined", () => {

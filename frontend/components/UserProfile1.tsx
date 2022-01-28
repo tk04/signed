@@ -12,25 +12,30 @@ import SideNav from "./SideNav";
 import Post from "./Post";
 import ImageModal from "./ImageModal";
 import { authActions } from "../store/auth-slice";
+import { RootState } from "../store/store";
 const UserProfile1 = ({ userData }) => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const userInfo = useSelector((state) => state.auth.userInfo);
+  const userInfo = useSelector((state: RootState) => state.auth.userInfo);
 
-  const [avatar, setAvatar] = useState(
+  const [avatar, setAvatar] = useState<string | null>(
     userData.user ? userData.user.avatar : null
   );
-  const [modalShow, setModalShow] = useState();
+  const [modalShow, setModalShow] = useState<boolean>(false);
+  const [postsMax, setPostsMax] = useState<boolean>(false);
 
-  const [posts, setPosts] = useState([]);
-  const [postSkip, setPostSkip] = useState(0);
-  const [followersCount, setFollowersCount] = useState(
+  const [posts, setPosts] = useState<any[]>([]);
+  const [postSkip, setPostSkip] = useState<number>(0);
+  const [followersCount, setFollowersCount] = useState<number>(
     userData.user.followers.length
   );
 
-  const [imageSrc, setImageSrc] = useState();
-  const [following, setFollowing] = useState(userData.isFollowing);
-  const [userContent, setUserContent] = useState({
+  const [imageSrc, setImageSrc] = useState<string | null>();
+  const [following, setFollowing] = useState<boolean>(userData.isFollowing);
+  const [userContent, setUserContent] = useState<{
+    type: string;
+    content?: JSX.Element;
+  }>({
     type: "posts",
   });
   const scrollHandler = (e) => {
@@ -47,15 +52,15 @@ const UserProfile1 = ({ userData }) => {
       if (postRes.ok) {
         const pData = await postRes.json();
         if (postSkip === 0 && pData.length === 0) {
-          setPosts(true);
-        } else if (posts !== true) {
+          setPostsMax(true);
+        } else if (postsMax !== true) {
           setPosts((prev) => prev.concat(pData));
         }
       }
     };
     getPosts();
   }, [postSkip]);
-  const changeContentHandler = (type) => {
+  const changeContentHandler = (type: string) => {
     if (type === "skills") {
       const content = (
         <>

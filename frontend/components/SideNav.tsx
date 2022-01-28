@@ -11,8 +11,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUserData } from "../store/auth-slice";
 import Cookies from "js-cookie";
 import Link from "next/link";
+import { RootState } from "../store/store";
 const SideNav = () => {
-  const userData = useSelector((state) => state.auth.userInfo);
+  const userData = useSelector((state: RootState) => state.auth.userInfo);
 
   const dispatch = useDispatch();
   // console.log(userData);
