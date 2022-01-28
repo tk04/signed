@@ -9,7 +9,7 @@ const Header: React.FC<{ openLogin: () => void; openSignUp: () => void }> = (
   const router = useRouter();
   return (
     <header className={classes.header}>
-      <div className="flex items-center space-x-2 ">
+      <div className={classes.logo}>
         <FaSignature size={32} color="#a68671" />
         {/* <h3 className="font-light text-xl text-[#a68671]">Signed</h3> */}
       </div>
@@ -23,8 +23,8 @@ const Header: React.FC<{ openLogin: () => void; openSignUp: () => void }> = (
           </li>
           <li
             onClick={props.openSignUp}
-            className="p-2 rounded-full text-white px-8 hover:bg-sky-700 cursor-pointer"
-            style={{ backgroundColor: "#a68671" }}
+            className="border-b-4 p-2  text-black px-4 hover:bg-gray-100 cursor-pointer"
+            style={{ borderColor: "#cbb8aa" }}
           >
             <button>Sign Up</button>
           </li>

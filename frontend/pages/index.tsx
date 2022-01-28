@@ -86,8 +86,8 @@ export default function Home() {
                 and connect with like-minded people
               </p>
               <button
-                className="border-2 p-4  text-black mt-6 w-full md:w-72 font-semibold text-xl"
-                style={{ borderColor: "#cbb8aa" }}
+                className=" p-4  text-white mt-6 w-full md:w-72 font-semibold text-xl"
+                style={{ backgroundColor: "#cbb8aa" }}
                 onClick={handlePopup2Click}
               >
                 Get Started <span className="text-sm">--it&apos;s free</span>
