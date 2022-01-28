@@ -1,11 +1,18 @@
 import React from "react";
 import classes from "./Header.module.css";
 import { useRouter } from "next/router";
-const Header = (props) => {
+import { FaSignature } from "react-icons/fa";
+
+const Header: React.FC<{ openLogin: () => void; openSignUp: () => void }> = (
+  props
+) => {
   const router = useRouter();
   return (
     <header className={classes.header}>
-      <p className={classes.logo}>Signed</p>
+      <div className="flex items-center space-x-2 ">
+        <FaSignature size={32} color="#a68671" />
+        {/* <h3 className="font-light text-xl text-[#a68671]">Signed</h3> */}
+      </div>
       <nav className={classes["main-nav"]}>
         <ul className={classes.ul}>
           <li

@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-const ImageModal = (props) => {
+import { FaSignature } from "react-icons/fa";
+
+const ImageModal: React.FC<{
+  show: boolean;
+  removeHandler: () => void;
+  src: string;
+}> = (props) => {
   const router = useRouter();
   const [show, setShow] = useState<boolean>(props.show);
   return (

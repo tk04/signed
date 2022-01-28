@@ -14,6 +14,9 @@ import Link from "next/link";
 import { RootState } from "../store/store";
 import { MdLogout } from "react-icons/md";
 import { authActions } from "../store/auth-slice";
+import classes from "./Header.module.css";
+import { FaSignature } from "react-icons/fa";
+
 const SideNav = () => {
   const userData = useSelector((state: RootState) => state.auth.userInfo);
 
@@ -37,6 +40,7 @@ const SideNav = () => {
       style={{ marginLeft: "6.5rem" }}
     >
       <div className="flex flex-col  w-full  ">
+        <FaSignature className={classes.sidenav} color="#cbb8aa" />
         <div
           className={`flex space-x-4 w-fit pr-12  ${onHover} `}
           onClick={() => router.push("/home")}

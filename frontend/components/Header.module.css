@@ -33,6 +33,14 @@
   font-family: "Comforter Brush", cursive;
   /* font-size: 40px; */
 }
+.sidenav {
+  font-family: "Comforter Brush", cursive;
+  margin-left: 20px;
+  font-size: 32px;
+  position: fixed;
+  top: 2rem;
+  /* color: "#cbb8aa"; */
+}
 @media (min-width: 1024px) {
   .header {
     margin: auto 200px;

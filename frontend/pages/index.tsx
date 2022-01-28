@@ -9,6 +9,7 @@ import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import LoginForm from "../components/LoginForm";
 import SignUp from "../components/SignUp";
+
 export default function Home() {
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
