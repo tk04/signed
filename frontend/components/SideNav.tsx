@@ -12,6 +12,8 @@ import { getUserData } from "../store/auth-slice";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import { RootState } from "../store/store";
+import { MdLogout } from "react-icons/md";
+import { authActions } from "../store/auth-slice";
 const SideNav = () => {
   const userData = useSelector((state: RootState) => state.auth.userInfo);
 
@@ -65,6 +67,16 @@ const SideNav = () => {
           <MdNotificationsNone className="" size={35} />
           <p className="font-bold mt-1 ">Notifications</p>
         </div>
+        <div
+          className={`flex space-x-4 ml-2    ${onHover}`}
+          onClick={() => {
+            dispatch(authActions.logout());
+            router.push("/");
+          }}
+        >
+          <MdLogout size={35} />
+          <p className="font-bold mt-1 ">Logout</p>
+        </div>
         <Link href="/home?newpost=true">
           <div
             style={{ backgroundColor: "#cbb8aa" }}
@@ -80,7 +92,7 @@ const SideNav = () => {
           router.push(`/users/${userData.username}`);
         }}
       >
-        {userData && (
+        {userData && userData.avatar && userData.username && userData.name && (
           <>
             {" "}
             <Image

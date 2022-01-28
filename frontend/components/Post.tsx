@@ -183,7 +183,9 @@ const Post = (props) => {
               </Typography>
             ) : (
               <>
-                {userInfo && userInfo.following.includes(props.userId) ? (
+                {userInfo &&
+                userInfo.following &&
+                userInfo.following.includes(props.userId) ? (
                   <Typography
                     className="flex p-2 cursor-pointer hover:bg-slate-100"
                     onClick={unfollowHandler}
