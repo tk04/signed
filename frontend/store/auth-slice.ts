@@ -54,6 +54,7 @@ export const loginAction = (email: string, password: string) => {
     Cookies.remove("token");
     Cookies.set("token", data.token, { expires: 10 });
     dispatch(authActions.login({ token: data.token }));
+    dispatch(authActions.setUserInfo(data.user));
   };
 };
 export const loginGuestAction = () => {
@@ -93,6 +94,7 @@ export const registerAction = (
     Cookies.remove("token");
     Cookies.set("token", data.token, { expires: 10 });
     dispatch(authActions.login({ token: data.token }));
+    dispatch(authActions.setUserInfo(data.user));
   };
 };
 export const getUserData = () => {
