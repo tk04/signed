@@ -27,7 +27,7 @@ const Home = () => {
   const [postLoader, setPostLoader] = useState<boolean>(false);
   const [maxPosts, setMaxPosts] = useState<boolean>(false);
   const { newpost } = router.query;
-
+  console.log("WOWWWW");
   useEffect(() => {
     const getP = async () => {
       setPostLoader(true);
@@ -44,7 +44,7 @@ const Home = () => {
     if (!maxPosts) {
       getP();
     }
-  }, [skip]);
+  }, [skip, userInfo]);
   const scrollHandler = (e) => {
     const target = e.target;
     if (target.scrollHeight - target.scrollTop === target.clientHeight) {
