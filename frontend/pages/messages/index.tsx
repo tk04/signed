@@ -15,7 +15,7 @@ const Messages = () => {
       if (data.ok) {
         const res = await data.json();
         setDMs(res);
-        console.log(res);
+        // console.log(res);
       }
     };
     getDMs();

@@ -33,7 +33,7 @@ const DM = () => {
     const join = async () => {
       socket.emit("join", dm);
       socket.on("test", () => {
-        console.log("TESTING");
+        console.log("testing");
       });
     };
     if (dm) {

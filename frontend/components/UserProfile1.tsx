@@ -170,11 +170,17 @@ const UserProfile1 = ({ userData }) => {
                 </div>
                 <div className="md:flex flex-col ">
                   <div className="md:flex text-center mt-3 md:ml-20 md:space-x-7">
-                    {userData.user.keywords.map((keyword, idx) => (
-                      <p className="bg-slate-100 h-fit p-3 font-bold" key={idx}>
-                        {keyword}
-                      </p>
-                    ))}
+                    {userData.user.keywords &&
+                      userData.user.keywords.map(
+                        (keyword: string, idx: number) => (
+                          <p
+                            className="bg-slate-100 h-fit p-3 font-bold"
+                            key={idx}
+                          >
+                            {keyword}
+                          </p>
+                        )
+                      )}
                     {/* <p className="bg-slate-100 h-fit p-3 font-bold">Lifestyle</p>
                   <p className="bg-slate-100 h-fit p-3 font-bold">Basketball</p>
                   <p className="bg-slate-100 h-fit p-3 font-bold">
@@ -189,7 +195,8 @@ const UserProfile1 = ({ userData }) => {
                       </span>
                     </p>
                     <p className="text-xl">
-                      {userData.user.following.length}
+                      {userData.user.following &&
+                        userData.user.following.length}
                       <span className=" text-sm text-gray-400 pl-2">
                         following
                       </span>
