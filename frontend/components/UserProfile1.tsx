@@ -27,7 +27,7 @@ const UserProfile1 = ({ userData }) => {
   const [posts, setPosts] = useState<any[]>([]);
   const [postSkip, setPostSkip] = useState<number>(0);
   const [followersCount, setFollowersCount] = useState<number>(
-    userData.user.followers.length
+    userData.user.followers ? userData.user.followers.length : 0
   );
 
   const [imageSrc, setImageSrc] = useState<string | null>();
@@ -282,7 +282,8 @@ const UserProfile1 = ({ userData }) => {
               <div className="ml-10">
                 <button
                   className={`text-center ${
-                    userContent.type === "skills" && "border-b-2 border-sky-400"
+                    userContent.type === "skills" &&
+                    "border-b-2 border-zinc-400"
                   }`}
                   onClick={changeContentHandler.bind(null, "skills")}
                 >
@@ -292,7 +293,7 @@ const UserProfile1 = ({ userData }) => {
               <div>
                 <button
                   className={`text-center ${
-                    userContent.type === "posts" && "border-b-2 border-sky-400"
+                    userContent.type === "posts" && "border-b-2 border-zinc-400"
                   }`}
                   onClick={changeContentHandler.bind(null, "posts")}
                 >
@@ -303,7 +304,7 @@ const UserProfile1 = ({ userData }) => {
                 <button
                   className={`text-center ${
                     userContent.type === "experience" &&
-                    "border-b-2 border-sky-400"
+                    "border-b-2 border-zinc-400"
                   }`}
                   onClick={changeContentHandler.bind(null, "experience")}
                 >

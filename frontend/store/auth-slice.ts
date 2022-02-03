@@ -56,6 +56,25 @@ export const loginAction = (email: string, password: string) => {
     dispatch(authActions.login({ token: data.token }));
   };
 };
+export const loginGuestAction = () => {
+  return async (dispatch) => {
+    const res = await fetch("/api1/users/login", {
+      method: "POST",
+      body: JSON.stringify({
+        email: "guest@test.com",
+        password: "testpass123",
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await res.json();
+    Cookies.remove("token");
+    Cookies.set("token", data.token, { expires: 10 });
+    dispatch(authActions.login({ token: data.token }));
+    dispatch(authActions.setUserInfo(data.user));
+  };
+};
 export const registerAction = (
   name: string,
   email: string,

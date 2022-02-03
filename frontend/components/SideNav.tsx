@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 // import { TiHomeOutline } from "react-icons/ti";
 import { RiHomeSmileLine } from "react-icons/ri";
 import { HiTrendingUp } from "react-icons/hi";
@@ -18,19 +18,21 @@ import classes from "./Header.module.css";
 import { FaSignature } from "react-icons/fa";
 
 const SideNav = () => {
-  const userData = useSelector((state: RootState) => state.auth.userInfo);
-  // const [userData, setUserData] = useState<any>({});
-
+  const userData1 = useSelector((state: RootState) => state.auth.userInfo);
+  const [userData, setUserData] = useState<any>(
+    userData1 ? userData1.user : {}
+  );
   const dispatch = useDispatch();
-  // console.log(userData);
-  // if (Cookies.get("token")) {
-  //   if (!userData) {
-  //     dispatch(getUserData());
-  //   }
-  // }
+  console.log(userData1);
   useEffect(() => {
-    dispatch(getUserData());
-  }, []);
+    if (userData1) {
+      setUserData(userData1);
+    } else {
+      dispatch(getUserData());
+    }
+
+    // setUserData(userData1.user);
+  }, [userData1]);
   // console.log(userData);
   const router = useRouter();
   const onHover =
@@ -75,8 +77,8 @@ const SideNav = () => {
         <div
           className={`flex space-x-4 ml-2    ${onHover}`}
           onClick={() => {
-            dispatch(authActions.logout());
             router.push("/");
+            dispatch(authActions.logout());
           }}
         >
           <MdLogout size={35} />
@@ -97,20 +99,24 @@ const SideNav = () => {
           router.push(`/users/${userData.username}`);
         }}
       >
-        {userData && userData.avatar && userData.username && userData.name && (
+        {userData && (
           <>
             {" "}
-            <Image
-              alt=""
-              src={`data:image/png;base64,${userData.avatar}`}
-              className="rounded-full "
-              width={52}
-              height={52}
-            />
-            <div className="ml-3">
-              <p className="font-bold text-md">{userData.name}</p>
-              <p className="text-gray-400">@{userData.username}</p>
-            </div>
+            {userData.avatar && (
+              <Image
+                alt=""
+                src={`data:image/png;base64,${userData.avatar}`}
+                className="rounded-full "
+                width={52}
+                height={52}
+              />
+            )}
+            {userData.name && userData.username && (
+              <div className="ml-3">
+                <p className="font-bold text-md">{userData.name}</p>
+                <p className="text-gray-400">@{userData.username}</p>
+              </div>
+            )}
           </>
         )}
       </div>

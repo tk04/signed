@@ -9,8 +9,10 @@ import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import LoginForm from "../components/LoginForm";
 import SignUp from "../components/SignUp";
-
+import { useDispatch } from "react-redux";
+import { loginGuestAction } from "../store/auth-slice";
 export default function Home() {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
   const [openS, setOpenS] = useState<boolean>(false);
@@ -32,6 +34,10 @@ export default function Home() {
   };
   const handlePopup2Click = () => {
     setOpenS(true);
+  };
+  const guestHandler = () => {
+    dispatch(loginGuestAction());
+    router.push("/home");
   };
   return (
     <div className="bg-slate-50 overflow-x-hidden h-screen">
@@ -91,6 +97,20 @@ export default function Home() {
                 onClick={handlePopup2Click}
               >
                 Get Started <span className="text-sm">--it&apos;s free</span>
+              </button>
+              {/* <button
+                className="border-2 p-4  text-black mt-2 w-full md:w-72 font-semibold text-xl"
+                style={{ borderColor: "#cbb8aa" }}
+                onClick={handlePopup2Click}
+              >
+                continue as guest{" "}
+              </button> */}
+              <button
+                className="text-gray-400 mt-2 "
+                style={{ fontSize: "15px" }}
+                onClick={guestHandler}
+              >
+                Sign-in as guest
               </button>
             </div>
             <div className="hidden sm:block ">

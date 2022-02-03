@@ -29,7 +29,6 @@ const Notifications = () => {
   const changeTypeHandler = (newType: "followers" | "likes" | "comments") => {
     setType(newType);
   };
-
   return (
     <>
       <div

@@ -253,6 +253,7 @@ const EditProfile = (props) => {
                 src={avatar}
                 className="rounded-full"
                 layout="fill"
+                objectFit="cover"
                 alt=""
               />
             )}
