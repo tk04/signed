@@ -2,7 +2,20 @@
   display: grid;
   grid-template-columns: 100%;
 }
-
+.sideNav {
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  padding-top: 5rem;
+  height: 100vh;
+  place-content: space-between;
+  margin-left: 6.5rem;
+}
+@media (max-width: 1200px) {
+  .sideNav {
+    margin-left: 3.5rem;
+  }
+}
 @media (min-width: 1024px) {
   .main {
     grid-template-columns: 25% 45% 30%;

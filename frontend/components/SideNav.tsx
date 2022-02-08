@@ -16,7 +16,7 @@ import { MdLogout } from "react-icons/md";
 import { authActions } from "../store/auth-slice";
 import classes from "./Header.module.css";
 import { FaSignature } from "react-icons/fa";
-
+import sdClasses from "./layout.module.css";
 const SideNav = () => {
   const userData1 = useSelector((state: RootState) => state.auth.userInfo);
   const [userData, setUserData] = useState<any>(
@@ -38,10 +38,7 @@ const SideNav = () => {
   const onHover =
     "px-4 py-2 my-4 hover:bg-slate-50 rounded-full hover:cursor-pointer";
   return (
-    <nav
-      className=" fixed  flex flex-col  pt-20 h-screen place-content-between"
-      style={{ marginLeft: "6.5rem" }}
-    >
+    <nav className={sdClasses.sideNav}>
       <div className="flex flex-col  w-full  ">
         <FaSignature className={classes.sidenav} color="#cbb8aa" />
         <div
