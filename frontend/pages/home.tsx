@@ -27,7 +27,6 @@ const Home = () => {
   const [postLoader, setPostLoader] = useState<boolean>(false);
   const [maxPosts, setMaxPosts] = useState<boolean>(false);
   const { newpost } = router.query;
-  console.log("WOWWWW");
   useEffect(() => {
     const getP = async () => {
       setPostLoader(true);
@@ -102,7 +101,7 @@ const Home = () => {
             <SideNav />
           </div>
           <div className="flex flex-col  ">
-            <div className="bg-slate-400 mt-5">
+            <div className=" mt-5">
               <h1 className="ml-20 mb-3 font-bold text-lg ">Home</h1>
               <hr className="ml-10" style={{ width: "90%" }} />
               <Link href="/home?newpost=true" as="/home">

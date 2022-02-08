@@ -116,38 +116,46 @@ const PostPage = ({ pid }) => {
         className="relative w-screen h-screen overflow-y-auto "
         onScroll={scrollHandler}
       >
-        <div className=" grid grid-cols-[100%]  m-0 p-0 lg:grid-cols-[25%_50%_25%] box-border">
+        <div className=" grid grid-cols-[100%]  m-0 p-0 lg:grid-cols-[25%_45%_30%] box-border">
           <div className="hidden lg:block">
             <SideNav />
           </div>
-          <div className="flex flex-col lg:pl-16" style={{}}>
-            <Link href="/home?newpost=true" as="/home">
-              <div className="flex mt-6 space-x-2 cursor-pointer justify-center">
-                {userInfo && userInfo.avatar && (
-                  <Image
-                    alt=""
-                    src={`data:image/png;base64,${userInfo.avatar}`}
-                    width={52}
-                    height={52}
-                    layout="fixed"
-                    className="rounded-full"
-                  />
-                )}
-                <section className=" bg-slate-50 w-3/4 rounded-full ">
-                  <div
-                    className="flex justify-between"
-                    style={{ width: "95%", paddingBottom: "10px" }}
-                  >
-                    <p className="ml-4 mt-3 text-gray-500">
-                      {" "}
-                      Whats on your mind?
-                    </p>
+          <div className="flex flex-col" style={{}}>
+            <div className=" mt-5">
+              <h1 className="ml-20 mb-3 font-bold text-lg ">
+                {post && post.owner.username
+                  ? "Post by " + post.owner.username
+                  : "Post Section"}
+              </h1>
+              <hr className="ml-10" style={{ width: "90%" }} />
+              <Link href="/home?newpost=true" passHref as="/home">
+                <div className="flex mt-6 space-x-2 cursor-pointer justify-center">
+                  {userInfo && userInfo.avatar && (
+                    <Image
+                      src={`data:image/png;base64,${userInfo.avatar}`}
+                      width={52}
+                      height={52}
+                      layout="fixed"
+                      className="rounded-full"
+                      alt=""
+                    />
+                  )}
+                  <section className=" bg-slate-50 w-3/4 rounded-full ">
+                    <div
+                      className="flex justify-between"
+                      style={{ width: "95%", paddingBottom: "10px" }}
+                    >
+                      <p className="ml-4 mt-3 text-gray-500">
+                        {" "}
+                        Whats on your mind?
+                      </p>
 
-                    <BsImage size={25} className="ml-4 mt-3 0 " />
-                  </div>
-                </section>
-              </div>
-            </Link>
+                      <BsImage size={25} className="ml-4 mt-3 0 " />
+                    </div>
+                  </section>
+                </div>
+              </Link>
+            </div>
             <br />
             <br />
             {post && (
@@ -170,7 +178,7 @@ const PostPage = ({ pid }) => {
                           userId={p.owner._id}
                           commentCount={p.comments.length}
                         />
-                        <CgArrowLongUp size={150} />
+                        <CgArrowLongUp size={45} />
                       </>
                     ))}
                   </>
@@ -190,33 +198,38 @@ const PostPage = ({ pid }) => {
                     commentCount={post.comments.length}
                   />
                 </div>
-                <h1>Comments:</h1>
-                <div
-                  className="flex flex-col  items-center rounded-lg "
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    backgroundColor: "#fafafa",
-                  }}
-                >
-                  <div style={{ width: "100%" }} className="p-4">
-                    {comments &&
-                      comments.map((comment) => (
-                        <Post
-                          username={comment.owner.username}
-                          key={comment._id}
-                          likes={comment.likes}
-                          name={comment.owner.name}
-                          text={comment.text}
-                          images={comment.images}
-                          avatar={`data:image/png;base64,${comment.owner.avatar}`}
-                          postId={comment._id}
-                          modalClick={() => setModalShow(true)}
-                          imageSrc={(image) => setImageSrc(image)}
-                          userId={comment.owner._id}
-                          commentCount={comment.comments.length}
-                        />
-                      ))}
+                <div className="flex flex-col items-center">
+                  <h1 className=" self-start ml-10 my-5 font-semibold">
+                    Comments:
+                  </h1>
+                  <div
+                    className="flex flex-col  items-center space-y-5 rounded-lg bg-gray-50/90"
+                    style={{
+                      width: "95%",
+                      height: "100%",
+                      // backgroundColor: "#fafafa",
+                    }}
+                  >
+                    <div style={{ width: "100%" }} className="p-4">
+                      {comments &&
+                        comments.map((comment) => (
+                          <div className="m-2 my-5" key={comment._id}>
+                            <Post
+                              username={comment.owner.username}
+                              likes={comment.likes}
+                              name={comment.owner.name}
+                              text={comment.text}
+                              images={comment.images}
+                              avatar={`data:image/png;base64,${comment.owner.avatar}`}
+                              postId={comment._id}
+                              modalClick={() => setModalShow(true)}
+                              imageSrc={(image) => setImageSrc(image)}
+                              userId={comment.owner._id}
+                              commentCount={comment.comments.length}
+                            />
+                          </div>
+                        ))}
+                    </div>
                   </div>
                 </div>
               </>

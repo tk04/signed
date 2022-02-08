@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 100%;
 }
+
 @media (min-width: 1024px) {
   .main {
     grid-template-columns: 25% 45% 30%;
