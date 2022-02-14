@@ -114,13 +114,36 @@ export default function Home() {
               </button>
             </div>
             <div className="hidden sm:block ">
-              <Image
-                src={MainIMG}
-                width={700}
-                height={700}
-                objectFit="contain"
-                alt=""
-              />
+              <div className="flex flex-col">
+                <Image
+                  src={MainIMG}
+                  width={700}
+                  height={700}
+                  objectFit="contain"
+                  alt=""
+                />
+                <p
+                  className="text-center text-sm"
+                  style={{ color: "#b8b8b8", fontSize: "10px" }}
+                >
+                  Photo by{" "}
+                  <a
+                    href="https://www.pexels.com/@mart-production?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    MART PRODUCTION
+                  </a>{" "}
+                  from{" "}
+                  <a
+                    target="_blank"
+                    rel="noreferrer"
+                    href="https://www.pexels.com/photo/a-young-man-doing-his-homework-on-a-table-8472805/?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels"
+                  >
+                    Pexels
+                  </a>
+                </p>
+              </div>
             </div>
           </div>
         </div>
