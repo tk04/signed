@@ -20,13 +20,24 @@
 .headerMain {
   margin: 0;
   padding-top: 4vw;
+  height: 90vh;
 }
 .mainText {
   /* margin-top: 2rem; */
-  font-weight: 500;
+  /* font-weight: 500; */
+  font: bold;
+  margin: auto;
+  width: max-content;
   display: flex;
   justify-content: center;
   font-size: 80px;
+}
+.diffFont {
+  justify-content: center;
+  display: flex;
+  font-family: "Neonderthaw", cursive;
+  font-size: 100px;
+  margin-top: -30px;
 }
 
 @media (min-height: 810px) {
@@ -43,7 +54,15 @@
   .mainText {
     /* margin-top: rem; */
     font-weight: normal;
-    font: semi-bold;
+    font: bold;
+    justify-content: start;
     font-size: 100px;
+    /* font-family: "Neonderthaw", cursive; */
+  }
+  .diffFont {
+    justify-content: start;
+    font-family: "Neonderthaw", cursive;
+    font-size: 100px;
+    margin-top: -30px;
   }
 }

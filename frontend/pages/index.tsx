@@ -75,18 +75,22 @@ export default function Home() {
       >
         <div className={classes.headerMain}>
           <Header openSignUp={handlePopup2Click} openLogin={handlePopupClick} />
-          <div className="flex items-center justify-evenly">
+          <div className="flex items-center justify-evenly ">
             <div
               className="md:ml-20 flex flex-col"
               // style={{ alignItems: "center" }}
             >
-              <p className={classes.mainText}>
-                Grow Your
-                <br /> Brand
-              </p>
+              <p className={classes.mainText}>Grow Your</p>
+              <span className={classes.diffFont}> Brand</span>
+
               <p
-                className="mt-2 text-gray-500 "
-                style={{ width: "250px", fontSize: "20px" }}
+                className="mt-2 text-gray-500"
+                style={{
+                  maxWidth: "450px",
+                  fontSize: "20px",
+                  overflow: "auto",
+                  padding: "2px",
+                }}
               >
                 Grow you&apos;re career, showcase your skills and experience,
                 and connect with like-minded people
