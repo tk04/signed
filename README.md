@@ -1,8 +1,6 @@
 # signed
 
-Platform made with Next.js, Socket.io,  Node.js, React.js, TailwindCSS, Typescript, and MongoDB, Redis <br />
-Used Redis to improved response times by 600% <br>
-Backend hosted on Heroku, client hosted on vercel @ https://signed.vercel.app/
+Platform made with Next.js, Socket.io,  Node.js, React.js, TailwindCSS, Typescript, and MongoDB, Redis
 
 To Run
 ```
